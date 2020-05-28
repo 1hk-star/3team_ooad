@@ -9,7 +9,7 @@ public class Alarm extends  Mode {
         
     }
 
-    public Format showAlarm(){
+    public void showAlarm(){
 
         return null;
     }

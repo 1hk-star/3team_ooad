@@ -10,9 +10,8 @@ public class Timer extends Mode{
 
     }
 
-    public Format showTimer(){
+    public void showTimer(){
 
-        return null;
     }
 
     public void startTimer(){

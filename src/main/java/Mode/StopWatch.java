@@ -26,8 +26,7 @@ public class StopWatch extends  Mode{
 
     }
 
-    public Format showStopWatch(){
+    public void showStopWatch(){
 
-        return null;
     }
 }

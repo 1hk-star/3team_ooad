@@ -16,9 +16,9 @@ public class Dday extends Mode{
 
     }
 
-    public Format showDday(){
+    public void showDday(){
 
-        return null;
+
     }
 
     public void setDdayName(){

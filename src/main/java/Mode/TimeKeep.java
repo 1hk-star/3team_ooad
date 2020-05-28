@@ -10,9 +10,9 @@ public class TimeKeep  extends Mode{
 
     }
 
-    public Format showTimerKeeping(){
+    public void showTimerKeeping(){
 
-        return null;
+
     }
 
     public void setCurrentTime(){

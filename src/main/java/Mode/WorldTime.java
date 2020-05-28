@@ -15,8 +15,8 @@ public class WorldTime extends Mode{
 
     }
 
-    public Format watchWorldTime(){
-        return null;
+    public void watchWorldTime(){
+
     }
 
     public void changeCountry(){
