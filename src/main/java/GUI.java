@@ -42,7 +42,7 @@ public class GUI extends JFrame{
 
 
     public GUI() {
-        super("Layout Showcase");
+        super("Digital Watch");
         init();
     }
 
