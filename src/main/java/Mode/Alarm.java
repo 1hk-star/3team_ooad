@@ -11,7 +11,7 @@ public class Alarm extends  Mode {
 
     public void showAlarm(){
 
-        return null;
+       
     }
 
     public void setAaram(){
