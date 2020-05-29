@@ -1,5 +1,53 @@
-public class GUI {
-    public static void main(String[] args) {
-        System.out.println("hello");
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class GUI extends JFrame{
+    JButton button1 = new JButton("Button1");
+    JButton button2 = new JButton("Button2");
+    JButton button3 = new JButton("Button3");
+    JButton button4 = new JButton("Button4");
+    JTextField text1 = new JTextField(30);
+    JTextField text2 = new JTextField(30);
+    JTextField text3 = new JTextField(30);
+
+    JPanel container = new JPanel();
+    JPanel leftButton = new JPanel();
+    JPanel centerText = new JPanel();
+    JPanel rightButton = new JPanel();
+
+    public void init() {
+        getContentPane().add(container);
+
+        leftButton.setLayout(new GridLayout(2, 1));
+        centerText.setLayout(new GridLayout(3, 1));
+        rightButton.setLayout(new GridLayout(2, 1));
+
+        leftButton.add(button1);
+        leftButton.add(button2);
+        centerText.add(text1);
+        centerText.add(text2);
+        centerText.add(text3);
+        rightButton.add(button3);
+        rightButton.add(button4);
+
+        container.setLayout(new BorderLayout());
+        container.add(leftButton, BorderLayout.WEST);
+        container.add(centerText, BorderLayout.CENTER);
+        container.add(rightButton, BorderLayout.EAST);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(300,200);
+        setVisible(true);
     }
+
+
+    public GUI() {
+        super("Digital Watch");
+        init();
+    }
+
+    public static void main(String[] args) {
+        GUI app = new GUI();
+    }
+
 }
