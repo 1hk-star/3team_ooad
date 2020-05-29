@@ -9,15 +9,9 @@ public class Alarm extends  Mode {
         
     }
 
-<<<<<<< HEAD
     public Format showAlarm(){
 
         return null;
-=======
-    public void showAlarm(){
-
-       
->>>>>>> 497e62ce9cc1d0b4bc8570dbd0377f8925813f65
     }
 
     public void setAaram(){

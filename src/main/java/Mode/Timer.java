@@ -10,14 +10,9 @@ public class Timer extends Mode{
 
     }
 
-<<<<<<< HEAD
     public Format showTimer(){
 
         return null;
-=======
-    public void showTimer(){
-
->>>>>>> 497e62ce9cc1d0b4bc8570dbd0377f8925813f65
     }
 
     public void startTimer(){
