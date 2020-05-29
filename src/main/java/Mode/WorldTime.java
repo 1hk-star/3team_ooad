@@ -15,8 +15,13 @@ public class WorldTime extends Mode{
 
     }
 
+<<<<<<< HEAD
     public Format watchWorldTime(){
         return null;
+=======
+    public void watchWorldTime(){
+
+>>>>>>> 497e62ce9cc1d0b4bc8570dbd0377f8925813f65
     }
 
     public void changeCountry(){
