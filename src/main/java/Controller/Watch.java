@@ -1,8 +1,19 @@
+package Controller;
+
+import Format.Format;
+import Mode.Mode;
+import UI.Button;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUI extends JFrame{
+import java.util.Queue;
+
+public class Watch extends JFrame implements Runnable{
+    private Mode currentMode;
+    private Mode previousMode;
+    private Queue<Mode> queue;
+
     JButton button1 = new JButton("Button1");
     JButton button2 = new JButton("Button2");
     JButton button3 = new JButton("Button3");
@@ -16,7 +27,14 @@ public class GUI extends JFrame{
     JPanel centerText = new JPanel();
     JPanel rightButton = new JPanel();
 
-    public void init() {
+    public Watch(){
+        super("Digital Watch");
+        init();
+        Format format = null;
+        display(format);
+    }
+
+    public void init(){
         getContentPane().add(container);
 
         leftButton.setLayout(new GridLayout(2, 1));
@@ -40,14 +58,62 @@ public class GUI extends JFrame{
         setVisible(true);
     }
 
+    public void pressButton(Button button){
 
-    public GUI() {
-        super("Digital Watch");
-        init();
+    }
+
+    public void display(Format format){
+    	text1.setText("hello");
+    }
+
+    public boolean changeMode(){
+
+        return false;
+    }
+
+    private boolean modeTimeOut(){
+
+        return false;
+    }
+
+    private boolean changeModeBuzzer(){
+
+        return false;
+    }
+
+
+    private boolean changeMainEverySeconds(){
+
+        return false;
+    }
+
+    private boolean checkAlarm(){
+
+        return false;
+    }
+
+    private boolean checkDday(){
+
+        return false;
+    }
+
+    private boolean checkTimer(){
+
+        return false;
+    }
+
+    private boolean addCurrentModeTime(){
+
+        return false;
     }
 
     public static void main(String[] args) {
-        GUI app = new GUI();
+        Watch app = new Watch();
+    }
+
+    @Override
+    public void run() {
+
     }
 
 }
