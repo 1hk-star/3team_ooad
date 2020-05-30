@@ -6,6 +6,8 @@ import Mode.Mode;
 import UI.Button;
 import java.awt.*;
 import java.awt.event.*;
+
+import javax.sound.midi.Soundbank;
 import javax.swing.*;
 import Mode.*;
 import Mode.Timer;
@@ -22,15 +24,9 @@ public class Watch extends JFrame implements Runnable{
     JButton button2 = new JButton("Button2");
     JButton button3 = new JButton("Button3");
     JButton button4 = new JButton("Button4");
-    JLabel text1 = new JLabel("00 00 00");
-    JLabel text2 = new JLabel("00 00 00");
-    JLabel text3 = new JLabel("00 00 00");
-    JLabel text4 = new JLabel("00 00 00");
-    JLabel text5 = new JLabel("00 00 00");
-    JLabel text6 = new JLabel("00 00 00");
-    JLabel text7 = new JLabel("00 00 00");
-    JLabel text8 = new JLabel("00 00 00");
-    JLabel text9 = new JLabel("00 00 00");
+ 
+    JLabel[] text = new JLabel[9];
+    
     //text1 : 월, text2 : 일, text3 : 요일
     //text4 : 시, text5 : 분, text6 : 초
     //text7 : 시, text8 : 분(연도), text9 : 초
@@ -73,15 +69,12 @@ public class Watch extends JFrame implements Runnable{
 
          leftButton.add(button1);
          leftButton.add(button3);
-         centerText.add(text1);
-         centerText.add(text2);
-         centerText.add(text3);
-         centerText.add(text4);
-         centerText.add(text5);
-         centerText.add(text6);
-         centerText.add(text7);
-         centerText.add(text8);
-         centerText.add(text9);
+         
+         for(int i=0; i <text.length; i++) {
+        	 text[i] = new JLabel("0");
+        	 centerText.add(text[i]);
+         }
+         
          rightButton.add(button2);
          rightButton.add(button4);
 
@@ -167,8 +160,10 @@ public class Watch extends JFrame implements Runnable{
     	}
     	if(currentMode == watch_Type.TIMEKEEPING.ordinal()) {
     		mode_time.work(button);
-    		if(mode_time.get_flag() == 1)
+    		if(mode_time.get_flag() == 1) {
     			display();
+    		}
+//    			display();
     	}
     	else if(currentMode == watch_Type.ALARM.ordinal()) {
     		mode_alarm.work(button);
@@ -219,20 +214,19 @@ public class Watch extends JFrame implements Runnable{
         //text4 : 시, text5 : 분, text6 : 초
         //text7 : 시, text8 : 분(연도), text9 : 초
     	if(currentMode == watch_Type.TIMEKEEPING.ordinal()) {
-    			
-    			int cur = mode_time.getCursor();
-    			blink_cursor(cur);
-    			System.out.println("cur : "+cur);
     			Calendar cal = mode_time.gettime();
-    			text1.setText(Integer.toString(cal.get(Calendar.MONTH)+1));
-    			text2.setText(Integer.toString(cal.get(Calendar.DATE)));
-    			text3.setText(dow(cal.get(Calendar.DAY_OF_WEEK)));
-    			text4.setText(Integer.toString(cal.get(Calendar.HOUR)));
-    			text5.setText(Integer.toString(cal.get(Calendar.MINUTE)));
-    			text6.setText(Integer.toString(cal.get(Calendar.SECOND)));
-    			text8.setText(Integer.toString(cal.get(Calendar.YEAR)));
-    			text7.setText("");
-    			text9.setText("");
+    			text[0].setText(Integer.toString(cal.get(Calendar.MONTH)+1));
+    			text[1].setText(Integer.toString(cal.get(Calendar.DATE)));
+    			text[2].setText(dow(cal.get(Calendar.DAY_OF_WEEK)));
+    			text[3].setText(Integer.toString(cal.get(Calendar.HOUR_OF_DAY)));
+    			text[4].setText(Integer.toString(cal.get(Calendar.MINUTE)));
+    			text[5].setText(Integer.toString(cal.get(Calendar.SECOND)));
+    			text[7].setText(Integer.toString(cal.get(Calendar.YEAR)));
+    			text[6].setText("");
+    			text[8].setText("");
+    			
+    			System.out.println("getflag : "+mode_time.get_flag());
+    			System.out.println("seconds : "+ cal.get(Calendar.SECOND));
     	}
    }
     public void display_blink(){
@@ -245,66 +239,30 @@ public class Watch extends JFrame implements Runnable{
     	}
    }
     public void blink_cursor(int cur_num) {
-    	switch(cur_num) {
-    	case -1:
-    	break;
-    	case 0:
-    	if(text1.isVisible() == true)
-    		text1.setVisible(false);
-    	else
-    		text1.setVisible(true);
-    	break;
-    	case 1:
-    		if(text2.isVisible() == true)
-        		text2.setVisible(false);
-        	else
-        		text2.setVisible(true);
-    	break;
-    	case 2:
-    		if(text3.isVisible() == true)
-        		text3.setVisible(false);
-        	else
-        		text3.setVisible(true);
-    	break;
-    	case 3:
-    		if(text4.isVisible() == true)
-        		text4.setVisible(false);
-        	else
-        		text4.setVisible(true);
-    	break;
-    	case 4:
-    		if(text5.isVisible() == true)
-        		text5.setVisible(false);
-        	else
-        		text5.setVisible(true);
-    	break;
-    	case 5:
-    		if(text6.isVisible() == true)
-        		text6.setVisible(false);
-        	else
-        		text6.setVisible(true);
-    	break;
-    	case 6:
-    		if(text7.isVisible() == true)
-        		text7.setVisible(false);
-        	else
-        		text7.setVisible(true);
-    	break;
-    	case 7:
-    		if(text8.isVisible() == true)
-        		text8.setVisible(false);
-        	else
-        		text8.setVisible(true);
-    	break;
-    	case 8:
-    		if(text9.isVisible() == true)
-        		text9.setVisible(false);
-        	else
-        		text9.setVisible(true);
-    	break;
-    	default:
-    	System.err.println("cursor 에러임.");
-    	break;
+    	
+    	if(cur_num == -1)
+    		return;
+    	for(int i =0; i < text.length; i++) {
+    		if(i == cur_num) {
+    			if(text[i].isVisible() == true) {
+    				text[i].setVisible(false);
+    			}
+    			else {
+    				text[i].setVisible(true);
+    			}
+    		}
+    		if((i != cur_num) && text[i].isVisible() == false) {
+    			text[i].setVisible(true);
+    		}
+    	}
+    	return;
+    }
+    
+    public void visible_all() {
+    	for(int i =0; i < text.length; i ++) {
+    		if(text[i].isVisible() == false) {
+    			text[i].setVisible(true);
+    		}
     	}
     }
     
@@ -392,11 +350,20 @@ public class Watch extends JFrame implements Runnable{
     public void run() {
     	while(true) {
     		
-    		if(((currentMode == watch_Type.TIMEKEEPING.ordinal()) && (mode_time.get_flag() ==1)))
+    		if(((currentMode == watch_Type.TIMEKEEPING.ordinal()) && (mode_time.get_flag() ==1))) {
     			flag = 1;
-    		if(flag == 0)
+    		}
+    		if(((currentMode == watch_Type.TIMEKEEPING.ordinal()) && (mode_time.get_flag() ==0))) {
+    			visible_all();
+    		}
+    		
+    		if(flag == 0) {// 셋커렌트가 아닐때.
     			display();
+    			//System.out.println("flag : "+flag );
+//    			mode_time.addseconds();
+    		}
     		display_blink();
+    		
     		mode_time.addseconds();
     		
     		try {
