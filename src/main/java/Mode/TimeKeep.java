@@ -89,6 +89,8 @@ public class TimeKeep extends Mode{
     }
     
     public Calendar gettime() {
+    	if(flag_set == 1)
+    		return setting_time;
     	return current_time;
     }
 
@@ -97,9 +99,10 @@ public class TimeKeep extends Mode{
     	if(flag_set == 0) { // 시간 설정 안했다.
     		flag_set = 1;
     		cur_cursor = cusorQ.poll(); //월부터 설정하셈.
-    		if(tmp_flag == 0)
+    		if(tmp_flag == 0) {
     			setting_time = Calendar.getInstance();
-    		tmp_flag = 1;
+    			tmp_flag = 1;
+    		}
     	}
     	else { // 시간 설정 전에 했음.
     		
@@ -127,7 +130,11 @@ public class TimeKeep extends Mode{
     	System.out.println("cur_cusor: "+cur_cursor);
     	switch(cur_cursor) {
     	case 0:
-    		setting_time.add(Calendar.MONTH, 1);
+    		//setting_time.add(Calendar.MONTH, 1);
+    		int a = setting_time.get(Calendar.MONTH);
+    		// 0 ~ 11
+    		// 1   12
+    		setting_time.set(Calendar.MONTH, (a+1)%12);
     	break;
     	case 1:
     		setting_time.add(Calendar.DATE, 1);
@@ -165,6 +172,7 @@ public class TimeKeep extends Mode{
 			Calendar temp = Calendar.getInstance();
 			//temp : end 누른 시간, current_tiem : 설정 시간
 			//diff가 음수면 미래임, diff가 양수면 과거임.
+			tmp_flag = 0;
 			diff = temp.getTimeInMillis() - setting_time.getTimeInMillis();
 		}
     	
