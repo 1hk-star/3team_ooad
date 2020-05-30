@@ -69,7 +69,9 @@ public class Watch extends JFrame implements Runnable{
 
          leftButton.add(button1);
          leftButton.add(button3);
+         
          for(int i=0; i <text.length; i++) {
+        	 text[i] = new JLabel("0");
         	 centerText.add(text[i]);
          }
          
@@ -158,8 +160,10 @@ public class Watch extends JFrame implements Runnable{
     	}
     	if(currentMode == watch_Type.TIMEKEEPING.ordinal()) {
     		mode_time.work(button);
-    		if(mode_time.get_flag() == 1)
+    		if(mode_time.get_flag() == 1) {
     			display();
+    		}
+//    			display();
     	}
     	else if(currentMode == watch_Type.ALARM.ordinal()) {
     		mode_alarm.work(button);
@@ -214,12 +218,15 @@ public class Watch extends JFrame implements Runnable{
     			text[0].setText(Integer.toString(cal.get(Calendar.MONTH)+1));
     			text[1].setText(Integer.toString(cal.get(Calendar.DATE)));
     			text[2].setText(dow(cal.get(Calendar.DAY_OF_WEEK)));
-    			text[3].setText(Integer.toString(cal.get(Calendar.HOUR)));
+    			text[3].setText(Integer.toString(cal.get(Calendar.HOUR_OF_DAY)));
     			text[4].setText(Integer.toString(cal.get(Calendar.MINUTE)));
     			text[5].setText(Integer.toString(cal.get(Calendar.SECOND)));
     			text[7].setText(Integer.toString(cal.get(Calendar.YEAR)));
     			text[6].setText("");
     			text[8].setText("");
+    			
+    			System.out.println("getflag : "+mode_time.get_flag());
+    			System.out.println("seconds : "+ cal.get(Calendar.SECOND));
     	}
    }
     public void display_blink(){
@@ -249,6 +256,14 @@ public class Watch extends JFrame implements Runnable{
     		}
     	}
     	return;
+    }
+    
+    public void visible_all() {
+    	for(int i =0; i < text.length; i ++) {
+    		if(text[i].isVisible() == false) {
+    			text[i].setVisible(true);
+    		}
+    	}
     }
     
     public String dow(int week_of_day_num) {
@@ -335,11 +350,20 @@ public class Watch extends JFrame implements Runnable{
     public void run() {
     	while(true) {
     		
-    		if(((currentMode == watch_Type.TIMEKEEPING.ordinal()) && (mode_time.get_flag() ==1)))
+    		if(((currentMode == watch_Type.TIMEKEEPING.ordinal()) && (mode_time.get_flag() ==1))) {
     			flag = 1;
-    		if(flag == 0)
+    		}
+    		if(((currentMode == watch_Type.TIMEKEEPING.ordinal()) && (mode_time.get_flag() ==0))) {
+    			visible_all();
+    		}
+    		
+    		if(flag == 0) {// ¼ÂÄ¿·»Æ®°¡ ¾Æ´Ò¶§.
     			display();
+    			//System.out.println("flag : "+flag );
+//    			mode_time.addseconds();
+    		}
     		display_blink();
+    		
     		mode_time.addseconds();
     		
     		try {

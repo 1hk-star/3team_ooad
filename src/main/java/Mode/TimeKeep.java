@@ -17,7 +17,8 @@ public class TimeKeep extends Mode{
 	Calendar current_time;
 	Calendar setting_time;
 	Long diff = null;
-	int tmp_flag = 0;
+	int tmp_flag = 0; //
+	int tmp2_flag = 0; // 세팅을 이전에 한번했다 안했다.
 	private int cur_cursor = -1;
 	    // -1 커서 위치 없음.
 	    // 0 월
@@ -72,7 +73,6 @@ public class TimeKeep extends Mode{
     public void showTimeKeeping(){
     	
     	//사용자가 시간 설정을 안했다.
-    	//format에 현재 시간 저장.
     	current_time = Calendar.getInstance();
     	if(diff == null) {
     		//current_time = Calendar.getInstance();
@@ -100,7 +100,7 @@ public class TimeKeep extends Mode{
     		flag_set = 1;
     		cur_cursor = cusorQ.poll(); //월부터 설정하셈.
     		if(tmp_flag == 0) {
-    			setting_time = Calendar.getInstance();
+    			setting_time = (Calendar) current_time.clone();
     			tmp_flag = 1;
     		}
     	}
@@ -110,11 +110,15 @@ public class TimeKeep extends Mode{
     }
     
     public int get_flag() {
+    	//내가 지금 무슨 모드인지.
     	return flag_set;
     }
     
     public void addseconds(){
     	current_time.add(Calendar.SECOND, 1);
+    		System.out.println("set : " + setting_time);
+    	
+    	System.out.println("cur : " + current_time);
     }
     
     public int getCursor() {
@@ -131,25 +135,54 @@ public class TimeKeep extends Mode{
     	switch(cur_cursor) {
     	case 0:
     		//setting_time.add(Calendar.MONTH, 1);
-    		int a = setting_time.get(Calendar.MONTH);
-    		// 0 ~ 11
-    		// 1   12
-    		setting_time.set(Calendar.MONTH, (a+1)%12);
+    		int month = setting_time.get(Calendar.MONTH);
+    		setting_time.set(Calendar.MONTH, (month+1)%12);
     	break;
     	case 1:
-    		setting_time.add(Calendar.DATE, 1);
+    		int date = setting_time.get(Calendar.DATE);
+    		int month2 = setting_time.get(Calendar.MONTH) + 1;
+    		int year2 = setting_time.get(Calendar.YEAR);
+    		if(month2 == 1 || month2 == 3 || month2 == 5 || month2 == 7 || month2 == 8 || month2 == 10 || month2 == 12) {
+    			// 31일
+    			date = (date % 31) + 1;
+    		} else if(month2 == 4 || month2 == 6 || month2 == 9 || month2 == 11) {
+    			// 30일
+    			date = (date % 30) + 1;
+    		} else if(month2 == 2) {
+    			if(year2 % 4 == 0 || (year2 % 4 == 0 && year2 % 100 == 0 && year2 % 400 == 0)) {
+    				// 윤년
+    				date = (date % 29) + 1;
+    			}
+    			else if (year2 % 4 == 0 && year2 % 100 == 0) {
+    				// 평년 1 ~ 28
+    				date = (date % 28) +1;
+    			}
+    		}
+    		setting_time.set(Calendar.DATE, date);
     	break;
     	case 3:
-    		setting_time.add(Calendar.HOUR, 1);
+    		int hour = setting_time.get(Calendar.HOUR_OF_DAY);
+    		setting_time.set(Calendar.HOUR_OF_DAY, (hour+1)%24);
     	break;
     	case 4:
-    		setting_time.add(Calendar.MINUTE, 1);
+    		int mit = setting_time.get(Calendar.MINUTE);
+    		setting_time.set(Calendar.MINUTE, (mit+1)%60);
     	break;
     	case 5:
-    		setting_time.add(Calendar.SECOND, 1);
+    		int sec = setting_time.get(Calendar.SECOND);
+    		setting_time.set(Calendar.SECOND, (sec+1)%60);
     	break;
     	case 7:
-    		setting_time.add(Calendar.YEAR, 1);
+    		//1980 ~ 2079
+    		int year = setting_time.get(Calendar.YEAR);
+    		if((year+1) > 2079) {
+    			year = 1980;
+    			setting_time.set(Calendar.YEAR, year);
+    		}
+    		else {
+    			setting_time.set(Calendar.YEAR, year+1);
+    		}
+    		
     	break;
     	default:
     	System.err.println("cursor add 에러임.");
@@ -167,13 +200,21 @@ public class TimeKeep extends Mode{
 			cusorQ.offer(4);
 			cusorQ.offer(5);
 			cusorQ.offer(7);
-			
+			cur_cursor= -1;
 			//내가 정한값은 current_time
-			Calendar temp = Calendar.getInstance();
+			Calendar temp = null;
+			if(tmp_flag == 0) { // 처음 설정하는것
+				temp = Calendar.getInstance();
+				tmp_flag = 1;
+			}else {
+				temp = current_time;
+			}
+			
 			//temp : end 누른 시간, current_tiem : 설정 시간
 			//diff가 음수면 미래임, diff가 양수면 과거임.
 			tmp_flag = 0;
-			diff = temp.getTimeInMillis() - setting_time.getTimeInMillis();
+			diff = setting_time.getTimeInMillis() - temp.getTimeInMillis();
+			current_time.add(Calendar.SECOND, Integer.parseInt(String.valueOf(Math.round(diff/1000))));
 		}
     	
         return  true;
