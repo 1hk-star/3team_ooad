@@ -1,7 +1,0 @@
-package Type;
-
-public enum Type {
-
-    BUZZER, TIMEKEEPING, STOPWATCH,WORLDTIME,TIMER,DDAY,ALRAM,FUNCTION
-
-}

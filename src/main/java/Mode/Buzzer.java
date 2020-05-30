@@ -1,5 +1,7 @@
 package Mode;
 
+import javax.swing.JButton;
+
 import UI.Button;
 
 public class Buzzer extends Mode{
@@ -7,7 +9,7 @@ public class Buzzer extends Mode{
     private int leftTime;
 
     @Override
-    public void work(Button button) {
+    public void work(JButton button) {
 
     }
 
