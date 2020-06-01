@@ -31,6 +31,7 @@ public class TimeKeep extends Mode{
 		// 7 분(연)
 	 	// 8 초
 	Queue<Integer> cusorQ = new LinkedList<Integer>();
+	FunctionActivator func; // FunctionActivator로 전환
 	public TimeKeep() {
 		cusorQ.offer(0);
 		cusorQ.offer(1);
@@ -53,7 +54,10 @@ public class TimeKeep extends Mode{
     	}
     	else if(text.equals("Button2")) {
     		//set Active
-    		if(flag_set == 1) {
+    		if(flag_set == 0) {
+    			setActiveFunction();
+    		}
+    		else {
     			plusTime_time();
     		}
     	}
@@ -119,6 +123,12 @@ public class TimeKeep extends Mode{
     	}
     	else { // 시간 설정 전에 했음.
     		
+    	}
+    }
+    
+    public void setActiveFunction() {
+    	if(flag_set == 0) { // 시간 설정 안했다.
+    		flag_set = 2;
     	}
     }
     

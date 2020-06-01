@@ -20,7 +20,9 @@ public class FunctionActivator extends Mode{
     // 4 dday
     // 5 timer
 	Queue<Integer> cursorQ = new LinkedList<Integer>();
-	public FunctionActivator() {
+	Queue<Integer> modeQ = new LinkedList<Integer>();
+	public FunctionActivator(Queue<Integer> modeQ) {
+		this.modeQ = modeQ;
 		for(int i = 0; i < 6; i++) {
 			cursorQ.offer(i);
 			if(i < 4)
@@ -49,22 +51,42 @@ public class FunctionActivator extends Mode{
     		System.err.println("error button");
     	}
     }
-
+    
     public void setActivateFunction(){
     	
     }
 
     public void moveCursor_active(){
-    	cursorQ.offer(cur_cursor);
-    	cur_cursor = cursorQ.poll();
+    	if(cur_cursor == -1) {
+    		cur_cursor = cursorQ.poll();
+    	}
+    	else {
+        	cursorQ.offer(cur_cursor);
+        	cur_cursor = cursorQ.poll();
+    	}
     }
 
     public void onOffFunction(){
-    	String s = active_function[cur_cursor] ? "on" : "off";
+    	active_function[cur_cursor] = active_function[cur_cursor] ? true : false;
     }
 
     public boolean confirmActive(){
-
-        return false;
+    	cursorQ.clear();
+		cursorQ.offer(0);
+		cursorQ.offer(1);
+		cursorQ.offer(2);
+		cursorQ.offer(3);
+		cursorQ.offer(4);
+		cursorQ.offer(5);
+		cur_cursor= -1;
+        return true;
+    }
+    
+    public boolean get_active(int num) {
+    	return active_function[num];
+    }
+    
+    public int getCursor() {
+    	return cur_cursor;
     }
 }

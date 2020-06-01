@@ -142,8 +142,8 @@ public class Watch extends JFrame implements Runnable{
     
     public void init_mode() {
     		
-    	mode_fa = new FunctionActivator();
-    	mode_bz = new Buzzer();
+//    	mode_fa = new FunctionActivator();
+//    	mode_bz = new Buzzer();
     	
     	mode_time = new TimeKeep();
     	mode_alarm = new Alarm();
@@ -157,10 +157,11 @@ public class Watch extends JFrame implements Runnable{
     	
     	mode_dday = new Dday();
     	mode_timer = new Timer();
-    	mode_fa = new FunctionActivator();
+    	mode_fa = new FunctionActivator(modeQ);
     	mode_bz = new Buzzer();
     	
     }
+   
     public void init(){
     	init_swing();
     	init_mode();
@@ -170,7 +171,7 @@ public class Watch extends JFrame implements Runnable{
         }
     }
 
-    public void pressButton(JButton button ){
+    public void pressButton(JButton button){
     	if(button.getText().equals("Button3")) {
     		changeMode();
     	}
@@ -179,7 +180,11 @@ public class Watch extends JFrame implements Runnable{
     		if(mode_time.get_flag() == 1) {
     			display();
     		}
-//    			display();
+    		else if(mode_time.get_flag() == 2) {
+    			previousMode = currentMode;
+    			currentMode = watch_Type.FUNCTION.ordinal();
+    			display();
+    		}
     	}
     	else if(currentMode == watch_Type.ALARM.ordinal()) {
     		mode_alarm.work(button);
@@ -198,6 +203,10 @@ public class Watch extends JFrame implements Runnable{
     	}
     	else if(currentMode == watch_Type.TIMER.ordinal()) {
     		mode_timer.work(button);
+    	}
+    	else if(currentMode == watch_Type.FUNCTION.ordinal()) {
+    		mode_fa.work(button);
+    		display();
     	}
     	else {
     		System.err.println("oh what mode?");
@@ -247,6 +256,9 @@ public class Watch extends JFrame implements Runnable{
     	else if(currentMode == watch_Type.TIMER.ordinal()) {
     		return 1;
     	}
+    	else if(currentMode == watch_Type.FUNCTION.ordinal()) {
+    		return 1;
+    	}
     	else {
     		System.err.println("oh what mode?");
     		return -1;
@@ -258,21 +270,21 @@ public class Watch extends JFrame implements Runnable{
         //text4 : 시, text5 : 분, text6 : 초
         //text7 : 시, text8 : 분(연도), text9 : 초
     	if(currentMode == watch_Type.TIMEKEEPING.ordinal()) {
-    			Calendar cal = mode_time.gettime();
-    			text[0].setText(Integer.toString(cal.get(Calendar.MONTH)+1));
-    			text[1].setText(Integer.toString(cal.get(Calendar.DATE)));
-    			text[2].setText(dow(cal.get(Calendar.DAY_OF_WEEK)));
-    			text[3].setText(Integer.toString(cal.get(Calendar.HOUR_OF_DAY)));
-    			text[4].setText(Integer.toString(cal.get(Calendar.MINUTE)));
-    			text[5].setText(Integer.toString(cal.get(Calendar.SECOND)));
-    			text[7].setText(Integer.toString(cal.get(Calendar.YEAR)));
-    			text[6].setText("");
-    			text[8].setText("");
-    			
-    			//System.out.println("getflag : "+mode_time.get_flag());
-    			//System.out.println("seconds : "+ cal.get(Calendar.SECOND));
+			Calendar cal = mode_time.gettime();
+			text[0].setText(Integer.toString(cal.get(Calendar.MONTH)+1));
+			text[1].setText(Integer.toString(cal.get(Calendar.DATE)));
+			text[2].setText(dow(cal.get(Calendar.DAY_OF_WEEK)));
+			text[3].setText(Integer.toString(cal.get(Calendar.HOUR_OF_DAY)));
+			text[4].setText(Integer.toString(cal.get(Calendar.MINUTE)));
+			text[5].setText(Integer.toString(cal.get(Calendar.SECOND)));
+			text[7].setText(Integer.toString(cal.get(Calendar.YEAR)));
+			text[6].setText("");
+			text[8].setText("");
+			
+			//System.out.println("getflag : "+mode_time.get_flag());
+			//System.out.println("seconds : "+ cal.get(Calendar.SECOND));
     	}
-    	if(currentMode == watch_Type.ALARM.ordinal()) {
+    	else if(currentMode == watch_Type.ALARM.ordinal()) {
 			Calendar cal = mode_alarm.getAlarm();
 			if(cal == null) {
 				text[0].setText("");
@@ -297,7 +309,22 @@ public class Watch extends JFrame implements Runnable{
 				text[8].setText("");	
 			}
     	}
+    	else if(currentMode == watch_Type.FUNCTION.ordinal()) {
+    		for(watch_Type type : watch_Type.values()) {
+				if(type == watch_Type.valueOf("FUNCTION"))
+					break;
+				else {
+					int num = type.ordinal();
+					String s = mode_fa.get_active(num) ? "(on)" : "(off)";
+					text[num].setText(type + s);
+				}
+			}
+			for(int i = 6; i < 9; i++) {
+				text[i].setText("");
+			}
+    	}
    }
+    
     public void display_blink(){
     	//text1 : 월, text2 : 일, text3 : 요일
         //text4 : 시, text5 : 분, text6 : 초
@@ -306,11 +333,16 @@ public class Watch extends JFrame implements Runnable{
     			int cur = mode_time.getCursor();
     			blink_cursor(cur);
     	}
-    	if(currentMode == watch_Type.ALARM.ordinal()) {	
+    	else if(currentMode == watch_Type.FUNCTION.ordinal()) {
+    		int cur = mode_fa.getCursor();
+			blink_cursor(cur);
+    	}
+    	else if(currentMode == watch_Type.ALARM.ordinal()) {	
 			int cur = mode_alarm.getCursor();
 			blink_cursor(cur);
     	}
    }
+    
     public void blink_cursor(int cur_num) {
     	
     	if(cur_num == -1)
@@ -388,7 +420,6 @@ public class Watch extends JFrame implements Runnable{
 
         return false;
     }
-
 
     private boolean changeMainEverySeconds(){
 
