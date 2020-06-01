@@ -5,18 +5,20 @@ import UI.Button;
 
 import java.util.Map;
 
+import javax.swing.JButton;
+
 public class WorldTime extends Mode{
 
     private Map countries;
 
 
     @Override
-    public void work(Button button) {
+    public void work(JButton button) {
 
     }
 
-    public Format watchWorldTime(){
-        return null;
+    public void showWorldTime(){
+
     }
 
     public void changeCountry(){

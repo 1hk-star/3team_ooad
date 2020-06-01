@@ -1,11 +1,13 @@
 package Mode;
 
+import javax.swing.JButton;
+
 import Format.Format;
 import UI.Button;
 
 public class Alarm extends  Mode {
     @Override
-    public void work(Button button) {
+    public void work(JButton button) {
         
     }
 

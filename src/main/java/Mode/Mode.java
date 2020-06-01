@@ -1,8 +1,8 @@
 package Mode;
 
-import UI.Button;
+import javax.swing.JButton;
 
 public abstract class Mode {
 
-    abstract public void work(Button button);
+    abstract public void work(JButton button);
 }

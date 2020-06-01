@@ -1,5 +1,7 @@
 package Mode;
 
+import javax.swing.JButton;
+
 import Format.Format;
 import UI.Button;
 
@@ -8,7 +10,7 @@ public class Dday extends Mode{
     //what is the type of next?
 
     @Override
-    public void work(Button button) {
+    public void work(JButton button) {
 
     }
 

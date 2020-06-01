@@ -1,11 +1,18 @@
 package Format;
 
+import java.util.Date;
+
 public class Format {
 
     private int hour;
     private int min;
     private int sec;
-
+    private String weekDay;
+    private int month;
+    private int day;
+    
+    private Date diff;
+    
     private String dday_memo;
 
     private int lapTimeHour;
@@ -15,13 +22,17 @@ public class Format {
     private int elapsedTime;
 
     private int cursor;
+    // -1 커서 위치 없음.
+    // 0 월
+    // 1 일
+    // 2 요일
+    // 3 시
+    // 4 분
+    // 5 초
 
-    private String weekDay;
-    private int month;
-    private int day;
-
-    public void setTime(){
-
+    public void setTime(int seconds){
+    	//seconds 만큼 더하라.
+    	
     }
 
     public void elapsedTime(){
@@ -32,11 +43,13 @@ public class Format {
 
         return " ";
     }
-    public Format getFormat(){
 
-        return null;
+    public static void getFormat(){
+    	
     }
 
-    public void refreshTime(){}
+    public void refreshTime(){
+    	
+    }
 
 }
