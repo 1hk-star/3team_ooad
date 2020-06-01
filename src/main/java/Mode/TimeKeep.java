@@ -31,6 +31,7 @@ public class TimeKeep extends Mode{
 		// 7 분(연)
 	 	// 8 초
 	Queue<Integer> cusorQ = new LinkedList<Integer>();
+	FunctionActivator func; // FunctionActivator로 전환
 	public TimeKeep() {
 		cusorQ.offer(0);
 		cusorQ.offer(1);
@@ -53,13 +54,25 @@ public class TimeKeep extends Mode{
     	}
     	else if(text.equals("Button2")) {
     		//set Active
-    		if(flag_set == 1) {
+    		if(flag_set == 0) {
+    			setActiveFunction();
+    		}
+    		else {
     			plusTime_time();
     		}
     	}
     	else if(text.equals("Button3")) {
     		//changemode
-    		
+    		cusorQ.clear();
+			cusorQ.offer(0);
+			cusorQ.offer(1);
+			cusorQ.offer(3);
+			cusorQ.offer(4);
+			cusorQ.offer(5);
+			cusorQ.offer(7);
+    		flag_set =0;
+    		cur_cursor = -1;
+    		tmp_flag =0;
     	}
     	else if(text.equals("Button4")) {
     		//end
@@ -74,7 +87,7 @@ public class TimeKeep extends Mode{
     	
     	//사용자가 시간 설정을 안했다.
     	current_time = Calendar.getInstance();
-    	if(diff == null) {
+    	if(diff == null) { //내가 이전에 현재시간을 설정했다.
     		//current_time = Calendar.getInstance();
     		return;
     	}else {
@@ -93,6 +106,10 @@ public class TimeKeep extends Mode{
     		return setting_time;
     	return current_time;
     }
+    
+    public Calendar getRealTime() {
+    	return current_time;
+    }
 
    
     public void setCurrentTime(){
@@ -109,6 +126,12 @@ public class TimeKeep extends Mode{
     	}
     }
     
+    public void setActiveFunction() {
+    	if(flag_set == 0) { // 시간 설정 안했다.
+    		flag_set = 2;
+    	}
+    }
+    
     public int get_flag() {
     	//내가 지금 무슨 모드인지.
     	return flag_set;
@@ -116,9 +139,9 @@ public class TimeKeep extends Mode{
     
     public void addseconds(){
     	current_time.add(Calendar.SECOND, 1);
-    		System.out.println("set : " + setting_time);
+    		//System.out.println("set : " + setting_time);
     	
-    	System.out.println("cur : " + current_time);
+    	//System.out.println("cur : " + current_time);
     }
     
     public int getCursor() {
@@ -131,7 +154,7 @@ public class TimeKeep extends Mode{
     }
 
     public void plusTime_time(){
-    	System.out.println("cur_cusor: "+cur_cursor);
+    	//System.out.println("cur_cusor: "+cur_cursor);
     	switch(cur_cursor) {
     	case 0:
     		//setting_time.add(Calendar.MONTH, 1);
