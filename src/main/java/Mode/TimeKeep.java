@@ -59,7 +59,16 @@ public class TimeKeep extends Mode{
     	}
     	else if(text.equals("Button3")) {
     		//changemode
-    		
+    		cusorQ.clear();
+			cusorQ.offer(0);
+			cusorQ.offer(1);
+			cusorQ.offer(3);
+			cusorQ.offer(4);
+			cusorQ.offer(5);
+			cusorQ.offer(7);
+    		flag_set =0;
+    		cur_cursor = -1;
+    		tmp_flag =0;
     	}
     	else if(text.equals("Button4")) {
     		//end
@@ -74,7 +83,7 @@ public class TimeKeep extends Mode{
     	
     	//사용자가 시간 설정을 안했다.
     	current_time = Calendar.getInstance();
-    	if(diff == null) {
+    	if(diff == null) { //내가 이전에 현재시간을 설정했다.
     		//current_time = Calendar.getInstance();
     		return;
     	}else {
@@ -131,7 +140,7 @@ public class TimeKeep extends Mode{
     }
 
     public void plusTime_time(){
-    	System.out.println("cur_cusor: "+cur_cursor);
+    	//System.out.println("cur_cusor: "+cur_cursor);
     	switch(cur_cursor) {
     	case 0:
     		//setting_time.add(Calendar.MONTH, 1);
