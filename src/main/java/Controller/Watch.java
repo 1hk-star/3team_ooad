@@ -55,7 +55,7 @@ public class Watch extends JFrame implements Runnable{
     public Watch(){
         super("Digital Watch - TIMEKEEPING");
         init();
-        Format format = null;
+        //Format format = null;
        // display(format);
     }
 
@@ -225,8 +225,8 @@ public class Watch extends JFrame implements Runnable{
     			text[6].setText("");
     			text[8].setText("");
     			
-    			System.out.println("getflag : "+mode_time.get_flag());
-    			System.out.println("seconds : "+ cal.get(Calendar.SECOND));
+    			//System.out.println("getflag : "+mode_time.get_flag());
+    			//System.out.println("seconds : "+ cal.get(Calendar.SECOND));
     	}
    }
     public void display_blink(){
@@ -270,25 +270,25 @@ public class Watch extends JFrame implements Runnable{
     	String strWeek = null;
     	switch(week_of_day_num) {
     	case Calendar.MONDAY:
-    	strWeek = "월";
+    	strWeek = "MON";
     	break;
     	case Calendar.TUESDAY:
-    	strWeek = "화";
+    	strWeek = "TUE";
     	break;
     	case Calendar.WEDNESDAY:
-    	strWeek = "수";
+    	strWeek = "WED";
     	break;
     	case Calendar.THURSDAY:
-    	strWeek = "목";
+    	strWeek = "THU";
     	break;
     	case Calendar.FRIDAY:
-    	strWeek = "금";
+    	strWeek = "FRI";
     	break;
     	case Calendar.SATURDAY:
-    	strWeek = "토";
+    	strWeek = "SAT";
     	break;
     	default:
-    	strWeek = "일";
+    	strWeek = "SUN";
     	}
 		return strWeek;
     }
