@@ -102,6 +102,10 @@ public class TimeKeep extends Mode{
     		return setting_time;
     	return current_time;
     }
+    
+    public Calendar getRealTime() {
+    	return current_time;
+    }
 
    
     public void setCurrentTime(){
@@ -125,9 +129,9 @@ public class TimeKeep extends Mode{
     
     public void addseconds(){
     	current_time.add(Calendar.SECOND, 1);
-    		System.out.println("set : " + setting_time);
+    		//System.out.println("set : " + setting_time);
     	
-    	System.out.println("cur : " + current_time);
+    	//System.out.println("cur : " + current_time);
     }
     
     public int getCursor() {

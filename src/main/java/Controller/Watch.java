@@ -91,7 +91,11 @@ public class Watch extends JFrame implements Runnable{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				pressButton(button1);
+				if(mode_bz.getbuzzer() == 1) {
+					mode_bz.turnOffBuzzer();
+				}else {
+					pressButton(button1);	
+				}
 			}
         	 
          });
@@ -100,7 +104,11 @@ public class Watch extends JFrame implements Runnable{
  			@Override
  			public void actionPerformed(ActionEvent arg0) {
  				// TODO Auto-generated method stub
- 				pressButton(button2);
+ 				if(mode_bz.getbuzzer() == 1) {
+					mode_bz.turnOffBuzzer();
+				}else {
+					pressButton(button2);	
+				}
  			}
          	 
           });
@@ -109,7 +117,11 @@ public class Watch extends JFrame implements Runnable{
   			@Override
   			public void actionPerformed(ActionEvent arg0) {
   				// TODO Auto-generated method stub
-  				pressButton(button3);
+  				if(mode_bz.getbuzzer() == 1) {
+					mode_bz.turnOffBuzzer();
+				}else {
+					pressButton(button3);	
+				}
   			}
           	 
            });
@@ -118,7 +130,11 @@ public class Watch extends JFrame implements Runnable{
   			@Override
   			public void actionPerformed(ActionEvent arg0) {
   				// TODO Auto-generated method stub
-  				pressButton(button4);
+  				if(mode_bz.getbuzzer() == 1) {
+					mode_bz.turnOffBuzzer();
+				}else {
+					pressButton(button4);	
+				}
   			}
           	 
            });
@@ -167,6 +183,9 @@ public class Watch extends JFrame implements Runnable{
     	}
     	else if(currentMode == watch_Type.ALARM.ordinal()) {
     		mode_alarm.work(button);
+    		if(mode_alarm.get_flag() == 1) {
+    			display();
+    		}
     	}
     	else if(currentMode == watch_Type.WORLDTIME.ordinal()) {
     		mode_world.work(button);
@@ -208,6 +227,31 @@ public class Watch extends JFrame implements Runnable{
     		System.err.println("oh what mode?");
     	}
     }
+    
+    public int get_currentMode_flag(){
+    	if(currentMode == watch_Type.TIMEKEEPING.ordinal()) {
+    		return mode_time.get_flag();
+    	}
+    	else if(currentMode == watch_Type.ALARM.ordinal()) {
+    		return mode_alarm.get_flag();
+    	}
+    	else if(currentMode == watch_Type.WORLDTIME.ordinal()) {
+    		return 1;
+    	}
+    	else if(currentMode == watch_Type.STOPWATCH.ordinal()) {
+    		return 1;
+    	}
+    	else if(currentMode == watch_Type.DDAY.ordinal()) {
+    		return 1;
+    	}
+    	else if(currentMode == watch_Type.TIMER.ordinal()) {
+    		return 1;
+    	}
+    	else {
+    		System.err.println("oh what mode?");
+    		return -1;
+    	}
+    }
 
     public void display(){
     	//text1 : 월, text2 : 일, text3 : 요일
@@ -228,6 +272,31 @@ public class Watch extends JFrame implements Runnable{
     			//System.out.println("getflag : "+mode_time.get_flag());
     			//System.out.println("seconds : "+ cal.get(Calendar.SECOND));
     	}
+    	if(currentMode == watch_Type.ALARM.ordinal()) {
+			Calendar cal = mode_alarm.getAlarm();
+			if(cal == null) {
+				text[0].setText("");
+				text[1].setText("");
+				text[2].setText("");
+				text[3].setText("O");
+				text[4].setText("F");
+				text[5].setText("F");
+				text[7].setText("");
+				text[6].setText("");
+				text[8].setText("");	
+			}
+			else {
+				text[0].setText("");
+				text[1].setText("");
+				text[2].setText("");
+				text[3].setText(Integer.toString(cal.get(Calendar.HOUR_OF_DAY)));
+				text[4].setText(Integer.toString(cal.get(Calendar.MINUTE)));
+				text[5].setText(Integer.toString(cal.get(Calendar.SECOND)));
+				text[7].setText("");
+				text[6].setText("");
+				text[8].setText("");	
+			}
+    	}
    }
     public void display_blink(){
     	//text1 : 월, text2 : 일, text3 : 요일
@@ -236,6 +305,10 @@ public class Watch extends JFrame implements Runnable{
     	if(currentMode == watch_Type.TIMEKEEPING.ordinal()) {	
     			int cur = mode_time.getCursor();
     			blink_cursor(cur);
+    	}
+    	if(currentMode == watch_Type.ALARM.ordinal()) {	
+			int cur = mode_alarm.getCursor();
+			blink_cursor(cur);
     	}
    }
     public void blink_cursor(int cur_num) {
@@ -300,6 +373,7 @@ public class Watch extends JFrame implements Runnable{
     	currentMode = modeQ.poll();
     	//이전 모드는 다시 큐에 삽입.
     	modeQ.offer(previousMode);
+    	visible_all();
     	show_mode();
     	setTitle("Digital Watch - "+ currentMode);
         return false;
@@ -321,9 +395,36 @@ public class Watch extends JFrame implements Runnable{
         return false;
     }
 
-    private boolean checkAlarm(){
-
-        return false;
+    private void checkAlarm(){
+    	if(mode_bz.getbuzzer() == 1) { //부저중이면
+    		if(mode_bz.getLeftTime() == 0) { //시간 경과 완료
+    			mode_bz.turnOffBuzzer();
+    			return;
+    		}
+    		else {
+    			mode_bz.subTimeBuzer();
+    			return;
+    		}
+    	}
+    	Calendar t1 = mode_time.getRealTime();
+    	if(t1 == null)
+    		return;
+    	int t1_h = t1.get(Calendar.HOUR_OF_DAY);
+    	int t1_m = t1.get(Calendar.MINUTE);
+    	int t1_s = t1.get(Calendar.SECOND);
+    	 
+    	Calendar t2 = mode_alarm.getRealAlarm();
+    	if(t2 ==null)
+    		return;
+    	int t2_h = t2.get(Calendar.HOUR_OF_DAY);
+    	int t2_m = t2.get(Calendar.MINUTE);
+    	int t2_s = t2.get(Calendar.SECOND);
+    	
+    	if((t1_h == t2_h) && (t1_m == t2_m) && (t1_s == t2_s)) {
+    		mode_bz.onBuzzer();
+    	}else {
+    	}
+        return;
     }
 
     private boolean checkDday(){
@@ -350,18 +451,16 @@ public class Watch extends JFrame implements Runnable{
     public void run() {
     	while(true) {
     		
-    		if(((currentMode == watch_Type.TIMEKEEPING.ordinal()) && (mode_time.get_flag() ==1))) {
-    			flag = 1;
-    		}
-    		if(((currentMode == watch_Type.TIMEKEEPING.ordinal()) && (mode_time.get_flag() ==0))) {
+    		//알람체크, 부저 관리.
+    		checkAlarm();
+    		
+    		flag = get_currentMode_flag();
+
+    		if(flag == 0) {
     			visible_all();
+    			display();
     		}
     		
-    		if(flag == 0) {// 셋커렌트가 아닐때.
-    			display();
-    			//System.out.println("flag : "+flag );
-//    			mode_time.addseconds();
-    		}
     		display_blink();
     		
     		mode_time.addseconds();
