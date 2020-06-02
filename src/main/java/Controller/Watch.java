@@ -20,7 +20,7 @@ import Mode.FunctionActivator;
 import Mode.Mode;
 import Mode.StopWatch;
 import Mode.TimeKeep;
-import Mode.Timer;
+import Mode.mTimer;
 import Mode.WorldTime;
 import Type.watch_Type;
 
@@ -47,7 +47,7 @@ public class Watch extends JFrame implements Runnable{
 	WorldTime mode_world;
 	StopWatch mode_stop;
 	Dday mode_dday;
-	Timer mode_timer;
+	mTimer mode_timer;
 	FunctionActivator mode_fa;
 	Buzzer mode_bz;
 	
@@ -162,7 +162,7 @@ public class Watch extends JFrame implements Runnable{
     	show_mode();
     	
     	mode_dday = new Dday();
-    	mode_timer = new Timer();
+    	mode_timer = new mTimer();
     	mode_fa = new FunctionActivator(modeQ);
     	mode_bz = new Buzzer();
     	

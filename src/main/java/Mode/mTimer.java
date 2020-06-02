@@ -5,7 +5,7 @@ import javax.swing.JButton;
 import Format.Format;
 import UI.Button;
 
-public class Timer extends Mode{
+public class mTimer extends Mode{
 
     @Override
     public void work(JButton button) {
