@@ -21,6 +21,7 @@ public class FunctionActivator extends Mode{
     // 2 stopwatch
     // 3 dday
     // 4 timer
+	//
 	Queue<Integer> cursorQ = new LinkedList<Integer>();
 	Queue<Integer> modeQ = new LinkedList<Integer>();
 	public FunctionActivator(Queue<Integer> modeQ) {
