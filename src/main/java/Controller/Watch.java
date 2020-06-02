@@ -33,9 +33,9 @@ public class Watch extends JFrame implements Runnable{
  
     JLabel[] text = new JLabel[9];
     
-    //text1 : �뜝�룞�삕, text2 : �뜝�룞�삕, text3 : �뜝�룞�삕�뜝�룞�삕
-    //text4 : �뜝�룞�삕, text5 : �뜝�룞�삕, text6 : �뜝�룞�삕
-    //text7 : �뜝�룞�삕, text8 : �뜝�룞�삕(�뜝�룞�삕�뜝�룞�삕), text9 : �뜝�룞�삕
+    //text1 : 占쎈쐻占쎈짗占쎌굲, text2 : 占쎈쐻占쎈짗占쎌굲, text3 : 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲
+    //text4 : 占쎈쐻占쎈짗占쎌굲, text5 : 占쎈쐻占쎈짗占쎌굲, text6 : 占쎈쐻占쎈짗占쎌굲
+    //text7 : 占쎈쐻占쎈짗占쎌굲, text8 : 占쎈쐻占쎈짗占쎌굲(占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲), text9 : 占쎈쐻占쎈짗占쎌굲
 
     JPanel container = new JPanel();
     JPanel leftButton = new JPanel();
@@ -284,9 +284,9 @@ public class Watch extends JFrame implements Runnable{
     }
 
     public void display(){
-    	//text1 : �뜝�룞�삕, text2 : �뜝�룞�삕, text3 : �뜝�룞�삕�뜝�룞�삕
-        //text4 : �뜝�룞�삕, text5 : �뜝�룞�삕, text6 : �뜝�룞�삕
-        //text7 : �뜝�룞�삕, text8 : �뜝�룞�삕(�뜝�룞�삕�뜝�룞�삕), text9 : �뜝�룞�삕
+    	//text1 : 占쎈쐻占쎈짗占쎌굲, text2 : 占쎈쐻占쎈짗占쎌굲, text3 : 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲
+        //text4 : 占쎈쐻占쎈짗占쎌굲, text5 : 占쎈쐻占쎈짗占쎌굲, text6 : 占쎈쐻占쎈짗占쎌굲
+        //text7 : 占쎈쐻占쎈짗占쎌굲, text8 : 占쎈쐻占쎈짗占쎌굲(占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲), text9 : 占쎈쐻占쎈짗占쎌굲
     	
     	if(currentMode == watch_Type.TIMEKEEPING.ordinal()) {
     		Calendar cal = mode_time.gettime();
@@ -334,7 +334,7 @@ public class Watch extends JFrame implements Runnable{
     	else if (currentMode==watch_Type.WORLDTIME.ordinal()) {
     		for (int i = 0; i < text.length; i++) {
     			text[i].setText("");
-    			if(i == 4) {
+    			if(i == 2) {
     				text[i].setText(mode_world.get_key());
     			}
 			}
@@ -374,9 +374,9 @@ public class Watch extends JFrame implements Runnable{
    }
     
     public void display_blink(){
-    	//text1 : �뜝�룞�삕, text2 : �뜝�룞�삕, text3 : �뜝�룞�삕�뜝�룞�삕
-        //text4 : �뜝�룞�삕, text5 : �뜝�룞�삕, text6 : �뜝�룞�삕
-        //text7 : �뜝�룞�삕, text8 : �뜝�룞�삕(�뜝�룞�삕�뜝�룞�삕), text9 : �뜝�룞�삕
+    	//text1 : 占쎈쐻占쎈짗占쎌굲, text2 : 占쎈쐻占쎈짗占쎌굲, text3 : 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲
+        //text4 : 占쎈쐻占쎈짗占쎌굲, text5 : 占쎈쐻占쎈짗占쎌굲, text6 : 占쎈쐻占쎈짗占쎌굲
+        //text7 : 占쎈쐻占쎈짗占쎌굲, text8 : 占쎈쐻占쎈짗占쎌굲(占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲), text9 : 占쎈쐻占쎈짗占쎌굲
     	if(currentMode == watch_Type.TIMEKEEPING.ordinal()) {	
     			int cur = mode_time.getCursor();
     			blink_cursor(cur);
@@ -456,9 +456,9 @@ public class Watch extends JFrame implements Runnable{
     public boolean changeMode(){
     	previousMode = currentMode;
     	
-    	//pop�뜝�룞�삕 �뜝�룞�삕翁랃옙 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕�뜝占� �뜝�뙐袁멸낀�삕
+    	//pop占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲玲곷엪�삕 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻�뜝占� 占쎈쐻占쎈솏熬곷㈇��占쎌굲
     	currentMode = modeQ.poll();
-    	//�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕 �뜝�뙐�룞�삕 �걧�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕.
+    	//占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈솏占쎈짗占쎌굲 占쎄괠占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲.
     	modeQ.offer(previousMode);
     	visible_all();
     	show_mode();
@@ -482,8 +482,8 @@ public class Watch extends JFrame implements Runnable{
     }
 
     private void checkAlarm(){
-    	if(mode_bz.getbuzzer() == 1) { //�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕�뜝�떛紐뚯삕
-    		if(mode_bz.getLeftTime() == 0) { //�뜝�떆怨ㅼ삕 �뜝�룞�삕�뜝占� �뜝�떦琉꾩삕
+    	if(mode_bz.getbuzzer() == 1) { //占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈뼓筌뤿슣�굲
+    		if(mode_bz.getLeftTime() == 0) { //占쎈쐻占쎈뻻�ⓦ끉�굲 占쎈쐻占쎈짗占쎌굲占쎈쐻�뜝占� 占쎈쐻占쎈뼣筌뚭쑴�굲
     			mode_bz.turnOffBuzzer();
     			return;
     		}
@@ -537,7 +537,7 @@ public class Watch extends JFrame implements Runnable{
     public void run() {
     	while(true) {
     		
-    		//�뜝�떙�씛�삕泥댄겕, �뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕.
+    		//占쎈쐻占쎈뼑占쎌뵛占쎌굲筌ｋ똾寃�, 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲.
     		checkAlarm();
     		
     		flag = get_currentMode_flag();
