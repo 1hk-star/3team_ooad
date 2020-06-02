@@ -3,23 +3,45 @@ package Mode;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JButton;
 
 import Format.Format;
 import UI.Button;
 
-public class Timer extends Mode{
+public class mTimer extends Mode{
 	
 	int flag_set = 0; //�� ����̴�, �ƴϴ�.
-	int flag_sp = 0; //start�������� pause��������
+	int flag_sp = 0; //start면 1 pause면 0
+	int flag_pause = 0;
 	Calendar timer_time = null; //�˶� ���� �ð�.
 	Calendar pre_time = null; //�������� ������ ����.
+
 	
 	Queue<Integer> cusorQ = new LinkedList<Integer>();
 	private int cur_cursor = -1;
 	
-	public Timer() {
+	Timer m_timer = new Timer();
+	TimerTask m_task = new TimerTask() {
+		@Override
+		public void run() {
+			if(pre_time==null)
+	    		return;
+			else if(pre_time.get(Calendar.HOUR_OF_DAY)==0&&pre_time.get(Calendar.MINUTE)==0&&
+	    			pre_time.get(Calendar.SECOND)==0) {
+				flag_pause = 0;
+				pauseTimer();
+	    		return;
+	    	}else {
+	    		flag_pause = 1;
+	    	}
+    		pre_time.add(Calendar.SECOND,-1);
+		}
+	};
+	
+	public mTimer() {
 		cusorQ.offer(3);
 		cusorQ.offer(4);
 		cusorQ.offer(5);
@@ -40,7 +62,10 @@ public class Timer extends Mode{
     		if(flag_set == 1) {
     			plusTimer();
     		}else {
-    			pauseTimer();
+    			if(flag_sp==0)
+    				startTimer();
+    			else
+    				pauseTimer();
     		}
   
     	}
@@ -75,22 +100,54 @@ public class Timer extends Mode{
     public int getCursor() {
     	return cur_cursor;
     }
+    
+    public int get_flag() {
+    	return flag_set;
+    }
 
     public void showTimer(){
-    	if(pre_time != null)
-    		timer_time = (Calendar)pre_time.clone(); 
+    	
+    }
+    
+    public Calendar getTimerTime() {
+    	return pre_time;
+    }
+    public int getPauseFlag() {
+    	return flag_pause;
     }
 
     public void startTimer(){
-
+    	if(pre_time==null)
+    		return;
+    	System.out.println("start");
+    	flag_sp = 1;
+		m_timer.schedule(m_task,0,1000);
     }
 
     public void stopTimer(){
-    	
+    	pre_time = null;
     }
 
     public void pauseTimer(){
-
+    	System.out.println("pause");
+    	flag_sp = 0;
+    	m_task.cancel();
+    	m_timer = new Timer();
+    	m_task = new TimerTask() {
+			public void run() {
+				if(pre_time==null)
+		    		return;
+				else if(pre_time.get(Calendar.HOUR_OF_DAY)==0&&pre_time.get(Calendar.MINUTE)==0&&
+		    			pre_time.get(Calendar.SECOND)==0) {
+					flag_pause = 0;
+					pauseTimer();
+		    		return;
+		    	} else {
+		    		flag_pause = 1;
+		    	}
+	    		pre_time.add(Calendar.SECOND,-1);
+			}
+    	};
     }
 
     public void setTimer(){
@@ -131,7 +188,7 @@ public class Timer extends Mode{
     		timer_time.set(Calendar.SECOND, (sec+1)%60);
     	break;
     	default:
-    	System.err.println("cursor add ������.");
+    	System.err.println("cursor add error.");
     	break;
     	}
     }
@@ -139,11 +196,35 @@ public class Timer extends Mode{
     public boolean confirmTimer(){
     	//���� �Ϸ�
     	flag_set = 0;
+    	cusorQ.clear();
+		cusorQ.offer(3);
+		cusorQ.offer(4);
+		cusorQ.offer(5);
     	cur_cursor = -1;
     	pre_time = (Calendar) timer_time.clone();
-        return false;
+        return true;
     }
 
+    public void minusTimer(){
+    	//System.out.println("cur_cusor: "+cur_cursor);
+    	switch(cur_cursor) {
+    	case 3:
+    		int hour = timer_time.get(Calendar.HOUR_OF_DAY);
+    		timer_time.set(Calendar.HOUR_OF_DAY, (hour-1)%24);
+    	break;
+    	case 4:
+    		int mit = timer_time.get(Calendar.MINUTE);
+    		timer_time.set(Calendar.MINUTE, (mit-1)%60);
+    	break;
+    	case 5:
+    		int sec = timer_time.get(Calendar.SECOND);
+    		timer_time.set(Calendar.SECOND, (sec-1)%60);
+    	break;
+    	default:
+    	System.err.println("cursor add 에러임.");
+    	break;
+    	}
+    }
 
 
 }
