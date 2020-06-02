@@ -158,7 +158,7 @@ public class Watch extends JFrame implements Runnable{
     	mode_timer = new mTimer();
     	
     	modeQ.offer(watch_Type.ALARM.ordinal());
-    	modeQ.offer(watch_Type.TIMER.ordinal());
+    	modeQ.offer(watch_Type.WORLDTIME.ordinal());
     	modeQ.offer(watch_Type.STOPWATCH.ordinal());
     	show_mode();
     	
