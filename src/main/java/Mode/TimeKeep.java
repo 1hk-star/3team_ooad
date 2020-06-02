@@ -76,6 +76,8 @@ public class TimeKeep extends Mode{
     	}
     	else if(text.equals("Button4")) {
     		//end
+    		if(flag_set == 2)
+    			flag_set = 0;
     		confirmTime();
     	}
     	else {
