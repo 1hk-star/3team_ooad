@@ -35,7 +35,6 @@ public class WorldTime extends Mode{
 			}
 			countriesQ.offer(elem.getKey());
 		}
-		System.out.println(countriesQ);
 	}
 
     @Override
