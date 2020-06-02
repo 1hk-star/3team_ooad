@@ -325,10 +325,10 @@ public class Watch extends JFrame implements Runnable{
     		text[0].setText("");
     		text[1].setText("");
     		text[2].setText("");
-    		text[3].setText(Integer.toString(cal.get(Calendar.HOUR_OF_DAY)));
+    		text[3].setText(Integer.toString(cal.get(Calendar.HOUR)));
     		text[4].setText(Integer.toString(cal.get(Calendar.MINUTE)));
     		text[5].setText(Integer.toString(cal.get(Calendar.SECOND)));
-    		text[6].setText(Integer.toString(lap.get(Calendar.HOUR_OF_DAY)));
+    		text[6].setText(Integer.toString(lap.get(Calendar.HOUR)));
     		text[7].setText(Integer.toString(lap.get(Calendar.MINUTE)));
     		text[8].setText(Integer.toString(lap.get(Calendar.SECOND)));
 
