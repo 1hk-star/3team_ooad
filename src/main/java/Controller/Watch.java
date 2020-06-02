@@ -155,14 +155,14 @@ public class Watch extends JFrame implements Runnable{
     	mode_alarm = new Alarm();
     	mode_world = new WorldTime();
     	mode_stop = new StopWatch();
+    	mode_dday = new Dday();
+    	mode_timer = new mTimer();
     	
     	modeQ.offer(watch_Type.ALARM.ordinal());
     	modeQ.offer(watch_Type.WORLDTIME.ordinal());
     	modeQ.offer(watch_Type.STOPWATCH.ordinal());
     	show_mode();
-    	
-    	mode_dday = new Dday();
-    	mode_timer = new mTimer();
+
     	mode_fa = new FunctionActivator(modeQ);
     	mode_bz = new Buzzer();
     	
@@ -272,7 +272,7 @@ public class Watch extends JFrame implements Runnable{
     		return 1;
     	}
     	else if(currentMode == watch_Type.TIMER.ordinal()) {
-    		return 1;
+    		return this.mode_timer.get_flag();
     	}
     	else if(currentMode == watch_Type.FUNCTION.ordinal()) {
     		return mode_fa.get_flag();
@@ -353,6 +353,33 @@ public class Watch extends JFrame implements Runnable{
     		text[6].setText(Integer.toString(lap.get(Calendar.HOUR)));
     		text[7].setText(Integer.toString(lap.get(Calendar.MINUTE)));
     		text[8].setText(Integer.toString(lap.get(Calendar.SECOND)));
+
+    	}
+    	else if(currentMode == watch_Type.TIMER.ordinal()) {
+			Calendar cal = mode_timer.getTimer();
+			if(cal == null) {
+				text[0].setText("");
+				text[1].setText("");
+				text[2].setText("");
+				text[3].setText("0");
+				text[4].setText("0");
+				text[5].setText("0");
+				text[7].setText("");
+				text[6].setText("");
+				text[8].setText("");	
+			}
+			else {
+				text[0].setText("");
+				text[1].setText("");
+				text[2].setText("");
+				text[3].setText(Integer.toString(cal.get(Calendar.HOUR_OF_DAY)));
+				text[4].setText(Integer.toString(cal.get(Calendar.MINUTE)));
+				text[5].setText(Integer.toString(cal.get(Calendar.SECOND)));
+				text[7].setText("");
+				text[6].setText("");
+				text[8].setText("");	
+			}
+
     	}
     	else if(currentMode == watch_Type.FUNCTION.ordinal()) {
     		for(watch_Type type : watch_Type.values()) {
@@ -394,6 +421,10 @@ public class Watch extends JFrame implements Runnable{
     	}
     	else if(currentMode==watch_Type.STOPWATCH.ordinal()) {
     		int cur=this.mode_stop.getCursor();
+    		blink_cursor(cur);
+    	}
+    	else if(currentMode==watch_Type.TIMER.ordinal()) {
+    		int cur=this.mode_timer.getCursor();
     		blink_cursor(cur);
     	}
    }
@@ -514,13 +545,29 @@ public class Watch extends JFrame implements Runnable{
     }
 
     private boolean checkDday(){
-
+    	
         return false;
     }
 
-    private boolean checkTimer(){
-
-        return false;
+    private void checkTimer(){
+    	if(mode_bz.getbuzzer() == 1) { //�������̸�
+    		if(mode_bz.getLeftTime() == 0) { //�ð� ��� �Ϸ�
+    			mode_bz.turnOffBuzzer();
+    			return;
+    		}
+    		else {
+    			mode_bz.subTimeBuzer();
+    			return;
+    		}
+    	}
+    	Calendar timeover = mode_timer.getTimerTime();
+    	int temp = mode_timer.getPauseFlag();
+    	if(timeover==null)
+    		return;
+    	else if(timeover.get(Calendar.HOUR_OF_DAY)==0&&timeover.get(Calendar.MINUTE)==0&&
+    			timeover.get(Calendar.SECOND)==0&&temp==1)
+    		mode_bz.onBuzzer();
+        return;
     }
 
     private boolean addCurrentModeTime(){
@@ -539,6 +586,7 @@ public class Watch extends JFrame implements Runnable{
     		
     		//占쎈쐻占쎈뼑占쎌뵛占쎌굲筌ｋ똾寃�, 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲.
     		checkAlarm();
+    		checkTimer();
     		
     		flag = get_currentMode_flag();
 

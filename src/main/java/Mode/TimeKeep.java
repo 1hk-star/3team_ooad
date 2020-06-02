@@ -13,25 +13,25 @@ import UI.Button;
 
 public class TimeKeep extends Mode{
 	
-	int flag_set = 0; // ½Ã°£ ¼³Á¤ ¾ÈÇß´Ù.
+	int flag_set = 0; // ì‹œê°„ ì„¤ì • ì•ˆí–ˆë‹¤.
 	Calendar current_time;
 	Calendar setting_time;
 	Long diff = null;
 	int tmp_flag = 0; //
-	int tmp2_flag = 0; // ¼¼ÆÃÀ» ÀÌÀü¿¡ ÇÑ¹øÇß´Ù ¾ÈÇß´Ù.
+	int tmp2_flag = 0; // ì„¸íŒ…ì„ ì´ì „ì— í•œë²ˆí–ˆë‹¤ ì•ˆí–ˆë‹¤.
 	private int cur_cursor = -1;
-	    // -1 Ä¿¼­ À§Ä¡ ¾øÀ½.
-	    // 0 ¿ù
-	    // 1 ÀÏ
-		// 2 ¿äÀÏ
-	    // 3 ½Ã
-	    // 4 ºĞ
-	    // 5 ÃÊ
-		// 6 ½Ã
-		// 7 ºĞ(¿¬)
-	 	// 8 ÃÊ
+	    // -1 ì»¤ì„œ ìœ„ì¹˜ ì—†ìŒ.
+	    // 0 ì›”
+	    // 1 ì¼
+		// 2 ìš”ì¼
+	    // 3 ì‹œ
+	    // 4 ë¶„
+	    // 5 ì´ˆ
+		// 6 ì‹œ
+		// 7 ë¶„(ì—°)
+	 	// 8 ì´ˆ
 	Queue<Integer> cusorQ = new LinkedList<Integer>();
-	FunctionActivator func; // FunctionActivator·Î ÀüÈ¯
+	FunctionActivator func; // FunctionActivatorë¡œ ì „í™˜
 	public TimeKeep() {
 		cusorQ.offer(0);
 		cusorQ.offer(1);
@@ -87,9 +87,9 @@ public class TimeKeep extends Mode{
 
     public void showTimeKeeping(){
     	
-    	//»ç¿ëÀÚ°¡ ½Ã°£ ¼³Á¤À» ¾ÈÇß´Ù.
+    	//ì‚¬ìš©ìê°€ ì‹œê°„ ì„¤ì •ì„ ì•ˆí–ˆë‹¤.
     	current_time = Calendar.getInstance();
-    	if(diff == null) { //³»°¡ ÀÌÀü¿¡ ÇöÀç½Ã°£À» ¼³Á¤Çß´Ù.
+    	if(diff == null) { //ë‚´ê°€ ì´ì „ì— í˜„ì¬ì‹œê°„ì„ ì„¤ì •í–ˆë‹¤.
     		//current_time = Calendar.getInstance();
     		return;
     	}else {
@@ -97,9 +97,9 @@ public class TimeKeep extends Mode{
     	}
     	
     	
-    	//»ç¿ëÀÚ°¡ ½Ã°£ ¼³Á¤À» Çß¾ú´Ù.
-    	//(aaa = ÇöÀç ½Ã°£ - »ç¿ëÀÚ ¼³Á¤ ½Ã°£) ÀúÀå
-    	// ÇöÀç½Ã°£ - aaa format¿¡ ÀúÀå.
+    	//ì‚¬ìš©ìê°€ ì‹œê°„ ì„¤ì •ì„ í–ˆì—ˆë‹¤.
+    	//(aaa = í˜„ì¬ ì‹œê°„ - ì‚¬ìš©ì ì„¤ì • ì‹œê°„) ì €ì¥
+    	// í˜„ì¬ì‹œê°„ - aaa formatì— ì €ì¥.
     	
     }
     
@@ -115,27 +115,27 @@ public class TimeKeep extends Mode{
 
    
     public void setCurrentTime(){
-    	if(flag_set == 0) { // ½Ã°£ ¼³Á¤ ¾ÈÇß´Ù.
+    	if(flag_set == 0) { // ì‹œê°„ ì„¤ì • ì•ˆí–ˆë‹¤.
     		flag_set = 1;
-    		cur_cursor = cusorQ.poll(); //¿ùºÎÅÍ ¼³Á¤ÇÏ¼À.
+    		cur_cursor = cusorQ.poll(); //ì›”ë¶€í„° ì„¤ì •í•˜ì…ˆ.
     		if(tmp_flag == 0) {
     			setting_time = (Calendar) current_time.clone();
     			tmp_flag = 1;
     		}
     	}
-    	else { // ½Ã°£ ¼³Á¤ Àü¿¡ ÇßÀ½.
+    	else { // ì‹œê°„ ì„¤ì • ì „ì— í–ˆìŒ.
     		
     	}
     }
     
     public void setActiveFunction() {
-    	if(flag_set == 0) { // ½Ã°£ ¼³Á¤ ¾ÈÇß´Ù.
+    	if(flag_set == 0) { // ì‹œê°„ ì„¤ì • ì•ˆí–ˆë‹¤.
     		flag_set = 2;
     	}
     }
     
     public int get_flag() {
-    	//³»°¡ Áö±İ ¹«½¼ ¸ğµåÀÎÁö.
+    	//ë‚´ê°€ ì§€ê¸ˆ ë¬´ìŠ¨ ëª¨ë“œì¸ì§€.
     	return flag_set;
     }
     
@@ -168,18 +168,18 @@ public class TimeKeep extends Mode{
     		int month2 = setting_time.get(Calendar.MONTH) + 1;
     		int year2 = setting_time.get(Calendar.YEAR);
     		if(month2 == 1 || month2 == 3 || month2 == 5 || month2 == 7 || month2 == 8 || month2 == 10 || month2 == 12) {
-    			// 31ÀÏ
+    			// 31ì¼
     			date = (date % 31) + 1;
     		} else if(month2 == 4 || month2 == 6 || month2 == 9 || month2 == 11) {
-    			// 30ÀÏ
+    			// 30ì¼
     			date = (date % 30) + 1;
     		} else if(month2 == 2) {
     			if(year2 % 4 == 0 || (year2 % 4 == 0 && year2 % 100 == 0 && year2 % 400 == 0)) {
-    				// À±³â
+    				// ìœ¤ë…„
     				date = (date % 29) + 1;
     			}
     			else if (year2 % 4 == 0 && year2 % 100 == 0) {
-    				// Æò³â 1 ~ 28
+    				// í‰ë…„ 1 ~ 28
     				date = (date % 28) +1;
     			}
     		}
@@ -210,7 +210,7 @@ public class TimeKeep extends Mode{
     		
     	break;
     	default:
-    	System.err.println("cursor add ¿¡·¯ÀÓ.");
+    	System.err.println("cursor add ì—ëŸ¬ì„.");
     	break;
     	}
     }
@@ -226,17 +226,17 @@ public class TimeKeep extends Mode{
 			cusorQ.offer(5);
 			cusorQ.offer(7);
 			cur_cursor= -1;
-			//³»°¡ Á¤ÇÑ°ªÀº current_time
+			//ë‚´ê°€ ì •í•œê°’ì€ current_time
 			Calendar temp = null;
-			if(tmp_flag == 0) { // Ã³À½ ¼³Á¤ÇÏ´Â°Í
+			if(tmp_flag == 0) { // ì²˜ìŒ ì„¤ì •í•˜ëŠ”ê²ƒ
 				temp = Calendar.getInstance();
 				tmp_flag = 1;
 			}else {
 				temp = current_time;
 			}
 			
-			//temp : end ´©¸¥ ½Ã°£, current_tiem : ¼³Á¤ ½Ã°£
-			//diff°¡ À½¼ö¸é ¹Ì·¡ÀÓ, diff°¡ ¾ç¼ö¸é °ú°ÅÀÓ.
+			//temp : end ëˆ„ë¥¸ ì‹œê°„, current_tiem : ì„¤ì • ì‹œê°„
+			//diffê°€ ìŒìˆ˜ë©´ ë¯¸ë˜ì„, diffê°€ ì–‘ìˆ˜ë©´ ê³¼ê±°ì„.
 			tmp_flag = 0;
 			diff = setting_time.getTimeInMillis() - temp.getTimeInMillis();
 			current_time.add(Calendar.SECOND, Integer.parseInt(String.valueOf(Math.round(diff/1000))));

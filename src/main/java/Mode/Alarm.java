@@ -11,9 +11,9 @@ import UI.Button;
 
 public class Alarm extends  Mode {
 	
-	int flag_set = 0; //¼Â ¸ðµåÀÌ´Ù, ¾Æ´Ï´Ù.
-	Calendar alarm_time = null; //¾Ë¶÷ ¼³Á¤ ½Ã°£.
-	Calendar pre_time = null; //ÀÌÀüÁ¤º¸ °¡Áö°í ÀÖÀ½.
+	int flag_set = 0; //ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ì´ï¿½, ï¿½Æ´Ï´ï¿½.
+	Calendar alarm_time = null; //ï¿½Ë¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½.
+	Calendar pre_time = null; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	
 	Queue<Integer> cusorQ = new LinkedList<Integer>();
 	private int cur_cursor = -1;
@@ -82,14 +82,14 @@ public class Alarm extends  Mode {
     }
     
     public int get_flag() {
-    	//³»°¡ Áö±Ý ¹«½¼ ¸ðµåÀÎÁö.
+    	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
     	return flag_set;
     }
 
     public void setAlarm(){
-    	if(flag_set == 0) { // ½Ã°£ ¼³Á¤ ¾ÈÇß´Ù.
+    	if(flag_set == 0) { // ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß´ï¿½.
     		flag_set = 1;
-    		cur_cursor = cusorQ.poll(); //½ÃºÎÅÍ ¼³Á¤ÇÏ¼À.
+    		cur_cursor = cusorQ.poll(); //ï¿½Ãºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½.
     		if(pre_time == null) {
     			alarm_time = Calendar.getInstance();
     			alarm_time.set(Calendar.HOUR_OF_DAY, 0);
@@ -100,12 +100,12 @@ public class Alarm extends  Mode {
     			alarm_time = (Calendar)pre_time.clone(); 
     		}
     	}
-    	else { // ½Ã°£ ¼³Á¤ Àü¿¡ ÇßÀ½.
+    	else { // ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
     	}
     }
 
     public boolean confirmAlarm(){
-    	//¼³Á¤ ¿Ï·á
+    	//ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½
     	flag_set = 0;
     	cur_cursor = -1;
     	pre_time = (Calendar) alarm_time.clone();
@@ -128,7 +128,7 @@ public class Alarm extends  Mode {
     		alarm_time.set(Calendar.SECOND, (sec+1)%60);
     	break;
     	default:
-    	System.err.println("cursor add ¿¡·¯ÀÓ.");
+    	System.err.println("cursor add error.");
     	break;
     	}
     }
