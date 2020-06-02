@@ -17,6 +17,7 @@ import Mode.Alarm;
 import Mode.Buzzer;
 import Mode.Dday;
 import Mode.FunctionActivator;
+import Mode.Mode;
 import Mode.StopWatch;
 import Mode.TimeKeep;
 import Mode.Timer;
@@ -32,9 +33,9 @@ public class Watch extends JFrame implements Runnable{
  
     JLabel[] text = new JLabel[9];
     
-    //text1 : 占쏙옙, text2 : 占쏙옙, text3 : 占쏙옙占쏙옙
-    //text4 : 占쏙옙, text5 : 占쏙옙, text6 : 占쏙옙
-    //text7 : 占쏙옙, text8 : 占쏙옙(占쏙옙占쏙옙), text9 : 占쏙옙
+    //text1 : �뜝�룞�삕, text2 : �뜝�룞�삕, text3 : �뜝�룞�삕�뜝�룞�삕
+    //text4 : �뜝�룞�삕, text5 : �뜝�룞�삕, text6 : �뜝�룞�삕
+    //text7 : �뜝�룞�삕, text8 : �뜝�룞�삕(�뜝�룞�삕�뜝�룞�삕), text9 : �뜝�룞�삕
 
     JPanel container = new JPanel();
     JPanel leftButton = new JPanel();
@@ -197,7 +198,13 @@ public class Watch extends JFrame implements Runnable{
     		}
     	}
     	else if(currentMode == watch_Type.WORLDTIME.ordinal()) {
+    		if(button.getText().equals("Button4")) {
+    			previousMode = currentMode;
+    	    	currentMode = modeQ.poll();
+    	    	modeQ.offer(previousMode);
+        	}
     		mode_world.work(button);
+    		display();
     	}
     	else if(currentMode == watch_Type.STOPWATCH.ordinal()) {
     		mode_stop.work(button);
@@ -208,6 +215,7 @@ public class Watch extends JFrame implements Runnable{
     	}
     	else if(currentMode == watch_Type.TIMER.ordinal()) {
     		mode_timer.work(button);
+    		display();
     	}
     	else if(currentMode == watch_Type.FUNCTION.ordinal()) {
     		if(button.getText().equals("Button4") && mode_fa.get_active_count() == 3) {
@@ -258,7 +266,7 @@ public class Watch extends JFrame implements Runnable{
     		return 1;
     	}
     	else if(currentMode == watch_Type.STOPWATCH.ordinal()) {
-    		return this.mode_stop.get_flag();
+    		return mode_stop.get_flag();
     	}
     	else if(currentMode == watch_Type.DDAY.ordinal()) {
     		return 1;
@@ -276,12 +284,15 @@ public class Watch extends JFrame implements Runnable{
     }
 
     public void display(){
-    	//text1 : 占쏙옙, text2 : 占쏙옙, text3 : 占쏙옙占쏙옙
-        //text4 : 占쏙옙, text5 : 占쏙옙, text6 : 占쏙옙
-        //text7 : 占쏙옙, text8 : 占쏙옙(占쏙옙占쏙옙), text9 : 占쏙옙
+    	//text1 : �뜝�룞�삕, text2 : �뜝�룞�삕, text3 : �뜝�룞�삕�뜝�룞�삕
+        //text4 : �뜝�룞�삕, text5 : �뜝�룞�삕, text6 : �뜝�룞�삕
+        //text7 : �뜝�룞�삕, text8 : �뜝�룞�삕(�뜝�룞�삕�뜝�룞�삕), text9 : �뜝�룞�삕
     	
     	if(currentMode == watch_Type.TIMEKEEPING.ordinal()) {
-			Calendar cal = mode_time.gettime();
+    		Calendar cal = mode_time.gettime();
+    		if(mode_world.get_flag() == 1) {
+    			cal.add(Calendar.HOUR_OF_DAY, mode_world.get_value());
+    		}
 			text[0].setText(Integer.toString(cal.get(Calendar.MONTH)+1));
 			text[1].setText(Integer.toString(cal.get(Calendar.DATE)));
 			text[2].setText(dow(cal.get(Calendar.DAY_OF_WEEK)));
@@ -320,6 +331,14 @@ public class Watch extends JFrame implements Runnable{
 				text[8].setText("");	
 			}
     	}
+    	else if (currentMode==watch_Type.WORLDTIME.ordinal()) {
+    		for (int i = 0; i < text.length; i++) {
+    			text[i].setText("");
+    			if(i == 4) {
+    				text[i].setText(mode_world.get_key());
+    			}
+			}
+    	}
     	else if(currentMode==watch_Type.STOPWATCH.ordinal()) {
     		
     		Calendar cal=this.mode_stop.getStopWatch();
@@ -355,9 +374,9 @@ public class Watch extends JFrame implements Runnable{
    }
     
     public void display_blink(){
-    	//text1 : 占쏙옙, text2 : 占쏙옙, text3 : 占쏙옙占쏙옙
-        //text4 : 占쏙옙, text5 : 占쏙옙, text6 : 占쏙옙
-        //text7 : 占쏙옙, text8 : 占쏙옙(占쏙옙占쏙옙), text9 : 占쏙옙
+    	//text1 : �뜝�룞�삕, text2 : �뜝�룞�삕, text3 : �뜝�룞�삕�뜝�룞�삕
+        //text4 : �뜝�룞�삕, text5 : �뜝�룞�삕, text6 : �뜝�룞�삕
+        //text7 : �뜝�룞�삕, text8 : �뜝�룞�삕(�뜝�룞�삕�뜝�룞�삕), text9 : �뜝�룞�삕
     	if(currentMode == watch_Type.TIMEKEEPING.ordinal()) {	
     			int cur = mode_time.getCursor();
     			blink_cursor(cur);
@@ -365,6 +384,9 @@ public class Watch extends JFrame implements Runnable{
     	else if(currentMode == watch_Type.FUNCTION.ordinal()) {
     		int cur = mode_fa.getCursor();
 			blink_cursor(cur);
+    	}
+    	else if(currentMode == watch_Type.WORLDTIME.ordinal()) {
+			blink_cursor(4);
     	}
     	else if(currentMode == watch_Type.ALARM.ordinal()) {	
 			int cur = mode_alarm.getCursor();
@@ -434,9 +456,9 @@ public class Watch extends JFrame implements Runnable{
     public boolean changeMode(){
     	previousMode = currentMode;
     	
-    	//pop占쏙옙 占쏙옙躍� 占쏙옙占쏙옙占쏙옙占� 占쌕꾸곤옙
+    	//pop�뜝�룞�삕 �뜝�룞�삕翁랃옙 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕�뜝占� �뜝�뙐袁멸낀�삕
     	currentMode = modeQ.poll();
-    	//占쏙옙占쏙옙 占쏙옙占쏙옙 占쌕쏙옙 큐占쏙옙 占쏙옙占쏙옙.
+    	//�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕 �뜝�뙐�룞�삕 �걧�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕.
     	modeQ.offer(previousMode);
     	visible_all();
     	show_mode();
@@ -460,8 +482,8 @@ public class Watch extends JFrame implements Runnable{
     }
 
     private void checkAlarm(){
-    	if(mode_bz.getbuzzer() == 1) { //占쏙옙占쏙옙占쏙옙占싱몌옙
-    		if(mode_bz.getLeftTime() == 0) { //占시곤옙 占쏙옙占� 占싹뤄옙
+    	if(mode_bz.getbuzzer() == 1) { //�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕�뜝�떛紐뚯삕
+    		if(mode_bz.getLeftTime() == 0) { //�뜝�떆怨ㅼ삕 �뜝�룞�삕�뜝占� �뜝�떦琉꾩삕
     			mode_bz.turnOffBuzzer();
     			return;
     		}
@@ -515,7 +537,7 @@ public class Watch extends JFrame implements Runnable{
     public void run() {
     	while(true) {
     		
-    		//占싯띰옙체크, 占쏙옙占쏙옙 占쏙옙占쏙옙.
+    		//�뜝�떙�씛�삕泥댄겕, �뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕.
     		checkAlarm();
     		
     		flag = get_currentMode_flag();

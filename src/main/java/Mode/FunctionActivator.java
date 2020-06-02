@@ -37,7 +37,6 @@ public class FunctionActivator extends Mode{
     public void work(JButton button) {
     	String text = button.getText();
     	if(text.equals("Button1")) {
-    		System.out.println(flag_set);
     		if(flag_set == 0) {
     			setActivateFunction();
     		}
