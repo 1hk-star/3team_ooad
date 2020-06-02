@@ -11,10 +11,10 @@ import UI.Button;
 
 public class Timer extends Mode{
 	
-	int flag_set = 0; //¼Â ¸ðµåÀÌ´Ù, ¾Æ´Ï´Ù.
-	int flag_sp = 0; //start»óÅÂÀÎÁö pause»óÅÂÀÎÁö
-	Calendar timer_time = null; //¾Ë¶÷ ¼³Á¤ ½Ã°£.
-	Calendar pre_time = null; //ÀÌÀüÁ¤º¸ °¡Áö°í ÀÖÀ½.
+	int flag_set = 0; //ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ì´ï¿½, ï¿½Æ´Ï´ï¿½.
+	int flag_sp = 0; //startï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ pauseï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	Calendar timer_time = null; //ï¿½Ë¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½.
+	Calendar pre_time = null; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	
 	Queue<Integer> cusorQ = new LinkedList<Integer>();
 	private int cur_cursor = -1;
@@ -94,9 +94,9 @@ public class Timer extends Mode{
     }
 
     public void setTimer(){
-    	if(flag_set == 0) { // ½Ã°£ ¼³Á¤ ¾ÈÇß´Ù.
+    	if(flag_set == 0) { // ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß´ï¿½.
     		flag_set = 1;
-    		cur_cursor = cusorQ.poll(); //½ÃºÎÅÍ ¼³Á¤ÇÏ¼À.
+    		cur_cursor = cusorQ.poll(); //ï¿½Ãºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½.
     		if(pre_time == null) {
     			timer_time = Calendar.getInstance();
     			timer_time.set(Calendar.HOUR_OF_DAY, 0);
@@ -107,7 +107,7 @@ public class Timer extends Mode{
     			timer_time = (Calendar)pre_time.clone(); 
     		}
     	}
-    	else { // ½Ã°£ ¼³Á¤ Àü¿¡ ÇßÀ½.
+    	else { // ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
     	}
     }
 
@@ -131,13 +131,13 @@ public class Timer extends Mode{
     		timer_time.set(Calendar.SECOND, (sec+1)%60);
     	break;
     	default:
-    	System.err.println("cursor add ¿¡·¯ÀÓ.");
+    	System.err.println("cursor add ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.");
     	break;
     	}
     }
 
     public boolean confirmTimer(){
-    	//¼³Á¤ ¿Ï·á
+    	//ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½
     	flag_set = 0;
     	cur_cursor = -1;
     	pre_time = (Calendar) timer_time.clone();

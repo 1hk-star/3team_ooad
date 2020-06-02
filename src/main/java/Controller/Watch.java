@@ -1,22 +1,27 @@
 package Controller;
 
-import Format.Format;
-import Mode.Alarm;
-import Mode.Mode;
-import UI.Button;
-import java.awt.*;
-import java.awt.event.*;
-
-import javax.sound.midi.Soundbank;
-import javax.swing.*;
-import Mode.*;
-import Mode.Timer;
-import Type.*;
-
-import java.util.ArrayList;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.Queue;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import Mode.Alarm;
+import Mode.Buzzer;
+import Mode.Dday;
+import Mode.FunctionActivator;
+import Mode.StopWatch;
+import Mode.TimeKeep;
+import Mode.Timer;
+import Mode.WorldTime;
+import Type.watch_Type;
 
 public class Watch extends JFrame implements Runnable{
 
@@ -27,9 +32,9 @@ public class Watch extends JFrame implements Runnable{
  
     JLabel[] text = new JLabel[9];
     
-    //text1 : ¿ù, text2 : ÀÏ, text3 : ¿äÀÏ
-    //text4 : ½Ã, text5 : ºÐ, text6 : ÃÊ
-    //text7 : ½Ã, text8 : ºÐ(¿¬µµ), text9 : ÃÊ
+    //text1 : ï¿½ï¿½, text2 : ï¿½ï¿½, text3 : ï¿½ï¿½ï¿½ï¿½
+    //text4 : ï¿½ï¿½, text5 : ï¿½ï¿½, text6 : ï¿½ï¿½
+    //text7 : ï¿½ï¿½, text8 : ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½), text9 : ï¿½ï¿½
 
     JPanel container = new JPanel();
     JPanel leftButton = new JPanel();
@@ -197,6 +202,7 @@ public class Watch extends JFrame implements Runnable{
     	}
     	else if(currentMode == watch_Type.STOPWATCH.ordinal()) {
     		mode_stop.work(button);
+    		display();
     	}
     	else if(currentMode == watch_Type.DDAY.ordinal()) {
     		mode_dday.work(button);
@@ -248,7 +254,7 @@ public class Watch extends JFrame implements Runnable{
     		return 1;
     	}
     	else if(currentMode == watch_Type.STOPWATCH.ordinal()) {
-    		return 1;
+    		return this.mode_stop.get_flag();
     	}
     	else if(currentMode == watch_Type.DDAY.ordinal()) {
     		return 1;
@@ -266,9 +272,10 @@ public class Watch extends JFrame implements Runnable{
     }
 
     public void display(){
-    	//text1 : ¿ù, text2 : ÀÏ, text3 : ¿äÀÏ
-        //text4 : ½Ã, text5 : ºÐ, text6 : ÃÊ
-        //text7 : ½Ã, text8 : ºÐ(¿¬µµ), text9 : ÃÊ
+    	//text1 : ï¿½ï¿½, text2 : ï¿½ï¿½, text3 : ï¿½ï¿½ï¿½ï¿½
+        //text4 : ï¿½ï¿½, text5 : ï¿½ï¿½, text6 : ï¿½ï¿½
+        //text7 : ï¿½ï¿½, text8 : ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½), text9 : ï¿½ï¿½
+    	
     	if(currentMode == watch_Type.TIMEKEEPING.ordinal()) {
 			Calendar cal = mode_time.gettime();
 			text[0].setText(Integer.toString(cal.get(Calendar.MONTH)+1));
@@ -309,6 +316,26 @@ public class Watch extends JFrame implements Runnable{
 				text[8].setText("");	
 			}
     	}
+    	else if(currentMode==watch_Type.STOPWATCH.ordinal()) {
+    		
+    		Calendar cal=this.mode_stop.getStopWatch();
+    		Calendar lap=this.mode_stop.getLapTime();
+    		
+    		
+    		text[0].setText("");
+    		text[1].setText("");
+    		text[2].setText("");
+    		text[3].setText(Integer.toString(cal.get(Calendar.HOUR)));
+    		text[4].setText(Integer.toString(cal.get(Calendar.MINUTE)));
+    		text[5].setText(Integer.toString(cal.get(Calendar.SECOND)));
+    		text[6].setText(Integer.toString(lap.get(Calendar.HOUR)));
+    		text[7].setText(Integer.toString(lap.get(Calendar.MINUTE)));
+    		text[8].setText(Integer.toString(lap.get(Calendar.SECOND)));
+
+
+
+    		
+    	}
     	else if(currentMode == watch_Type.FUNCTION.ordinal()) {
     		for(watch_Type type : watch_Type.values()) {
 				if(type == watch_Type.valueOf("FUNCTION"))
@@ -326,9 +353,9 @@ public class Watch extends JFrame implements Runnable{
    }
     
     public void display_blink(){
-    	//text1 : ¿ù, text2 : ÀÏ, text3 : ¿äÀÏ
-        //text4 : ½Ã, text5 : ºÐ, text6 : ÃÊ
-        //text7 : ½Ã, text8 : ºÐ(¿¬µµ), text9 : ÃÊ
+    	//text1 : ï¿½ï¿½, text2 : ï¿½ï¿½, text3 : ï¿½ï¿½ï¿½ï¿½
+        //text4 : ï¿½ï¿½, text5 : ï¿½ï¿½, text6 : ï¿½ï¿½
+        //text7 : ï¿½ï¿½, text8 : ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½), text9 : ï¿½ï¿½
     	if(currentMode == watch_Type.TIMEKEEPING.ordinal()) {	
     			int cur = mode_time.getCursor();
     			blink_cursor(cur);
@@ -340,6 +367,10 @@ public class Watch extends JFrame implements Runnable{
     	else if(currentMode == watch_Type.ALARM.ordinal()) {	
 			int cur = mode_alarm.getCursor();
 			blink_cursor(cur);
+    	}
+    	else if(currentMode==watch_Type.STOPWATCH.ordinal()) {
+    		int cur=this.mode_stop.getCursor();
+    		blink_cursor(cur);
     	}
    }
     
@@ -401,9 +432,9 @@ public class Watch extends JFrame implements Runnable{
     public boolean changeMode(){
     	previousMode = currentMode;
     	
-    	//popÇÑ ¸ðµå¸¦ ÇöÀç¸ðµå·Î ¹Ù²Ù°í
+    	//popï¿½ï¿½ ï¿½ï¿½å¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²Ù°ï¿½
     	currentMode = modeQ.poll();
-    	//ÀÌÀü ¸ðµå´Â ´Ù½Ã Å¥¿¡ »ðÀÔ.
+    	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ Å¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
     	modeQ.offer(previousMode);
     	visible_all();
     	show_mode();
@@ -427,8 +458,8 @@ public class Watch extends JFrame implements Runnable{
     }
 
     private void checkAlarm(){
-    	if(mode_bz.getbuzzer() == 1) { //ºÎÀúÁßÀÌ¸é
-    		if(mode_bz.getLeftTime() == 0) { //½Ã°£ °æ°ú ¿Ï·á
+    	if(mode_bz.getbuzzer() == 1) { //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
+    		if(mode_bz.getLeftTime() == 0) { //ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½
     			mode_bz.turnOffBuzzer();
     			return;
     		}
@@ -482,7 +513,7 @@ public class Watch extends JFrame implements Runnable{
     public void run() {
     	while(true) {
     		
-    		//¾Ë¶÷Ã¼Å©, ºÎÀú °ü¸®.
+    		//ï¿½Ë¶ï¿½Ã¼Å©, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
     		checkAlarm();
     		
     		flag = get_currentMode_flag();
