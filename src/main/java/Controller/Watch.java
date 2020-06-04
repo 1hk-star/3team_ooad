@@ -1,6 +1,7 @@
 package Controller;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -68,7 +69,10 @@ public class Watch extends JFrame implements Runnable{
        // display(format);
     }
 
-    
+    // GUI를 초기화 해주는 함수
+    // JPanel을 왼쪽, 가운데, 오른쪽으로 나누고
+    // 버튼과 라벨들을 저장 후 container에 합침
+    // 그리고 각각의 버튼에 이벤트 클릭 리스너를 달아줌
     public void init_swing() {
     	 getContentPane().add(container);
 
@@ -79,8 +83,11 @@ public class Watch extends JFrame implements Runnable{
          leftButton.add(button1);
          leftButton.add(button3);
          
+         
          for(int i=0; i <text.length; i++) {
         	 text[i] = new JLabel("0");
+        	 text[i].setFont(new Font("Serif", Font.BOLD, 30));
+        	 text[i].setHorizontalAlignment(JLabel.CENTER);
         	 centerText.add(text[i]);
          }
          
