@@ -210,11 +210,6 @@ public class Watch extends JFrame implements Runnable{
     		}
     	}
     	else if(currentMode == watch_Type.WORLDTIME.ordinal()) {
-    		if(button.getText().equals("Button4")) {
-    			previousMode = currentMode;
-    	    	currentMode = modeQ.poll();
-    	    	modeQ.offer(previousMode);
-        	}
     		mode_world.work(button);
     		display();
     	}
@@ -281,7 +276,7 @@ public class Watch extends JFrame implements Runnable{
     		return mode_alarm.get_flag();
     	}
     	else if(currentMode == watch_Type.WORLDTIME.ordinal()) {
-    		return 0;
+    		return mode_world.get_flag();
     	}
     	else if(currentMode == watch_Type.STOPWATCH.ordinal()) {
     		return mode_stop.get_flag();
@@ -435,7 +430,8 @@ public class Watch extends JFrame implements Runnable{
 			blink_cursor(1);
     	}
     	else if(currentMode == watch_Type.WORLDTIME.ordinal()) {
-			blink_cursor(-1);
+    		int cur = mode_world.getCursor();
+			blink_cursor(cur);
     	}
     	else if(currentMode == watch_Type.ALARM.ordinal()) {	
 			int cur = mode_alarm.getCursor();

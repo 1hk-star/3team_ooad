@@ -17,6 +17,7 @@ public class WorldTime extends Mode{
 	private String country;
 	private String country_temp;
     private Map<String, String> countries;
+    int cur_cursor = -1;
     Queue<String> countriesQ = new LinkedList<String>();
     
     public WorldTime() {
@@ -42,10 +43,11 @@ public class WorldTime extends Mode{
     	String text = button.getText();
     	if(text.equals("Button1")) {
     		// no
+    		changeCountry();
     	}
     	else if(text.equals("Button2")) {
     		// next
-    		changeCountry();
+    		nextCountry();
     	}
     	else if(text.equals("Button3")) {
     		countriesQ.clear();
@@ -71,14 +73,27 @@ public class WorldTime extends Mode{
     public void showWorldTime(){
     	
     }
+    
+    public void changeCountry() {
+    	if(flag_set == 0) {
+    		flag_set = 1;
+    		cur_cursor = 2;
+    	}
+    }
 
-    public void changeCountry(){
-    	countriesQ.offer(country);
-    	country = countriesQ.poll();
+    public void nextCountry(){
+    	if(flag_set == 1) {
+    		countriesQ.offer(country);
+        	country = countriesQ.poll();
+    	}
     }
 
     public boolean confirmCountry(){
     	country_temp = country;
+    	if(flag_set == 1) {
+    		flag_set = 0;
+    		cur_cursor = -1;
+    	}
         return false;
     }
     
@@ -96,5 +111,9 @@ public class WorldTime extends Mode{
     
     public int get_flag() {
     	return flag_set;
+    }
+    
+    public int getCursor() {
+    	return cur_cursor;
     }
 }
