@@ -8,6 +8,7 @@ import javax.swing.JButton;
 
 public class StopWatch extends  Mode{
 
+	//private attributes 
     private int cursor=-1;
     private int flag=0;
     
@@ -21,10 +22,12 @@ public class StopWatch extends  Mode{
     
     private boolean isOn=false;
 
+    //constructor
 	public StopWatch() {
 		resetStopWatch();
 	}
     
+	//method implemented
     public void work(JButton button) {
 
     	String text = button.getText();
@@ -56,6 +59,7 @@ public class StopWatch extends  Mode{
     	
     }
 
+    //start and stop
     public void startStopWatch(){
 
     	this.isOn=true;
@@ -68,12 +72,11 @@ public class StopWatch extends  Mode{
     	
     	this.elapsePrevious=this.elapse;
 
-    	
-
     }
     
  
 
+    //init or reset
     public void resetStopWatch(){
 
     	this.start=0L;
@@ -94,6 +97,7 @@ public class StopWatch extends  Mode{
     	
     }
 
+    //store laptime
     public void storeLapTime(){
 
     	if(this.isOn==false){
@@ -112,6 +116,7 @@ public class StopWatch extends  Mode{
     }
 
 
+    //get attributes of stopwatch
 	public Calendar getStopWatch() {
 		// TODO Auto-generated method stub
 
@@ -135,26 +140,15 @@ public class StopWatch extends  Mode{
 		return cal;
 	}
 
-	public int getCursor() {
-		// TODO Auto-generated method stub
-		return this.cursor;
-	}
-
-	public int get_flag() {
-		// TODO Auto-generated method stub
-		return flag;
-	}
 
 	public Calendar getLapTime() {
 		// TODO Auto-generated method stub
 		return this.calLap;
 	}
 
-	public void showStopWatch() {
-		// TODO Auto-generated method stub
-		
-	}
+
 	
+	//Calendar -> long
 	   private long calculateTime(long time,Calendar cal) {
 	    	cal=Calendar.getInstance();
 	        int hour=cal.get(Calendar.HOUR);
@@ -166,6 +160,7 @@ public class StopWatch extends  Mode{
 	    	return time;
 	    }
 	    
+	   //long->Calendar
 	    private void splitElapse(long elapse,Calendar cal) {
 	    	long hour=elapse/3600;
 	    	long min=(elapse%3600/60);
@@ -179,5 +174,23 @@ public class StopWatch extends  Mode{
 	    	
 	    	System.out.println("시 :"+hour+"분: "+min+"초: "+sec);
 	    }
+	    
+
+		//don't use
+		public int getCursor() {
+			// TODO Auto-generated method stub
+			return this.cursor;
+		}
+
+		//don't use
+		public int get_flag() {
+			// TODO Auto-generated method stub
+			return flag;
+		}	
+		//don't use
+		public void showStopWatch() {
+			// TODO Auto-generated method stub
+			
+		}
 
 }
