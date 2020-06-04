@@ -16,20 +16,20 @@ public class WorldTime extends Mode{
 	private int flag_set = 0;
 	private String country;
 	private String country_temp;
-    private Map<String, String> countries;
+    private Map<String, Integer> countries;
     Queue<String> countriesQ = new LinkedList<String>();
     
     public WorldTime() {
-		countries = new HashMap<String, String>();
-		countries.put("LIS", "Europe/Lisbon");
-		countries.put("LON", "Europe/London");
-		countries.put("ROM", "Europe/Rome");
-		countries.put("SEL", "Asia/Seoul");
-		countries.put("TYO", "Asia/Tokyo");
-		countries.put("LAX", "America/Los_Angeles");
-		countries.put("DEN", "America/Denver");
+		countries = new HashMap<String, Integer>();
+		countries.put("LIS", -9);
+		countries.put("LON", -9);
+		countries.put("ROM", -8);
+		countries.put("SEL", 0);
+		countries.put("TYO", 0);
+		countries.put("LAX", 7);
+		countries.put("DEN", 8);
 		country = country_temp = "SEL";
-		for(Map.Entry<String, String> elem : countries.entrySet()) {
+		for(Map.Entry<String, Integer> elem : countries.entrySet()) {
 			if(elem.getKey().equals(country)) {
 				continue;
 			}
@@ -51,7 +51,7 @@ public class WorldTime extends Mode{
     		countriesQ.clear();
     		country = country_temp;
     		
-    		for(Map.Entry<String, String> elem : countries.entrySet()) {
+    		for(Map.Entry<String, Integer> elem : countries.entrySet()) {
     			if(elem.getKey().equals(country)) {
     				continue;
     			}
@@ -79,6 +79,7 @@ public class WorldTime extends Mode{
 
     public boolean confirmCountry(){
     	country_temp = country;
+    	flag_set = 1;
         return false;
     }
     
@@ -86,11 +87,7 @@ public class WorldTime extends Mode{
     	return country;
     }
     
-//    public String get_key_temp() {
-//    	return country_temp;
-//    }
-    
-    public String get_value() {
+    public int get_value() {
     	return countries.get(country);
     }
     
