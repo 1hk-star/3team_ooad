@@ -106,6 +106,10 @@ public class Alarm extends  Mode {
 
     public boolean confirmAlarm(){
     	//���� �Ϸ�
+    	cusorQ.clear();
+		cusorQ.offer(3);
+		cusorQ.offer(4);
+		cusorQ.offer(5);
     	flag_set = 0;
     	cur_cursor = -1;
     	pre_time = (Calendar) alarm_time.clone();

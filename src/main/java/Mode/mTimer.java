@@ -126,6 +126,7 @@ public class mTimer extends Mode{
 
     public void stopTimer(){
        pre_time = null;
+       pauseTimer();
     }
 
     public void pauseTimer(){
