@@ -63,7 +63,7 @@ public class Watch extends JFrame implements Runnable{
     Queue<Integer> modeQ = new LinkedList<Integer>();
 
     public Watch(){
-        super("Digital Watch - TIMEKEEPING");
+        super("Digital Watch - 0");
         init();
         //Format format = null;
        // display(format);
@@ -168,6 +168,7 @@ public class Watch extends JFrame implements Runnable{
     	mode_dday = new Dday();
     	mode_timer = new mTimer();
     	
+    	modeQ.offer(watch_Type.DDAY.ordinal());
     	modeQ.offer(watch_Type.ALARM.ordinal());
     	modeQ.offer(watch_Type.WORLDTIME.ordinal());
     	modeQ.offer(watch_Type.STOPWATCH.ordinal());
@@ -219,6 +220,7 @@ public class Watch extends JFrame implements Runnable{
     	}
     	else if(currentMode == watch_Type.DDAY.ordinal()) {
     		mode_dday.work(button);
+    		display();
     	}
     	else if(currentMode == watch_Type.TIMER.ordinal()) {
     		mode_timer.work(button);
@@ -282,7 +284,7 @@ public class Watch extends JFrame implements Runnable{
     		return mode_stop.get_flag();
     	}
     	else if(currentMode == watch_Type.DDAY.ordinal()) {
-    		return 1;
+    		return mode_stop.get_flag();
     	}
     	else if(currentMode == watch_Type.TIMER.ordinal()) {
     		return this.mode_timer.get_flag();
@@ -368,6 +370,34 @@ public class Watch extends JFrame implements Runnable{
     		text[6].setText(Integer.toString(lap.get(Calendar.HOUR)));
     		text[7].setText(Integer.toString(lap.get(Calendar.MINUTE)));
     		text[8].setText(Integer.toString(lap.get(Calendar.SECOND)));
+
+    	}
+    	else if(currentMode==watch_Type.DDAY.ordinal()) {
+    		
+    		if(mode_dday.get_dday_num() == 0) { //no dday
+    			text[0].setText("O");
+        		text[1].setText("F");
+        		text[2].setText("F");
+        		text[3].setText("");
+				text[4].setText("");
+				text[5].setText("");
+        		text[6].setText("");
+        		text[7].setText("");
+        		text[8].setText("");
+        		return;
+    		}
+    		//display dday left day
+    		Calendar cal=this.mode_dday.getDday();
+    		String tmp= mode_dday.getMemo();
+    		text[0].setText(Integer.toString(cal.get(Calendar.MONTH)));
+    		text[1].setText(Integer.toString(cal.get(Calendar.DATE)));
+    		text[2].setText(tmp);
+    		text[3].setText("");
+    		text[4].setText("");
+    		text[5].setText("");
+    		text[6].setText("");
+    		text[7].setText(Integer.toString(cal.get(Calendar.YEAR)));
+    		text[8].setText("");
 
     	}
     	else if(currentMode == watch_Type.TIMER.ordinal()) {
@@ -515,21 +545,6 @@ public class Watch extends JFrame implements Runnable{
         return false;
     }
 
-    private boolean modeTimeOut(){
-
-        return false;
-    }
-
-    private boolean changeModeBuzzer(){
-
-        return false;
-    }
-
-    private boolean changeMainEverySeconds(){
-
-        return false;
-    }
-
     private void checkAlarm(){
     	if(mode_bz.getbuzzer() == 1) { //占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈뼓筌뤿슣�굲
     		if(mode_bz.getLeftTime() == 0) { //占쎈쐻占쎈뻻�ⓦ끉�굲 占쎈쐻占쎈짗占쎌굲占쎈쐻�뜝占� 占쎈쐻占쎈뼣筌뚭쑴�굲
@@ -556,36 +571,43 @@ public class Watch extends JFrame implements Runnable{
     	int t2_s = t2.get(Calendar.SECOND);
     	
     	if((t1_h == t2_h) && (t1_m == t2_m) && (t1_s == t2_s)) {
-    		mode_bz.onBuzzer();
+    		mode_bz.onBuzzer(1);
     	}else {
     	}
         return;
+    }
+    private void checkTimer(){
+    	if(currentMode == watch_Type.TIMER.ordinal()) {
+    		if(mode_bz.getbuzzer() == 2) { //�������̸�
+        		if(mode_bz.getLeftTime() == 0) { //�ð� ��� �Ϸ�
+        			mode_bz.turnOffBuzzer();
+        			return;
+        		}
+        		else {
+        			mode_bz.subTimeBuzer();
+        			return;
+        		}
+        	}
+        	Calendar timeover = mode_timer.getTimerTime();
+        	int temp = mode_timer.getPauseFlag();
+        	if(timeover==null)
+        		return;
+        	else if(timeover.get(Calendar.HOUR_OF_DAY)==0&&timeover.get(Calendar.MINUTE)==0&&
+        			timeover.get(Calendar.SECOND)==0&&temp==1)
+        		mode_bz.onBuzzer(2);
+            return;
+    	}
+    	return;
+    }
+    
+    private boolean changeMainEverySeconds(){
+
+        return false;
     }
 
     private boolean checkDday(){
     	
         return false;
-    }
-
-    private void checkTimer(){
-    	if(mode_bz.getbuzzer() == 1) { //�������̸�
-    		if(mode_bz.getLeftTime() == 0) { //�ð� ��� �Ϸ�
-    			mode_bz.turnOffBuzzer();
-    			return;
-    		}
-    		else {
-    			mode_bz.subTimeBuzer();
-    			return;
-    		}
-    	}
-    	Calendar timeover = mode_timer.getTimerTime();
-    	int temp = mode_timer.getPauseFlag();
-    	if(timeover==null)
-    		return;
-    	else if(timeover.get(Calendar.HOUR_OF_DAY)==0&&timeover.get(Calendar.MINUTE)==0&&
-    			timeover.get(Calendar.SECOND)==0&&temp==1)
-    		mode_bz.onBuzzer();
-        return;
     }
 
     private boolean addCurrentModeTime(){

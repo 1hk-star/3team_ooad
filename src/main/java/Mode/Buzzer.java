@@ -14,7 +14,7 @@ import UI.Button;
 public class Buzzer extends Mode{
 
     private int leftTime = 15;
-    private int buzzer_flag = 0;
+    private int buzzer_flag = 0; //0 no buzzer, 1 alarm, 2 timer
     Clip clip;
     @Override
     public void work(JButton button) {
@@ -51,8 +51,9 @@ public class Buzzer extends Mode{
     public int getbuzzer() {
     	return buzzer_flag;
     }
-    public void onBuzzer() {
-    	buzzer_flag =1;
+    public void onBuzzer(int type) {
+    	buzzer_flag =type;
+    	leftTime = 15;
     	System.out.println("on buzzer");
     	try {
             soundBuzzer();
@@ -76,7 +77,6 @@ public class Buzzer extends Mode{
         		clip.stop();
         	}
     	}
-    	leftTime = 15;
     }
 
 
