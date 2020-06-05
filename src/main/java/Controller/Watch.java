@@ -280,7 +280,7 @@ public class Watch extends JFrame implements Runnable{
     		return mode_alarm.get_flag();
     	}
     	else if(currentMode == watch_Type.WORLDTIME.ordinal()) {
-    		return mode_world.get_flag();
+    		return 0;
     	}
     	else if(currentMode == watch_Type.STOPWATCH.ordinal()) {
     		return mode_stop.get_flag();

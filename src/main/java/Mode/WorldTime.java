@@ -13,7 +13,6 @@ import javax.swing.JButton;
 
 public class WorldTime extends Mode{
 
-	private int flag_set = 0;
 	private String country;
 	private String country_temp;
     private Map<String, String> countries;
@@ -75,25 +74,17 @@ public class WorldTime extends Mode{
     }
     
     public void changeCountry() {
-    	if(flag_set == 0) {
-    		flag_set = 1;
-    		cur_cursor = 2;
-    	}
+		cur_cursor = 2;
     }
 
     public void nextCountry(){
-    	if(flag_set == 1) {
-    		countriesQ.offer(country);
-        	country = countriesQ.poll();
-    	}
+		countriesQ.offer(country);
+    	country = countriesQ.poll();
     }
 
     public boolean confirmCountry(){
     	country_temp = country;
-    	if(flag_set == 1) {
-    		flag_set = 0;
-    		cur_cursor = -1;
-    	}
+		cur_cursor = -1;
         return false;
     }
     
@@ -107,10 +98,6 @@ public class WorldTime extends Mode{
     
     public String get_value() {
     	return countries.get(country);
-    }
-    
-    public int get_flag() {
-    	return flag_set;
     }
     
     public int getCursor() {

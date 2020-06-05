@@ -43,7 +43,7 @@ public class FunctionActivator extends Mode{
     public void work(JButton button) {
     	String text = button.getText();
     	if(text.equals("Button1")) {
-			setActivateFunction();
+			nextActivateFunction();
     	}
     	else if(text.equals("Button2")) {
     		onOffFunction();
@@ -69,7 +69,7 @@ public class FunctionActivator extends Mode{
     	}
     }
     
-    public void setActivateFunction(){
+    public void nextActivateFunction(){
     	position++;
 		if(position == 5)
 			position = 0;
@@ -88,6 +88,7 @@ public class FunctionActivator extends Mode{
     		cursorQ.offer(2);
     		cursorQ.offer(3);
     		cursorQ.offer(4);
+    		position = 0;
     	}
         return true;
     }
