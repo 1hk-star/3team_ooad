@@ -7,6 +7,7 @@ import java.util.Queue;
 import javax.swing.JButton;
 
 import Format.Format;
+import Type.dday_data;
 import UI.Button;
 
 public class Dday extends Mode{
@@ -17,52 +18,71 @@ public class Dday extends Mode{
 	String[] Dday_memo = new String[3];
 	int max_num = 3;
 	int dday_num = 0;
-	int current_page = 0;
+	dday_data current_page = null;
+	dday_data setting_page = null;
 	
-	Queue<Integer> cusorQ = new LinkedList<Integer>();
+	Queue<Integer> cursorQ = new LinkedList<Integer>();
 	private int cur_cursor = -1;
 	
-	Queue<Integer> ddayQ = new LinkedList<Integer>();
-	private int ddayQ_num = -1;
+	Queue<dday_data> ddayQ = new LinkedList<dday_data>();
+	private int ddayQ_num = 0;
+	
+	int string_cur = 0;
 	
 	public Dday() {
-		cusorQ.offer(0);
-		cusorQ.offer(1);
-		cusorQ.offer(2);
-		cusorQ.offer(7);
+		//cursor q
+		cursorQ.offer(0);
+		cursorQ.offer(1);
+		cursorQ.offer(2);
+		cursorQ.offer(7);
+		Calendar cal = Calendar.getInstance();
+		ddayQ.offer(new dday_data(cal,"no1"));
+		//ddayQ.offer(new dday_data(cal,"no2"));
+		//ddayQ.offer(new dday_data(cal,"no3"));
 	}
 	
     @Override
     public void work(JButton button) {
     	String text = button.getText();
     	if(text.equals("Button1")) {
-    	
+    		if(flag_set == 0)
+    			setDday();
+    		else 
+    			moveCursor_Dday();
     	}
     	else if(text.equals("Button2")) {
-    		if(flag_set == 0) { //no setting
-    			//move next dday
-    			current_page += 1;
-    			if(current_page == 3)
-    				current_page = 0;
-    		}
-    		else { //setting mode
-    			
-    		}
-  
+    		if(flag_set == 0)  //no setting
+    			showNextDday();
+    		else  //setting mode
+    			plusDay();
     	}
     	else if(text.equals("Button3")) {
+    		//change mode
+    		//System.out.println("current string : " + current_page.get_memo());
+			//System.out.println("next string : " + ddayQ.peek().get_memo());
+    		if(current_page != null) {
+    			ddayQ.offer(current_page);
+    			for(int i =0; i < ddayQ.size()-1 ; i ++) {
+    				dday_data tmp = ddayQ.poll();
+    				ddayQ.offer(tmp);
+    			}
+    		}
+    		cursorQ.clear();
+        	cursorQ.offer(0);
+    		cursorQ.offer(1);
+    		cursorQ.offer(2);
+    		cursorQ.offer(7);
+    		cur_cursor = -1;
+    		string_cur = 0;
+    		setting_page = null;
+    		flag_set = 0;
     		
     	}
     	else if(text.equals("Button4")) {
-    		if(flag_set == 0) { //no setting
-    			//move next dday
-    			current_page += 1;
-    			if(current_page == 3)
-    				current_page = 0;
-    		}
-    		else { //setting mode
-    			
-    		}
+    		if(flag_set == 0)  //no setting	
+    			deleteDday();
+    		else  //setting mode
+    			confirmDday();
     	}
     	else {
     		System.err.println("error button");
@@ -70,18 +90,27 @@ public class Dday extends Mode{
     }
 
     public void setDday(){
-
+    	flag_set = 1;
+    	cur_cursor = cursorQ.poll();
+    	if(setting_page == null) {
+    		setting_page = new dday_data(Calendar.getInstance(), "AAA");
+    	}
+    	
     }
-    public Calendar getDday() {
-    	return Dday_list[current_page];
-    }
-    public String getMemo() {
-    	return Dday_memo[current_page];
+    public dday_data getDday() {
+    	if(flag_set == 0)
+    		return current_page;
+    	else {
+    		return setting_page;
+    	}
     }
 
-    public Format showDday(){
-
-        return null;
+    public void showDday(){ // copy ddayq to ddayq_tmp
+    	if(!ddayQ.isEmpty())
+    		current_page = ddayQ.poll();
+    	else
+    		current_page = null;
+        return;
     }
     public int get_flag() {
     	return flag_set;
@@ -93,39 +122,173 @@ public class Dday extends Mode{
     public void setDdayName(){
 
     }
-    public void refreshDday(){
-
+    public int getCursor(){
+    	return cur_cursor;
     }
 
-    public boolean deleteDday(){
-
-        return false;
+    public void deleteDday(){
+    	if(current_page != null) {
+			if(!ddayQ.isEmpty())
+				current_page = ddayQ.poll();
+			else {
+				current_page = null;
+			}
+    	}
+        return ;
     }
-
+    public String cmpday(Calendar cal) {
+    	
+    	dday_data tmp ;
+    	synchronized (ddayQ) {
+    		if(ddayQ.isEmpty())
+    			return null;
+    		String str = null;
+    		for(int i =0; i < ddayQ.size(); i ++) {
+    			tmp = ddayQ.poll();
+    			long t1 = cal.getTimeInMillis() / (24*60*60*1000);
+        		long t2 = tmp.get_cal().getTimeInMillis() / (24*60*60*1000);
+        		long sub = t2 - t1;
+        		if(sub == 0) {
+        			str = tmp.get_memo();
+        		}
+        		ddayQ.offer(tmp);
+    		}
+    		return str;
+		}
+    	
+    }
     public boolean ddayHasCome(){
 
         return false;
     }
 
-    public boolean showNextDday(){
-
-        return false;
+    public void showNextDday(){
+    	//move next dday
+		if(current_page != null) {
+			ddayQ.offer(current_page);
+			current_page = ddayQ.poll();
+		}
     }
 
     public void moveCursor_Dday(){
-
+    	if(cur_cursor == 2) {
+    		if(string_cur == 2) {
+    			string_cur = 0;
+    			cursorQ.offer(cur_cursor);
+            	cur_cursor = cursorQ.poll();
+    		}else {
+    			string_cur +=1;
+    		}
+    	}else {
+    		cursorQ.offer(cur_cursor);
+        	cur_cursor = cursorQ.poll();
+    	}
+    	System.out.println("c : "+cur_cursor+", s : "+string_cur);
     }
 
-    public void plusDaynMonth(){
-
+    public void plusDay(){
+    	switch(cur_cursor) {
+    	case 0:
+    		//setting_time.add(Calendar.MONTH, 1);
+    		int month = setting_page.get_cal().get(Calendar.MONTH);
+    		setting_page.get_cal().set(Calendar.MONTH, (month+1)%12);
+    	break;
+    	case 1:
+    		int date = setting_page.get_cal().get(Calendar.DATE);
+    		int month2 = setting_page.get_cal().get(Calendar.MONTH) + 1;
+    		int year2 = setting_page.get_cal().get(Calendar.YEAR);
+    		if(month2 == 1 || month2 == 3 || month2 == 5 || month2 == 7 || month2 == 8 || month2 == 10 || month2 == 12) {
+    			
+    			date = (date % 31) + 1;
+    		} else if(month2 == 4 || month2 == 6 || month2 == 9 || month2 == 11) {
+    		
+    			date = (date % 30) + 1;
+    		} else if(month2 == 2) {
+    			if(year2 % 4 == 0 || (year2 % 4 == 0 && year2 % 100 == 0 && year2 % 400 == 0)) {
+    			
+    				date = (date % 29) + 1;
+    			}
+    			else if (year2 % 4 == 0 && year2 % 100 == 0) {
+    			
+    				date = (date % 28) +1;
+    			}
+    		}
+    		setting_page.get_cal().set(Calendar.DATE, date);
+    	break;
+    	case 2:
+    		String str = setting_page.get_memo();
+    		char[] tmp = str.toCharArray();
+    		tmp[string_cur] += 1;
+    		System.out.println(tmp[0]+" : "+(int)tmp[string_cur]);
+    		if (tmp[string_cur] == 91)
+    			tmp[string_cur] = 65;
+    		str = String.valueOf(tmp);
+    		setting_page.set_memo(str);
+    	break;
+    	case 7:
+    		//1980 ~ 2079
+    		int year = setting_page.get_cal().get(Calendar.YEAR);
+    		if((year+1) > 2079) {
+    			year = 1980;
+    			setting_page.get_cal().set(Calendar.YEAR, year);
+    		}
+    		else {
+    			setting_page.get_cal().set(Calendar.YEAR, year+1);
+    		}
+    		
+    	break;
+    	default:
+    	System.err.println("cursor add ���ъ��.");
+    	break;
+    	}
     }
 
-    public boolean confirmDday(){
-
-        return false;
+    public void confirmDday(){
+    	//가장 최근 설정한 것이 제일 큐 맨앞.
+    	if(current_page == null) {
+    		//setting data push
+    		current_page = new dday_data();
+    		current_page.set_cal(setting_page.get_cal());
+        	current_page.set_memo(setting_page.get_memo());
+        	ddayQ.offer(current_page);
+        	
+        	current_page = null;
+        	current_page = ddayQ.poll();
+    	}
+    	else if(ddayQ.size() == 2) {
+    		current_page.set_cal(setting_page.get_cal());
+        	current_page.set_memo(setting_page.get_memo());
+        	ddayQ.offer(current_page);
+        	
+        	current_page = null;
+        	current_page = ddayQ.poll();
+    	}
+    	else {
+    		//origin data push
+    		ddayQ.offer(current_page);
+    		current_page = new dday_data();
+    		//setting data push
+    		current_page.set_cal(setting_page.get_cal());
+        	current_page.set_memo(setting_page.get_memo());
+        	ddayQ.offer(current_page);
+        	
+        	current_page = null;
+        	current_page = ddayQ.poll();
+    	}
+    	cur_cursor = -1;
+    	string_cur = 0;
+    	flag_set = 0;
+    	
+    	cursorQ.clear();
+    	cursorQ.offer(0);
+		cursorQ.offer(1);
+		cursorQ.offer(2);
+		cursorQ.offer(7);
+		setting_page = null;
+        return;
     }
 
     public void plusName(){
-
+    	
     }
 }

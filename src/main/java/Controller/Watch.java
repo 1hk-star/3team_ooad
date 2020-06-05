@@ -26,6 +26,7 @@ import Mode.StopWatch;
 import Mode.TimeKeep;
 import Mode.mTimer;
 import Mode.WorldTime;
+import Type.dday_data;
 import Type.watch_Type;
 
 public class Watch extends JFrame implements Runnable{
@@ -54,7 +55,7 @@ public class Watch extends JFrame implements Runnable{
 	mTimer mode_timer;
 	FunctionActivator mode_fa;
 	Buzzer mode_bz;
-	
+	int dday_memo_flag = 0;
 	private Thread thread;
 	
     //public Type type;
@@ -191,9 +192,6 @@ public class Watch extends JFrame implements Runnable{
     public void pressButton(JButton button){
     	System.out.println(currentMode);
     	System.out.println(button.getText());
-    	if(button.getText().equals("Button3") && currentMode != watch_Type.FUNCTION.ordinal()) {
-    		changeMode();
-    	}
     	if(currentMode == watch_Type.TIMEKEEPING.ordinal()) {
     		mode_time.work(button);
     		if(mode_time.get_flag() == 1) {
@@ -243,6 +241,10 @@ public class Watch extends JFrame implements Runnable{
     	}
     	else {
     		System.err.println("oh what mode?");
+    	}
+    	
+    	if(button.getText().equals("Button3") && currentMode != watch_Type.FUNCTION.ordinal()) {
+    		changeMode();
     	}
     }
     
@@ -307,7 +309,12 @@ public class Watch extends JFrame implements Runnable{
     		Calendar cal = mode_time.gettime();
 			text[0].setText(Integer.toString(cal.get(Calendar.MONTH)+1));
 			text[1].setText(Integer.toString(cal.get(Calendar.DATE)));
-			text[2].setText(dow(cal.get(Calendar.DAY_OF_WEEK)));
+			if(mode_time.getdday() != null && dday_memo_flag == 0 && mode_time.get_flag() == 0) 
+				text[2].setText(mode_time.getdday());
+			else if(mode_time.getdday() != null && dday_memo_flag == 1 && mode_time.get_flag() == 0)
+				text[2].setText(dow(cal.get(Calendar.DAY_OF_WEEK)));
+			else
+				text[2].setText(dow(cal.get(Calendar.DAY_OF_WEEK)));
 			text[3].setText(Integer.toString(cal.get(Calendar.HOUR_OF_DAY)));
 			text[4].setText(Integer.toString(cal.get(Calendar.MINUTE)));
 			text[5].setText(Integer.toString(cal.get(Calendar.SECOND)));
@@ -315,6 +322,7 @@ public class Watch extends JFrame implements Runnable{
 			text[6].setText("");
 			text[8].setText("");
 			
+			dday_memo_flag = (dday_memo_flag + 1) % 2;
 			//System.out.println("getflag : "+mode_time.get_flag());
 			//System.out.println("seconds : "+ cal.get(Calendar.SECOND));
     	}
@@ -374,7 +382,7 @@ public class Watch extends JFrame implements Runnable{
     	}
     	else if(currentMode==watch_Type.DDAY.ordinal()) {
     		
-    		if(mode_dday.get_dday_num() == 0) { //no dday
+    		if(mode_dday.getDday() == null) { //no dday
     			text[0].setText("O");
         		text[1].setText("F");
         		text[2].setText("F");
@@ -387,17 +395,37 @@ public class Watch extends JFrame implements Runnable{
         		return;
     		}
     		//display dday left day
-    		Calendar cal=this.mode_dday.getDday();
-    		String tmp= mode_dday.getMemo();
-    		text[0].setText(Integer.toString(cal.get(Calendar.MONTH)));
-    		text[1].setText(Integer.toString(cal.get(Calendar.DATE)));
-    		text[2].setText(tmp);
-    		text[3].setText("");
-    		text[4].setText("");
-    		text[5].setText("");
-    		text[6].setText("");
-    		text[7].setText(Integer.toString(cal.get(Calendar.YEAR)));
-    		text[8].setText("");
+    		dday_data data =this.mode_dday.getDday();
+    		Calendar current_time = mode_time.getRealTime();
+    		Calendar dday_time = data.get_cal();
+    		long t1 = current_time.getTimeInMillis() / (24*60*60*1000);
+    		long t2 = dday_time.getTimeInMillis() / (24*60*60*1000);
+    		long sub = t2 - t1;
+    		if(mode_dday.get_flag() == 0) {
+    			if(sub > 0)
+        			text[0].setText("-");
+        		else 
+        			text[0].setText("+");
+        		text[1].setText(""+sub);
+        		text[2].setText(data.get_memo());
+        		text[3].setText("");
+        		text[4].setText("");
+        		text[5].setText("");
+        		text[6].setText("");
+        		text[7].setText("");
+        		text[8].setText("");
+    		}
+    		else {
+        		text[0].setText(Integer.toString(data.get_cal().get(Calendar.MONTH)+1));
+        		text[1].setText(Integer.toString(data.get_cal().get(Calendar.DATE)));
+        		text[2].setText(data.get_memo());
+        		text[3].setText("");
+        		text[4].setText("");
+        		text[5].setText("");
+        		text[6].setText("");
+        		text[7].setText(Integer.toString(data.get_cal().get(Calendar.YEAR)));
+        		text[8].setText("");
+    		}
 
     	}
     	else if(currentMode == watch_Type.TIMER.ordinal()) {
@@ -473,6 +501,10 @@ public class Watch extends JFrame implements Runnable{
     	}
     	else if(currentMode==watch_Type.TIMER.ordinal()) {
     		int cur=this.mode_timer.getCursor();
+    		blink_cursor(cur);
+    	}
+    	else if(currentMode==watch_Type.DDAY.ordinal()) {
+    		int cur=this.mode_dday.getCursor();
     		blink_cursor(cur);
     	}
    }
@@ -605,9 +637,22 @@ public class Watch extends JFrame implements Runnable{
         return false;
     }
 
-    private boolean checkDday(){
-    	
-        return false;
+    private void checkDday(){
+    	if(currentMode == watch_Type.TIMEKEEPING.ordinal()) {
+    		String rs = mode_dday.cmpday(mode_time.getRealTime());
+    		if(rs == null) {
+    			mode_time.setdday(null);
+    			System.out.println("null "+rs);
+    			return;
+    		}
+    		else {
+    			System.out.println("not null "+rs);
+    			mode_time.setdday(rs);
+    			return;
+    		}
+    	}
+    	else
+    		return;
     }
 
     private boolean addCurrentModeTime(){
@@ -627,6 +672,7 @@ public class Watch extends JFrame implements Runnable{
     		//占쎈쐻占쎈뼑占쎌뵛占쎌굲筌ｋ똾寃�, 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲.
     		checkAlarm();
     		checkTimer();
+    		checkDday();
     		
     		flag = get_currentMode_flag();
 

@@ -12,26 +12,26 @@ import Type.watch_Type;
 import UI.Button;
 
 public class TimeKeep extends Mode{
-	
-	int flag_set = 0; // 시간 설정 안했다.
+	String dday_flag;
+	int flag_set = 0; // ��媛� �ㅼ�� ������.
 	Calendar current_time;
 	Calendar setting_time;
 	Long diff = null;
 	int tmp_flag = 0; //
-	int tmp2_flag = 0; // 세팅을 이전에 한번했다 안했다.
+	int tmp2_flag = 0; // �명���� �댁���� ��踰����� ������.
 	private int cur_cursor = -1;
-	    // -1 커서 위치 없음.
-	    // 0 월
-	    // 1 일
-		// 2 요일
-	    // 3 시
-	    // 4 분
-	    // 5 초
-		// 6 시
-		// 7 분(연)
-	 	// 8 초
+	    // -1 而ㅼ�� ��移� ����.
+	    // 0 ��
+	    // 1 ��
+		// 2 ����
+	    // 3 ��
+	    // 4 遺�
+	    // 5 珥�
+		// 6 ��
+		// 7 遺�(��)
+	 	// 8 珥�
 	Queue<Integer> cusorQ = new LinkedList<Integer>();
-	FunctionActivator func; // FunctionActivator로 전환
+	FunctionActivator func; // FunctionActivator濡� ����
 	public TimeKeep() {
 		cusorQ.offer(0);
 		cusorQ.offer(1);
@@ -87,9 +87,9 @@ public class TimeKeep extends Mode{
 
     public void showTimeKeeping(){
     	
-    	//사용자가 시간 설정을 안했다.
+    	//�ъ�⑹��媛� ��媛� �ㅼ���� ������.
     	current_time = Calendar.getInstance();
-    	if(diff == null) { //내가 이전에 현재시간을 설정했다.
+    	if(diff == null) { //�닿� �댁���� ���ъ��媛��� �ㅼ������.
     		//current_time = Calendar.getInstance();
     		return;
     	}else {
@@ -97,12 +97,18 @@ public class TimeKeep extends Mode{
     	}
     	
     	
-    	//사용자가 시간 설정을 했었다.
-    	//(aaa = 현재 시간 - 사용자 설정 시간) 저장
-    	// 현재시간 - aaa format에 저장.
+    	//�ъ�⑹��媛� ��媛� �ㅼ���� ������.
+    	//(aaa = ���� ��媛� - �ъ�⑹�� �ㅼ�� ��媛�) ����
+    	// ���ъ��媛� - aaa format�� ����.
     	
     }
     
+    public String getdday() {
+    	return dday_flag;
+    }
+    public void setdday(String str) {
+    	dday_flag = str;
+    }
     public Calendar gettime() {
     	if(flag_set == 1)
     		return setting_time;
@@ -115,27 +121,27 @@ public class TimeKeep extends Mode{
 
    
     public void setCurrentTime(){
-    	if(flag_set == 0) { // 시간 설정 안했다.
+    	if(flag_set == 0) { // ��媛� �ㅼ�� ������.
     		flag_set = 1;
-    		cur_cursor = cusorQ.poll(); //월부터 설정하셈.
+    		cur_cursor = cusorQ.poll(); //��遺��� �ㅼ������.
     		if(tmp_flag == 0) {
     			setting_time = (Calendar) current_time.clone();
     			tmp_flag = 1;
     		}
     	}
-    	else { // 시간 설정 전에 했음.
+    	else { // ��媛� �ㅼ�� ���� ����.
     		
     	}
     }
     
     public void setActiveFunction() {
-    	if(flag_set == 0) { // 시간 설정 안했다.
+    	if(flag_set == 0) { // ��媛� �ㅼ�� ������.
     		flag_set = 2;
     	}
     }
     
     public int get_flag() {
-    	//내가 지금 무슨 모드인지.
+    	//�닿� 吏�湲� 臾댁�� 紐⑤���몄�.
     	return flag_set;
     }
     
@@ -168,18 +174,18 @@ public class TimeKeep extends Mode{
     		int month2 = setting_time.get(Calendar.MONTH) + 1;
     		int year2 = setting_time.get(Calendar.YEAR);
     		if(month2 == 1 || month2 == 3 || month2 == 5 || month2 == 7 || month2 == 8 || month2 == 10 || month2 == 12) {
-    			// 31일
+    			// 31��
     			date = (date % 31) + 1;
     		} else if(month2 == 4 || month2 == 6 || month2 == 9 || month2 == 11) {
-    			// 30일
+    			// 30��
     			date = (date % 30) + 1;
     		} else if(month2 == 2) {
     			if(year2 % 4 == 0 || (year2 % 4 == 0 && year2 % 100 == 0 && year2 % 400 == 0)) {
-    				// 윤년
+    				// �ㅻ��
     				date = (date % 29) + 1;
     			}
     			else if (year2 % 4 == 0 && year2 % 100 == 0) {
-    				// 평년 1 ~ 28
+    				// ���� 1 ~ 28
     				date = (date % 28) +1;
     			}
     		}
@@ -210,7 +216,7 @@ public class TimeKeep extends Mode{
     		
     	break;
     	default:
-    	System.err.println("cursor add 에러임.");
+    	System.err.println("cursor add ���ъ��.");
     	break;
     	}
     }
@@ -226,17 +232,17 @@ public class TimeKeep extends Mode{
 			cusorQ.offer(5);
 			cusorQ.offer(7);
 			cur_cursor= -1;
-			//내가 정한값은 current_time
+			//�닿� ����媛��� current_time
 			Calendar temp = null;
-			if(tmp_flag == 0) { // 처음 설정하는것
+			if(tmp_flag == 0) { // 泥��� �ㅼ������寃�
 				temp = Calendar.getInstance();
 				tmp_flag = 1;
 			}else {
 				temp = current_time;
 			}
 			
-			//temp : end 누른 시간, current_tiem : 설정 시간
-			//diff가 음수면 미래임, diff가 양수면 과거임.
+			//temp : end ��瑜� ��媛�, current_tiem : �ㅼ�� ��媛�
+			//diff媛� ����硫� 誘몃����, diff媛� ����硫� 怨쇨굅��.
 			tmp_flag = 0;
 			diff = setting_time.getTimeInMillis() - temp.getTimeInMillis();
 			current_time.add(Calendar.SECOND, Integer.parseInt(String.valueOf(Math.round(diff/1000))));
