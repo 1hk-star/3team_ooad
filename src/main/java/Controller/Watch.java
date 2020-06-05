@@ -190,8 +190,6 @@ public class Watch extends JFrame implements Runnable{
     }
 
     public void pressButton(JButton button){
-    	System.out.println(currentMode);
-    	System.out.println(button.getText());
     	if(currentMode == watch_Type.TIMEKEEPING.ordinal()) {
     		mode_time.work(button);
     		if(mode_time.get_flag() == 1) {
@@ -232,8 +230,6 @@ public class Watch extends JFrame implements Runnable{
 //    			}
     			
     			modeQ = mode_fa.get_modeQ();
-    			System.out.println(modeQ);
-    			System.out.println(mode_fa.get_modeQ());
     			currentMode = watch_Type.TIMEKEEPING.ordinal();
         	}
     		mode_fa.work(button);
@@ -292,7 +288,7 @@ public class Watch extends JFrame implements Runnable{
     		return this.mode_timer.get_flag();
     	}
     	else if(currentMode == watch_Type.FUNCTION.ordinal()) {
-    		return mode_fa.get_flag();
+    		return 0;
     	}
     	else {
     		System.err.println("oh what mode?");

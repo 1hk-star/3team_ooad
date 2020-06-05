@@ -43,12 +43,14 @@ public class TimeKeep extends Mode{
 	
     @Override
     public void work(JButton button) {
-    	
+    	if(flag_set == 2) {
+    		flag_set = 0;
+    	}
     	String text = button.getText();
     	if(text.equals("Button1")) {
     		if(flag_set == 0)
     			setCurrentTime();
-    		else {
+    		else if(flag_set == 1) {
     			moveCursor_time();
     		}
     	}
