@@ -123,5 +123,53 @@ class StopWatchTest {
 		assertEquals(0,st.getCalLap().get(Calendar.SECOND));
 
 	}
+	@Test
+	void getStopWatchTestInOFF(){
+
+		Watch watch=new Watch();
+		StopWatch st=new StopWatch();
+
+
+		st.setOn(false);
+
+
+		Calendar cal=st.getStopWatch();
+
+		assertEquals(0,cal.get(Calendar.HOUR));
+		assertEquals(0,cal.get(Calendar.MINUTE));
+		assertEquals(0,cal.get(Calendar.SECOND));
+
+
+	}
+
+	@Test
+	void getStopWatchTestInON(){
+
+		Watch watch=new Watch();
+		StopWatch st=new StopWatch();
+
+		JButton button=new JButton();
+		button.setText("Button4");
+		st.work(button);
+
+		st.setOn(true);
+
+		//		this.end=calculateTime(this.end,this.cal);
+		//			this.elapse=this.elapsePrevious+(this.end-this.start);
+		//			splitElapse(elapse,this.cal);
+
+		st.setElapsePrevious(1800);
+		st.setStart(0);
+		st.setEnd(1800);
+		st.calculateTime(st.getEnd(),st.getCal());
+		st.setElapse(st.getElapsePrevious()+(st.getEnd()-st.getStart()));
+		st.splitElapse(st.getElapse(),st.getCal());
+
+		assertEquals(1,st.getCal().get(Calendar.HOUR));
+		assertEquals(0,st.getCal().get(Calendar.MINUTE));
+		assertEquals(0,st.getCal().get(Calendar.SECOND));
+
+	}
+
 
 }
