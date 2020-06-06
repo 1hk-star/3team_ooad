@@ -126,5 +126,42 @@ class DdayTest {
 		assertEquals(11,d.getSetting_page().get_cal().get(Calendar.MONTH));
 	}
 
+	@Test
+	void deleteDdayTest(){
+
+		Watch watch=new Watch();
+		Dday d=new Dday();
+
+		d.setFlag_set(0);
+
+		dday_data current_page;
+
+		current_page = new dday_data();
+
+		current_page.set_memo("111");
+
+		d.setCurrent_page(current_page);
+		d.getDdayQ().clear();
+
+		JButton button=new JButton();
+		button.setText("Button4");
+		d.work(button);
+
+		assertEquals(null,d.getCurrent_page());
+	}
+
+	@Test
+	void confirmDdayTest(){
+
+		Watch watch=new Watch();
+		Dday d=new Dday();
+
+		d.setFlag_set(1);
+
+
+		JButton button=new JButton();
+		button.setText("Button4");
+		d.work(button);
+	}
 
 }
