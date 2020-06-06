@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="DdayTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-06-06T12:17:30" hostname="LAPTOP-NPPNG1NK" time="1.561">
+<testsuite name="DdayTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-06-06T12:30:19" hostname="LAPTOP-NPPNG1NK" time="0.914">
   <properties/>
-  <testcase name="setDdayTest()" classname="DdayTest" time="1.561"/>
-  <system-out><![CDATA[]]></system-out>
+  <testcase name="moveCursor_Dday_Test()" classname="DdayTest" time="0.914"/>
+  <system-out><![CDATA[c : 0, s : 0
+c : 2, s : 2
+c : 1, s : 0
+]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
