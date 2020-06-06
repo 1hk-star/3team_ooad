@@ -11,7 +11,6 @@ import UI.Button;
 
 public class FunctionActivator extends Mode{
 	
-	private int flag_set = 0;
 	private boolean[] active_function = new boolean[5];
 	private String[] active_function_name = new String[5];
 	private int active_count = 0;
@@ -80,16 +79,13 @@ public class FunctionActivator extends Mode{
     }
 
     public boolean confirmActive(){
-    	if (flag_set == 2) {
-    		flag_set = 0;
-    		cursorQ.clear();
-    		cursorQ.offer(0);
-    		cursorQ.offer(1);
-    		cursorQ.offer(2);
-    		cursorQ.offer(3);
-    		cursorQ.offer(4);
-    		position = 0;
-    	}
+		cursorQ.clear();
+		cursorQ.offer(0);
+		cursorQ.offer(1);
+		cursorQ.offer(2);
+		cursorQ.offer(3);
+		cursorQ.offer(4);
+		position = 0;
         return true;
     }
     
@@ -119,10 +115,6 @@ public class FunctionActivator extends Mode{
 			}
 		}
     	return modeQ;
-    }
-    
-    public int get_flag() {
-    	return flag_set;
     }
     
     public int get_position() {
