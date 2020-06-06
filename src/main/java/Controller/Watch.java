@@ -259,7 +259,7 @@ public class Watch extends JFrame implements Runnable{
     		mode_world.showWorldTime();
     	}
     	else if(currentMode == watch_Type.STOPWATCH.ordinal()) {
-    		mode_stop.showStopWatch();
+    		//don't use
     	}
     	else if(currentMode == watch_Type.DDAY.ordinal()) {
     		mode_dday.showDday();
@@ -283,10 +283,10 @@ public class Watch extends JFrame implements Runnable{
     		return 0;
     	}
     	else if(currentMode == watch_Type.STOPWATCH.ordinal()) {
-    		return mode_stop.get_flag();
+    		return 0;
     	}
     	else if(currentMode == watch_Type.DDAY.ordinal()) {
-    		return mode_stop.get_flag();
+    		return 0;
     	}
     	else if(currentMode == watch_Type.TIMER.ordinal()) {
     		return this.mode_timer.get_flag();
@@ -496,8 +496,7 @@ public class Watch extends JFrame implements Runnable{
 			blink_cursor(cur);
     	}
     	else if(currentMode==watch_Type.STOPWATCH.ordinal()) {
-    		int cur=this.mode_stop.getCursor();
-    		blink_cursor(cur);
+            //don't use
     	}
     	else if(currentMode==watch_Type.TIMER.ordinal()) {
     		int cur=this.mode_timer.getCursor();

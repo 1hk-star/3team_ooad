@@ -9,8 +9,6 @@ import javax.swing.JButton;
 public class StopWatch extends  Mode{
 
 	//private attributes 
-    private int cursor=-1;
-    private int flag=0;
     
     private long start=0L;
     private long end=0L;
@@ -176,21 +174,5 @@ public class StopWatch extends  Mode{
 	    }
 	    
 
-		//don't use
-		public int getCursor() {
-			// TODO Auto-generated method stub
-			return this.cursor;
-		}
-
-		//don't use
-		public int get_flag() {
-			// TODO Auto-generated method stub
-			return flag;
-		}	
-		//don't use
-		public void showStopWatch() {
-			// TODO Auto-generated method stub
-			
-		}
 
 }
