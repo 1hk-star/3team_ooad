@@ -286,4 +286,102 @@ public class Dday extends Mode{
         return;
     }
 
+	public int getFlag_set() {
+		return flag_set;
+	}
+
+	public void setFlag_set(int flag_set) {
+		this.flag_set = flag_set;
+	}
+
+	public Calendar[] getDday_list() {
+		return Dday_list;
+	}
+
+	public void setDday_list(Calendar[] dday_list) {
+		Dday_list = dday_list;
+	}
+
+	public String[] getDday_memo() {
+		return Dday_memo;
+	}
+
+	public void setDday_memo(String[] dday_memo) {
+		Dday_memo = dday_memo;
+	}
+
+	public int getMax_num() {
+		return max_num;
+	}
+
+	public void setMax_num(int max_num) {
+		this.max_num = max_num;
+	}
+
+	public int getDday_num() {
+		return dday_num;
+	}
+
+	public void setDday_num(int dday_num) {
+		this.dday_num = dday_num;
+	}
+
+	public dday_data getCurrent_page() {
+		return current_page;
+	}
+
+	public void setCurrent_page(dday_data current_page) {
+		this.current_page = current_page;
+	}
+
+	public dday_data getSetting_page() {
+		return setting_page;
+	}
+
+	public void setSetting_page(dday_data setting_page) {
+		this.setting_page = setting_page;
+	}
+
+	public Queue<Integer> getCursorQ() {
+		return cursorQ;
+	}
+
+	public void setCursorQ(Queue<Integer> cursorQ) {
+		this.cursorQ = cursorQ;
+	}
+
+	public int getCur_cursor() {
+		return cur_cursor;
+	}
+
+	public void setCur_cursor(int cur_cursor) {
+		this.cur_cursor = cur_cursor;
+	}
+
+	public Queue<dday_data> getDdayQ() {
+		return ddayQ;
+	}
+
+	public void setDdayQ(Queue<dday_data> ddayQ) {
+		this.ddayQ = ddayQ;
+	}
+
+	public int getDdayQ_num() {
+		return ddayQ_num;
+	}
+
+	public void setDdayQ_num(int ddayQ_num) {
+		this.ddayQ_num = ddayQ_num;
+	}
+
+	public int getString_cur() {
+		return string_cur;
+	}
+
+	public void setString_cur(int string_cur) {
+		this.string_cur = string_cur;
+	}
+    
+    
+
 }
