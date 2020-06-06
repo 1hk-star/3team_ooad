@@ -8,11 +8,11 @@ import javax.swing.JButton;
 
 public class Alarm extends  Mode {
 	
-	int flag_set = 0; //占쏙옙 占쏙옙占쏙옙甄占�, 占싣니댐옙.
-	Calendar alarm_time = null; //占싯띰옙 占쏙옙占쏙옙 占시곤옙.
-	Calendar pre_time = null; //占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙.
+	private int flag_set = 0; //세팅 모드인지 아닌지
+	private Calendar alarm_time = null; //현재 설정하고 있는 타임.
+	private Calendar pre_time = null; //이전에 설정 완료된 타임.
 	
-	Queue<Integer> cusorQ = new LinkedList<Integer>();
+	private Queue<Integer> cusorQ = new LinkedList<Integer>();
 	private int cur_cursor = -1;
 	
 	public Alarm() {
@@ -79,14 +79,13 @@ public class Alarm extends  Mode {
     }
     
     public int get_flag() {
-    	//占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占�.
     	return flag_set;
     }
 
-    public void setAlarm(){
-    	if(flag_set == 0) { // 占시곤옙 占쏙옙占쏙옙 占쏙옙占쌩댐옙.
+    private void setAlarm(){
+    	if(flag_set == 0) { 
     		flag_set = 1;
-    		cur_cursor = cusorQ.poll(); //占시븝옙占쏙옙 占쏙옙占쏙옙占싹쇽옙.
+    		cur_cursor = cusorQ.poll();
     		if(pre_time == null) {
     			alarm_time = Calendar.getInstance();
     			alarm_time.set(Calendar.HOUR_OF_DAY, 0);
@@ -97,12 +96,11 @@ public class Alarm extends  Mode {
     			alarm_time = (Calendar)pre_time.clone(); 
     		}
     	}
-    	else { // 占시곤옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙.
+    	else {
     	}
     }
 
-    public boolean confirmAlarm(){
-    	//占쏙옙占쏙옙 占싹뤄옙
+    private boolean confirmAlarm(){
     	cusorQ.clear();
 		cusorQ.offer(3);
 		cusorQ.offer(4);
@@ -113,7 +111,7 @@ public class Alarm extends  Mode {
         return true;
     }
 
-    public void plusTime_alarm(){
+    private void plusTime_alarm(){
 
     	switch(cur_cursor) {
     	case 3:
@@ -134,13 +132,13 @@ public class Alarm extends  Mode {
     	}
     }
 
-    public boolean resetAlarm(){
+    private boolean resetAlarm(){
     	alarm_time = null;
     	pre_time = null;
         return true;
     }
 
-    public void moveCursor_alarm(){
+    private void moveCursor_alarm(){
     	cusorQ.offer(cur_cursor);
     	cur_cursor = cusorQ.poll();
     }

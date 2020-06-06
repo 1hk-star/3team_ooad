@@ -14,14 +14,15 @@ public class FunctionActivator extends Mode{
 	private String[] active_function_name = new String[5];
 	private int active_count = 0;
 	private int position = 0;
-    // -1 Ä¿ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½.
+    // -1 Ä¿¼­ Ç¥½Ã X
     // 0 alarm
 	// 1 worldtime
     // 2 stopwatch
     // 3 dday
     // 4 timer
-	Queue<Integer> cursorQ = new LinkedList<Integer>();
-	Queue<Integer> modeQ = new LinkedList<Integer>();
+	private Queue<Integer> cursorQ = new LinkedList<Integer>();
+	private Queue<Integer> modeQ = new LinkedList<Integer>();
+	
 	public FunctionActivator(Queue<Integer> modeQ) {
 		active_function_name[0] = "arm";
 		active_function_name[1] = "wdt";
@@ -48,6 +49,7 @@ public class FunctionActivator extends Mode{
     	}
     	else if(text.equals("Button3")) {
     		// mode
+    		//Áö¿øÇÏÁö ¾Ê´Â ±â´É.
     	}
     	else if(text.equals("Button4")) {
     		// end
@@ -67,17 +69,17 @@ public class FunctionActivator extends Mode{
     	}
     }
     
-    public void nextActivateFunction(){
+    private void nextActivateFunction(){
     	position++;
 		if(position == 5)
 			position = 0;
     }
 
-    public void onOffFunction(){
+    private void onOffFunction(){
     	active_function[position] = active_function[position] ? false : true;
     }
 
-    public boolean confirmActive(){
+    private boolean confirmActive(){
 		cursorQ.clear();
 		cursorQ.offer(0);
 		cursorQ.offer(1);

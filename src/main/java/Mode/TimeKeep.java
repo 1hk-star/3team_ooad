@@ -180,12 +180,12 @@ public class TimeKeep extends Mode{
     	return cur_cursor;
     }
 
-    public void moveCursor_time(){
+    private void moveCursor_time(){
     	cusorQ.offer(cur_cursor);
     	cur_cursor = cusorQ.poll();
     }
 
-    public void plusTime_time(){
+    private void plusTime_time(){
     	//System.out.println("cur_cusor: "+cur_cursor);
     	switch(cur_cursor) {
     	case 0:
@@ -245,7 +245,7 @@ public class TimeKeep extends Mode{
     	}
     }
 
-    public boolean confirmTime(){
+    private boolean confirmTime(){
     	if(flag_set == 1) {
 			flag_set = 0;
 			cusorQ.clear();

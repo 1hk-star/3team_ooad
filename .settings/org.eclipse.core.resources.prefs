@@ -2,5 +2,6 @@ eclipse.preferences.version=1
 encoding//src/main/java/Controller/Watch.java=UTF-8
 encoding//src/main/java/Mode/Alarm.java=UTF-8
 encoding//src/main/java/Mode/Dday.java=UTF-8
+encoding//src/main/java/Mode/StopWatch.java=UTF-8
 encoding//src/main/java/Mode/TimeKeep.java=UTF-8
 encoding//src/main/java/Mode/mTimer.java=UTF-8

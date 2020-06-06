@@ -26,7 +26,7 @@ public class Dday extends Mode{
 	private Queue<dday_data> ddayQ = new LinkedList<dday_data>();
 	private int ddayQ_num = 0;
 	
-	int string_cur = 0;
+	private int string_cur = 0;
 	
 	public Dday() {
 		//cursor q

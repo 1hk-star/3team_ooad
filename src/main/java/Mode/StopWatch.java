@@ -6,7 +6,7 @@ import javax.swing.JButton;
 
 
 
-public class StopWatch extends  Mode{
+public class StopWatch extends Mode{
 
 	//private attributes 
     
@@ -58,24 +58,22 @@ public class StopWatch extends  Mode{
     }
 
     //start and stop
-    public void startStopWatch(){
+    private void startStopWatch(){
 
     	this.isOn=true;
     	
     	this.start=calculateTime(this.start,this.cal);
     }
 
-    public void stopStopWatch(){
+    private void stopStopWatch(){
     	this.isOn=false;
     	
     	this.elapsePrevious=this.elapse;
 
     }
     
- 
-
     //init or reset
-    public void resetStopWatch(){
+    private void resetStopWatch(){
 
     	this.start=0L;
     	this.end=0L;
@@ -96,7 +94,7 @@ public class StopWatch extends  Mode{
     }
 
     //store laptime
-    public void storeLapTime(){
+    private void storeLapTime(){
 
     	if(this.isOn==false){
     		return;
@@ -110,42 +108,25 @@ public class StopWatch extends  Mode{
     	calLap.set(Calendar.MINUTE, (int) min);
     	calLap.set(Calendar.SECOND, (int) sec);
     	
-    	System.out.println("laptime"+"시 :"+hour+"분: "+min+"초: "+sec);
     }
-
 
     //get attributes of stopwatch
 	public Calendar getStopWatch() {
 		// TODO Auto-generated method stub
 
-		
-		
-		
-		
 		if(this.isOn==true) {//return elapse
 			this.end=calculateTime(this.end,this.cal);
 			this.elapse=this.elapsePrevious+(this.end-this.start);
 			splitElapse(elapse,this.cal);
-			
-
-			
 		}
-
-		
-		
-		
-		
 		return cal;
 	}
-
 
 	public Calendar getLapTime() {
 		// TODO Auto-generated method stub
 		return this.calLap;
 	}
 
-
-	
 	//Calendar -> long
 	   private long calculateTime(long time,Calendar cal) {
 	    	cal=Calendar.getInstance();
@@ -167,12 +148,8 @@ public class StopWatch extends  Mode{
 	    	cal.set(Calendar.HOUR, (int) hour);
 	    	cal.set(Calendar.MINUTE, (int) min);
 	    	cal.set(Calendar.SECOND, (int) sec);
-	    	
-	    	
-	    	
-	    	System.out.println("시 :"+hour+"분: "+min+"초: "+sec);
+	    		
+	    	System.out.println("�� :"+hour+"遺�: "+min+"珥�: "+sec);
 	    }
 	    
-
-
 }

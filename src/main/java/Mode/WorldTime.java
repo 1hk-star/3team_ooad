@@ -13,8 +13,8 @@ public class WorldTime extends Mode{
 	private String country;
 	private String country_temp;
     private Map<String, String> countries;
-    int cur_cursor = -1;
-    Queue<String> countriesQ = new LinkedList<String>();
+    private int cur_cursor = -1;
+    private Queue<String> countriesQ = new LinkedList<String>();
     
     public WorldTime() {
 		countries = new HashMap<String, String>();
@@ -66,20 +66,16 @@ public class WorldTime extends Mode{
     	}
     }
 
-    public void showWorldTime(){
-    	
-    }
-    
-    public void changeCountry() {
+    private void changeCountry() {
 		cur_cursor = 2;
     }
 
-    public void nextCountry(){
+    private void nextCountry(){
 		countriesQ.offer(country);
     	country = countriesQ.poll();
     }
 
-    public boolean confirmCountry(){
+    private boolean confirmCountry(){
     	country_temp = country;
 		cur_cursor = -1;
         return false;
@@ -88,11 +84,7 @@ public class WorldTime extends Mode{
     public String get_key() {
     	return country;
     }
-    
-//    public String get_key_temp() {
-//    	return country_temp;
-//    }
-    
+
     public String get_value() {
     	return countries.get(country);
     }
