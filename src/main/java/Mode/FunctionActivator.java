@@ -96,7 +96,13 @@ public class FunctionActivator extends Mode{
     }
     
     public int get_active_count() {
-    	return active_count;
+		active_count = 0;
+		for (int i = 0; i < active_function.length; i++) {
+			if(active_function[i] == true) {
+				active_count++;
+			}
+		}
+		return active_count;
     }
     
     public Queue<Integer> get_modeQ() {

@@ -37,7 +37,6 @@ class FunctionActivatorTest {
 		functionActivator.work(jButton);
 		functionActivator.work(jButton);
 		functionActivator.work(jButton);
-		functionActivator.work(jButton);
 
 		position = 0;
 		assertEquals(position, functionActivator.get_position());
@@ -85,18 +84,11 @@ class FunctionActivatorTest {
 		assertEquals(active_count, functionActivator.get_active_count());
 
 		//confirmActive - not confirm
-		//position 1 -> 0
-		position = 0;
+		//position 1 -> 1
+		position = 1;
 		jButton.setText("Button4");
 		functionActivator.work(jButton);
 		assertEquals(active_count, functionActivator.get_active_count());
-		assertEquals(position, functionActivator.get_position());
-
-		//nextActivateFunction()
-		//position 0 -> 1
-		position = 1;
-		jButton.setText("Button1");
-		functionActivator.work(jButton);
 		assertEquals(position, functionActivator.get_position());
 
 		//onOffFunction()
@@ -108,6 +100,7 @@ class FunctionActivatorTest {
 
 		//confirmActive - confirm
 		//position 1 -> 0
+		position = 0;
 		jButton.setText("Button4");
 		functionActivator.work(jButton);
 		assertEquals(active_count, functionActivator.get_active_count());

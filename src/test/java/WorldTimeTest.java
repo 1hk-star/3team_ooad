@@ -37,7 +37,6 @@ class WorldTimeTest {
 		countriesQ.offer("LIS");
 		countriesQ.offer("LON");
 		countriesQ.offer("ROM");
-		countriesQ.offer("SEL");
 		countriesQ.offer("TYO");
 		countriesQ.offer("LAX");
 		countriesQ.offer("DEN");
@@ -46,12 +45,14 @@ class WorldTimeTest {
 		String country = "SEL";
 		assertEquals(country, worldTime.get_key());
 
-		// after nextCountry() Method
-		worldTime.work(jbutton);
+		//after nextCountry() Method
 		countriesQ.offer(country);
-		assertEquals(countriesQ, worldTime.get_countriesQ());
-
 		country = countriesQ.poll();
+		jbutton.setText("Button1");
+		worldTime.work(jbutton);
+		jbutton.setText("Button2");
+		worldTime.work(jbutton);
+		assertEquals(countriesQ, worldTime.get_countriesQ());
 		assertEquals(country, worldTime.get_key());
 	}
 	@Test
