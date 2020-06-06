@@ -14,7 +14,9 @@ public class WorldTime extends Mode{
 	private String country_temp;
     private Map<String, String> countries;
     private int cur_cursor = -1;
+    private int position = 0;
     private Queue<String> countriesQ = new LinkedList<String>();
+	private Queue<String> countriesQ_temp = new LinkedList<String>();
     
     public WorldTime() {
 		countries = new HashMap<String, String>();
@@ -26,12 +28,13 @@ public class WorldTime extends Mode{
 		countries.put("LAX", "America/Los_Angeles");
 		countries.put("DEN", "America/Denver");
 		country = country_temp = "SEL";
-		for(Map.Entry<String, String> elem : countries.entrySet()) {
-			if(elem.getKey().equals(country)) {
-				continue;
-			}
-			countriesQ.offer(elem.getKey());
-		}
+		countriesQ.offer("LIS");
+		countriesQ.offer("LON");
+		countriesQ.offer("ROM");
+		countriesQ.offer("TYO");
+		countriesQ.offer("LAX");
+		countriesQ.offer("DEN");
+		countriesQ_temp = countriesQ;
 	}
 
     @Override
@@ -43,18 +46,14 @@ public class WorldTime extends Mode{
     	}
     	else if(text.equals("Button2")) {
     		// next
-    		nextCountry();
+			if(cur_cursor == 2){
+				nextCountry();
+			}
     	}
     	else if(text.equals("Button3")) {
-    		countriesQ.clear();
     		country = country_temp;
-    		
-    		for(Map.Entry<String, String> elem : countries.entrySet()) {
-    			if(elem.getKey().equals(country)) {
-    				continue;
-    			}
-    			countriesQ.offer(elem.getKey());
-    		}
+    		countriesQ = countriesQ_temp;
+    		cur_cursor = -1;
     		// mode
     	}
     	else if(text.equals("Button4")) {
@@ -78,6 +77,7 @@ public class WorldTime extends Mode{
     private boolean confirmCountry(){
     	country_temp = country;
 		cur_cursor = -1;
+		countriesQ_temp = countriesQ;
         return false;
     }
     
@@ -88,8 +88,21 @@ public class WorldTime extends Mode{
     public String get_value() {
     	return countries.get(country);
     }
-    
+
     public int getCursor() {
     	return cur_cursor;
     }
+
+    // Test를 위해 추가한 함수
+	public Queue<String> get_countriesQ(){
+    	return countriesQ;
+	}
+
+	public Queue<String> get_countriesQ_temp(){
+		return countriesQ;
+	}
+
+	public String getCountry_temp(){
+		return country_temp;
+	}
 }

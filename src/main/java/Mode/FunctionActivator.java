@@ -14,7 +14,7 @@ public class FunctionActivator extends Mode{
 	private String[] active_function_name = new String[5];
 	private int active_count = 0;
 	private int position = 0;
-    // -1 Ä¿¼­ Ç¥½Ã X
+    // -1 Ä¿ï¿½ï¿½ Ç¥ï¿½ï¿½ X
     // 0 alarm
 	// 1 worldtime
     // 2 stopwatch
@@ -49,7 +49,7 @@ public class FunctionActivator extends Mode{
     	}
     	else if(text.equals("Button3")) {
     		// mode
-    		//Áö¿øÇÏÁö ¾Ê´Â ±â´É.
+    		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½.
     	}
     	else if(text.equals("Button4")) {
     		// end
