@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="StopWatchTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-06-06T12:02:55" hostname="LAPTOP-NPPNG1NK" time="1.211">
-  <properties/>
-  <testcase name="getStopWatchTestInON()" classname="StopWatchTest" time="1.211"/>
-  <system-out><![CDATA[占쏙옙 :1?겫占?: 0?룯占?: 0
-]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

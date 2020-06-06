@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="DdayTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-06-06T12:17:30" hostname="LAPTOP-NPPNG1NK" time="1.561">
+  <properties/>
+  <testcase name="setDdayTest()" classname="DdayTest" time="1.561"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
