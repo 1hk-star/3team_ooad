@@ -2,9 +2,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import Controller.Watch;
 import Mode.Dday;
+import Type.dday_data;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
+import java.util.Calendar;
 
 class DdayTest {
 
@@ -71,5 +73,58 @@ class DdayTest {
 		assertEquals(1,d.getCur_cursor());
 
 	}
+
+	@Test
+	void showNextDdayTest(){
+		Watch watch=new Watch();
+		Dday d=new Dday();
+
+		d.setFlag_set(0);
+		d.setSetting_page(null);
+
+		JButton button=new JButton();
+		button.setText("Button1");
+		d.work(button);
+
+		dday_data current_page;
+
+		current_page = new dday_data();
+
+		current_page.set_memo(d.getSetting_page().get_memo());
+
+		d.setCurrent_page(current_page);
+
+		 button=new JButton();
+		button.setText("Button2");
+		d.work(button);
+
+		assertEquals("AAA",d.getCurrent_page().get_memo());
+
+	}
+
+	@Test
+	void plusDayTest(){
+		Watch watch=new Watch();
+		Dday d=new Dday();
+
+		d.setFlag_set(1);
+
+		d.setCur_cursor(0);
+		dday_data setting_page=new dday_data();
+		Calendar cal= Calendar.getInstance();
+		cal.set(Calendar.MONTH,10);
+
+		setting_page.set_cal(cal);
+		setting_page.set_memo("aaa");
+
+		d.setSetting_page(setting_page);
+
+		JButton button=new JButton();
+		button.setText("Button2");
+		d.work(button);
+
+		assertEquals(11,d.getSetting_page().get_cal().get(Calendar.MONTH));
+	}
+
 
 }
