@@ -159,9 +159,20 @@ class DdayTest {
 		d.setFlag_set(1);
 
 
+		dday_data setting_page=new dday_data();
+		Calendar cal= Calendar.getInstance();
+		cal.set(Calendar.MONTH,10);
+
+		setting_page.set_cal(cal);
+		setting_page.set_memo("no1");
+		d.setSetting_page(setting_page);
+
+
 		JButton button=new JButton();
 		button.setText("Button4");
 		d.work(button);
+
+		assertEquals("no1",d.getCurrent_page().get_memo());
 	}
 
 }
