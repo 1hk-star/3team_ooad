@@ -6,14 +6,11 @@ import java.util.Queue;
 
 import javax.swing.JButton;
 
-import Format.Format;
-import UI.Button;
-
 public class Alarm extends  Mode {
 	
-	int flag_set = 0; //�� ����̴�, �ƴϴ�.
-	Calendar alarm_time = null; //�˶� ���� �ð�.
-	Calendar pre_time = null; //�������� ������ ����.
+	int flag_set = 0; //占쏙옙 占쏙옙占쏙옙甄占�, 占싣니댐옙.
+	Calendar alarm_time = null; //占싯띰옙 占쏙옙占쏙옙 占시곤옙.
+	Calendar pre_time = null; //占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙.
 	
 	Queue<Integer> cusorQ = new LinkedList<Integer>();
 	private int cur_cursor = -1;
@@ -82,14 +79,14 @@ public class Alarm extends  Mode {
     }
     
     public int get_flag() {
-    	//���� ���� ���� �������.
+    	//占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占�.
     	return flag_set;
     }
 
     public void setAlarm(){
-    	if(flag_set == 0) { // �ð� ���� ���ߴ�.
+    	if(flag_set == 0) { // 占시곤옙 占쏙옙占쏙옙 占쏙옙占쌩댐옙.
     		flag_set = 1;
-    		cur_cursor = cusorQ.poll(); //�ú��� �����ϼ�.
+    		cur_cursor = cusorQ.poll(); //占시븝옙占쏙옙 占쏙옙占쏙옙占싹쇽옙.
     		if(pre_time == null) {
     			alarm_time = Calendar.getInstance();
     			alarm_time.set(Calendar.HOUR_OF_DAY, 0);
@@ -100,12 +97,12 @@ public class Alarm extends  Mode {
     			alarm_time = (Calendar)pre_time.clone(); 
     		}
     	}
-    	else { // �ð� ���� ���� ����.
+    	else { // 占시곤옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙.
     	}
     }
 
     public boolean confirmAlarm(){
-    	//���� �Ϸ�
+    	//占쏙옙占쏙옙 占싹뤄옙
     	cusorQ.clear();
 		cusorQ.offer(3);
 		cusorQ.offer(4);

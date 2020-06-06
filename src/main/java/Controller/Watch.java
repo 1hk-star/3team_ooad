@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.TimeZone;
 
@@ -56,6 +57,7 @@ public class Watch extends JFrame implements Runnable{
 	FunctionActivator mode_fa;
 	Buzzer mode_bz;
 	int dday_memo_flag = 0;
+    String dday_memo;
 	private Thread thread;
 	
     //public Type type;
@@ -305,9 +307,9 @@ public class Watch extends JFrame implements Runnable{
     		Calendar cal = mode_time.gettime();
 			text[0].setText(Integer.toString(cal.get(Calendar.MONTH)+1));
 			text[1].setText(Integer.toString(cal.get(Calendar.DATE)));
-			if(mode_time.getdday() != null && dday_memo_flag == 0 && mode_time.get_flag() == 0) 
-				text[2].setText(mode_time.getdday());
-			else if(mode_time.getdday() != null && dday_memo_flag == 1 && mode_time.get_flag() == 0)
+			if(dday_memo != null && dday_memo_flag == 0 && mode_time.get_flag() == 0) 
+				text[2].setText(dday_memo);
+			else if(dday_memo != null && dday_memo_flag == 1 && mode_time.get_flag() == 0)
 				text[2].setText(dow(cal.get(Calendar.DAY_OF_WEEK)));
 			else
 				text[2].setText(dow(cal.get(Calendar.DAY_OF_WEEK)));
@@ -627,33 +629,30 @@ public class Watch extends JFrame implements Runnable{
     	return;
     }
     
-    private boolean changeMainEverySeconds(){
-
-        return false;
-    }
 
     private void checkDday(){
     	if(currentMode == watch_Type.TIMEKEEPING.ordinal()) {
-    		String rs = mode_dday.cmpday(mode_time.getRealTime());
-    		if(rs == null) {
-    			mode_time.setdday(null);
-    			System.out.println("null "+rs);
-    			return;
+    		if(dday_memo_flag == 1) {
+    			List<String> rs = mode_dday.cmpday(mode_time.getRealTime());
+        		if(rs == null) {
+        			mode_time.setdday(null);
+        			dday_memo = null;
+        			System.out.println("null "+rs);
+        			return;
+        		}
+        		else {
+        			//System.out.println("not null "+rs);
+        			mode_time.setdday(rs);
+        			dday_memo = mode_time.getdday();
+        			return;
+        		}
     		}
-    		else {
-    			System.out.println("not null "+rs);
-    			mode_time.setdday(rs);
-    			return;
-    		}
+    		
     	}
     	else
     		return;
     }
 
-    private boolean addCurrentModeTime(){
-
-        return false;
-    }
 
     public static void main(String[] args) {
         Watch app = new Watch();

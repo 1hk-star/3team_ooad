@@ -1,8 +1,5 @@
 package Mode;
 
-import Format.Format;
-import UI.Button;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;

@@ -1,37 +1,39 @@
 package Mode;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 import javax.swing.JButton;
 
 import Controller.Watch;
-import Format.Format;
 import Type.watch_Type;
-import UI.Button;
 
 public class TimeKeep extends Mode{
-	String dday_flag;
-	int flag_set = 0; // ��媛� �ㅼ�� ������.
-	Calendar current_time;
-	Calendar setting_time;
-	Long diff = null;
-	int tmp_flag = 0; //
-	int tmp2_flag = 0; // �명���� �댁���� ��踰����� ������.
+	private List<String> dday_memo;
+	private List<String> origin;
+	private int flag_set = 0; //세팅모드인지 아닌지 플래그.
+	private Calendar current_time;
+	private Calendar setting_time;
+	private Long diff = null;
+	private int tmp_flag = 0; 
+	private int tmp2_flag = 0; 
 	private int cur_cursor = -1;
-	    // -1 而ㅼ�� ��移� ����.
-	    // 0 ��
-	    // 1 ��
-		// 2 ����
-	    // 3 ��
-	    // 4 遺�
-	    // 5 珥�
-		// 6 ��
-		// 7 遺�(��)
-	 	// 8 珥�
+	    // -1 기본값
+	    // 0 월
+	    // 1 일
+		// 2 요일
+	    // 3 시
+	    // 4 분
+	    // 5 초
+		// 6 시
+		// 7 분(연도)
+	 	// 8 초
 	Queue<Integer> cusorQ = new LinkedList<Integer>();
-	FunctionActivator func; // FunctionActivator濡� ����
+	FunctionActivator func; 
 	public TimeKeep() {
 		cusorQ.offer(0);
 		cusorQ.offer(1);
@@ -89,27 +91,51 @@ public class TimeKeep extends Mode{
 
     public void showTimeKeeping(){
     	
-    	//�ъ�⑹��媛� ��媛� �ㅼ���� ������.
     	current_time = Calendar.getInstance();
-    	if(diff == null) { //�닿� �댁���� ���ъ��媛��� �ㅼ������.
+    	if(diff == null) { 
     		//current_time = Calendar.getInstance();
     		return;
     	}else {
     		current_time.add(Calendar.SECOND, Integer.parseInt(String.valueOf(Math.round(diff/1000))));
     	}
-    	
-    	
-    	//�ъ�⑹��媛� ��媛� �ㅼ���� ������.
-    	//(aaa = ���� ��媛� - �ъ�⑹�� �ㅼ�� ��媛�) ����
-    	// ���ъ��媛� - aaa format�� ����.
-    	
     }
     
     public String getdday() {
-    	return dday_flag;
+    	System.out.println("timekeep1 : "+dday_memo);
+    	if( dday_memo == null || dday_memo.isEmpty())
+    		return null;
+    	String tmp = dday_memo.get(0);
+    	dday_memo.remove(0);
+    	dday_memo.add(tmp);
+    	System.out.println("timekeep2 : "+dday_memo);
+    	System.out.println("timekeep3 : "+tmp);
+    	return tmp;
     }
-    public void setdday(String str) {
-    	dday_flag = str;
+    
+    public void setdday(List<String> str) {
+    	System.out.println("setdday str "+str);
+    	System.out.println("setdday memo"+origin);
+    	if(str == null) {
+    		origin = null;
+    		dday_memo = null;
+    		System.out.println("setdday "+1);
+    	}
+    	else if(origin == null || dday_memo == null) {
+    		origin = new ArrayList<String>(str);
+    		dday_memo = new ArrayList<String>(str);
+    		Collections.copy(origin, str);
+        	Collections.copy(dday_memo, str);
+        	System.out.println("setdday "+2);
+    	}
+    	else if(str.containsAll(origin)) { //내가 가지고 있는 정보가 같을때.
+    		System.out.println("setdday "+3);
+    		return;
+    	}else { //다를때
+    		System.out.println("setdday "+4);
+    		Collections.copy(origin, str);
+        	Collections.copy(dday_memo, str);
+    	}
+    	
     }
     public Calendar gettime() {
     	if(flag_set == 1)
@@ -123,27 +149,23 @@ public class TimeKeep extends Mode{
 
    
     public void setCurrentTime(){
-    	if(flag_set == 0) { // ��媛� �ㅼ�� ������.
+    	if(flag_set == 0) {
     		flag_set = 1;
-    		cur_cursor = cusorQ.poll(); //��遺��� �ㅼ������.
+    		cur_cursor = cusorQ.poll(); 
     		if(tmp_flag == 0) {
     			setting_time = (Calendar) current_time.clone();
     			tmp_flag = 1;
     		}
     	}
-    	else { // ��媛� �ㅼ�� ���� ����.
-    		
-    	}
     }
     
     public void setActiveFunction() {
-    	if(flag_set == 0) { // ��媛� �ㅼ�� ������.
+    	if(flag_set == 0) {
     		flag_set = 2;
     	}
     }
     
     public int get_flag() {
-    	//�닿� 吏�湲� 臾댁�� 紐⑤���몄�.
     	return flag_set;
     }
     
@@ -176,18 +198,18 @@ public class TimeKeep extends Mode{
     		int month2 = setting_time.get(Calendar.MONTH) + 1;
     		int year2 = setting_time.get(Calendar.YEAR);
     		if(month2 == 1 || month2 == 3 || month2 == 5 || month2 == 7 || month2 == 8 || month2 == 10 || month2 == 12) {
-    			// 31��
+    			// 31일
     			date = (date % 31) + 1;
     		} else if(month2 == 4 || month2 == 6 || month2 == 9 || month2 == 11) {
-    			// 30��
+    			// 30일
     			date = (date % 30) + 1;
     		} else if(month2 == 2) {
     			if(year2 % 4 == 0 || (year2 % 4 == 0 && year2 % 100 == 0 && year2 % 400 == 0)) {
-    				// �ㅻ��
+    				// 윤년
     				date = (date % 29) + 1;
     			}
     			else if (year2 % 4 == 0 && year2 % 100 == 0) {
-    				// ���� 1 ~ 28
+    				//  1 ~ 28
     				date = (date % 28) +1;
     			}
     		}
@@ -234,17 +256,15 @@ public class TimeKeep extends Mode{
 			cusorQ.offer(5);
 			cusorQ.offer(7);
 			cur_cursor= -1;
-			//�닿� ����媛��� current_time
+
 			Calendar temp = null;
-			if(tmp_flag == 0) { // 泥��� �ㅼ������寃�
+			if(tmp_flag == 0) { 
 				temp = Calendar.getInstance();
 				tmp_flag = 1;
 			}else {
 				temp = current_time;
 			}
 			
-			//temp : end ��瑜� ��媛�, current_tiem : �ㅼ�� ��媛�
-			//diff媛� ����硫� 誘몃����, diff媛� ����硫� 怨쇨굅��.
 			tmp_flag = 0;
 			diff = setting_time.getTimeInMillis() - temp.getTimeInMillis();
 			current_time.add(Calendar.SECOND, Integer.parseInt(String.valueOf(Math.round(diff/1000))));
@@ -252,11 +272,5 @@ public class TimeKeep extends Mode{
     	
         return  true;
     }
-
-    public String setDday(){
-
-        return "1";
-    }
-
 
 }
