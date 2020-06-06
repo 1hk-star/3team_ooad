@@ -128,7 +128,7 @@ public class StopWatch extends Mode{
 	}
 
 	//Calendar -> long
-	   private long calculateTime(long time,Calendar cal) {
+	   public long calculateTime(long time,Calendar cal) {
 	    	cal=Calendar.getInstance();
 	        int hour=cal.get(Calendar.HOUR);
 	        int min=cal.get(Calendar.MINUTE);
@@ -140,7 +140,7 @@ public class StopWatch extends Mode{
 	    }
 	    
 	   //long->Calendar
-	    private void splitElapse(long elapse,Calendar cal) {
+	    public void splitElapse(long elapse,Calendar cal) {
 	    	long hour=elapse/3600;
 	    	long min=(elapse%3600/60);
 	    	long sec=(elapse%3600)%60;

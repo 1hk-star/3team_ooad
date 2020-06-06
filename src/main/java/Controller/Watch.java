@@ -188,7 +188,7 @@ public class Watch extends JFrame implements Runnable{
         }
     }
 
-    private void pressButton(JButton button){
+    public void pressButton(JButton button){
     	if(currentMode == watch_Type.TIMEKEEPING.ordinal()) {
     		mode_time.work(button);
     		if(mode_time.get_flag() == 1) {
@@ -560,7 +560,7 @@ public class Watch extends JFrame implements Runnable{
     			return;
     		}
     		else {
-    			mode_bz.subTimeBuzer();
+    			mode_bz.subTimeBuzzer();
     			return;
     		}
     	}
@@ -592,7 +592,7 @@ public class Watch extends JFrame implements Runnable{
         			return;
         		}
         		else {
-        			mode_bz.subTimeBuzer();
+        			mode_bz.subTimeBuzzer();
         			return;
         		}
         	}
