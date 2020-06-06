@@ -20,7 +20,6 @@ public class FunctionActivator extends Mode{
     // 2 stopwatch
     // 3 dday
     // 4 timer
-	private Queue<Integer> cursorQ = new LinkedList<Integer>();
 	private Queue<Integer> modeQ = new LinkedList<Integer>();
 	
 	public FunctionActivator(Queue<Integer> modeQ) {
@@ -31,7 +30,6 @@ public class FunctionActivator extends Mode{
 		active_function_name[4] = "tmr";
 		this.modeQ = modeQ;
 		for(int i = 0; i < 5; i++) {
-			cursorQ.offer(i);
 			if(i < 3)
 				active_function[i] = true;
 			else
@@ -59,7 +57,6 @@ public class FunctionActivator extends Mode{
 					active_count++;
 				}
 			}
-    		System.out.println(active_count);
     		if(active_count == 3) {
         		confirmActive();
     		}
@@ -80,12 +77,6 @@ public class FunctionActivator extends Mode{
     }
 
     private boolean confirmActive(){
-		cursorQ.clear();
-		cursorQ.offer(0);
-		cursorQ.offer(1);
-		cursorQ.offer(2);
-		cursorQ.offer(3);
-		cursorQ.offer(4);
 		position = 0;
         return true;
     }
@@ -121,4 +112,9 @@ public class FunctionActivator extends Mode{
     public int get_position() {
     	return position;
     }
+
+    //Test를 위해 추가한 함수
+	public boolean get_active_function(int position){
+		return active_function[position];
+	}
 }
