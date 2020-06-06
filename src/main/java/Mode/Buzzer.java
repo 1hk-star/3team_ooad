@@ -9,17 +9,11 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
 import javax.swing.JButton;
 
-import UI.Button;
-
-public class Buzzer extends Mode{
+public class Buzzer{
 
     private int leftTime = 15;
     private int buzzer_flag = 0; //0 no buzzer, 1 alarm, 2 timer
-    Clip clip;
-    @Override
-    public void work(JButton button) {
-    	
-    }
+    private Clip clip;
 
     public int getLeftTime(){
 

@@ -8,15 +8,12 @@ import java.util.TimerTask;
 
 import javax.swing.JButton;
 
-import Format.Format;
-import UI.Button;
-
 public class mTimer extends Mode{
    
-   int flag_set = 0; //       ̴ ,  ƴϴ .
-   int flag_sp = 0; //start면 1 pause면 0
+   int flag_set = 0; //       甄 ,  틈求 .
+   int flag_sp = 0; //start硫� 1 pause硫� 0
    int flag_pause = 0;
-   Calendar timer_time = null; // ˶        ð .
+   Calendar timer_time = null; // 羌        챨 .
    Calendar pre_time = null; //                    .
 
    
@@ -152,9 +149,9 @@ public class mTimer extends Mode{
     }
 
     public void setTimer(){
-       if(flag_set == 0) { //  ð          ߴ .
+       if(flag_set == 0) { //  챨          杉 .
           flag_set = 1;
-          cur_cursor = cusorQ.poll(); // ú         ϼ .
+          cur_cursor = cusorQ.poll(); // 첬         究 .
           if(pre_time == null) {
              timer_time = Calendar.getInstance();
              timer_time.set(Calendar.HOUR_OF_DAY, 0);
@@ -165,7 +162,7 @@ public class mTimer extends Mode{
              timer_time = (Calendar)pre_time.clone(); 
           }
        }
-       else { //  ð                .
+       else { //  챨                .
        }
     }
 
@@ -195,7 +192,7 @@ public class mTimer extends Mode{
     }
 
     public boolean confirmTimer(){
-       //      Ϸ 
+       //      狗 
        flag_set = 0;
        cusorQ.clear();
       cusorQ.offer(3);
@@ -222,7 +219,7 @@ public class mTimer extends Mode{
           timer_time.set(Calendar.SECOND, (sec-1)%60);
        break;
        default:
-       System.err.println("cursor add 에러임.");
+       System.err.println("cursor add ���ъ��.");
        break;
        }
     }

@@ -7,7 +7,6 @@ import java.util.Queue;
 import javax.swing.JButton;
 
 import Type.watch_Type;
-import UI.Button;
 
 public class FunctionActivator extends Mode{
 	

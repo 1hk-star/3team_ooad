@@ -1,30 +1,29 @@
 package Mode;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 import javax.swing.JButton;
-
-import Format.Format;
 import Type.dday_data;
-import UI.Button;
 
 public class Dday extends Mode{
 
     //what is the type of next?
-	int flag_set=0;
-	Calendar[] Dday_list = new Calendar[3];
-	String[] Dday_memo = new String[3];
-	int max_num = 3;
-	int dday_num = 0;
-	dday_data current_page = null;
-	dday_data setting_page = null;
+	private int flag_set=0;
+	private Calendar[] Dday_list = new Calendar[3];
+	private String[] Dday_memo = new String[3];
+	private int max_num = 3;
+	private int dday_num = 0;
+	private dday_data current_page = null;
+	private dday_data setting_page = null;
 	
-	Queue<Integer> cursorQ = new LinkedList<Integer>();
+	private Queue<Integer> cursorQ = new LinkedList<Integer>();
 	private int cur_cursor = -1;
 	
-	Queue<dday_data> ddayQ = new LinkedList<dday_data>();
+	private Queue<dday_data> ddayQ = new LinkedList<dday_data>();
 	private int ddayQ_num = 0;
 	
 	int string_cur = 0;
@@ -37,8 +36,8 @@ public class Dday extends Mode{
 		cursorQ.offer(7);
 		Calendar cal = Calendar.getInstance();
 		ddayQ.offer(new dday_data(cal,"no1"));
-		//ddayQ.offer(new dday_data(cal,"no2"));
-		//ddayQ.offer(new dday_data(cal,"no3"));
+		ddayQ.offer(new dday_data(cal,"no2"));
+		ddayQ.offer(new dday_data(cal,"no3"));
 	}
 	
     @Override
@@ -89,7 +88,7 @@ public class Dday extends Mode{
     	}
     }
 
-    public void setDday(){
+    private void setDday(){
     	flag_set = 1;
     	cur_cursor = cursorQ.poll();
     	if(setting_page == null) {
@@ -119,14 +118,12 @@ public class Dday extends Mode{
     public int get_dday_num() {
     	return dday_num;
     }
-    public void setDdayName(){
-
-    }
+    
     public int getCursor(){
     	return cur_cursor;
     }
 
-    public void deleteDday(){
+    private void deleteDday(){
     	if(current_page != null) {
 			if(!ddayQ.isEmpty())
 				current_page = ddayQ.poll();
@@ -136,9 +133,10 @@ public class Dday extends Mode{
     	}
         return ;
     }
-    public String cmpday(Calendar cal) {
+    public List<String> cmpday(Calendar cal) {
     	
     	dday_data tmp ;
+    	List<String> list_memo = new ArrayList<String>();
     	synchronized (ddayQ) {
     		if(ddayQ.isEmpty())
     			return null;
@@ -150,19 +148,19 @@ public class Dday extends Mode{
         		long sub = t2 - t1;
         		if(sub == 0) {
         			str = tmp.get_memo();
+        			list_memo.add(str);
         		}
         		ddayQ.offer(tmp);
     		}
-    		return str;
+    		//System.out.println(list_memo);
+    		if(list_memo.isEmpty())
+    			return null;
+    		return list_memo;
 		}
     	
     }
-    public boolean ddayHasCome(){
 
-        return false;
-    }
-
-    public void showNextDday(){
+    private void showNextDday(){
     	//move next dday
 		if(current_page != null) {
 			ddayQ.offer(current_page);
@@ -170,7 +168,7 @@ public class Dday extends Mode{
 		}
     }
 
-    public void moveCursor_Dday(){
+    private void moveCursor_Dday(){
     	if(cur_cursor == 2) {
     		if(string_cur == 2) {
     			string_cur = 0;
@@ -186,7 +184,7 @@ public class Dday extends Mode{
     	System.out.println("c : "+cur_cursor+", s : "+string_cur);
     }
 
-    public void plusDay(){
+    private void plusDay(){
     	switch(cur_cursor) {
     	case 0:
     		//setting_time.add(Calendar.MONTH, 1);
@@ -243,7 +241,7 @@ public class Dday extends Mode{
     	}
     }
 
-    public void confirmDday(){
+    private void confirmDday(){
     	//가장 최근 설정한 것이 제일 큐 맨앞.
     	if(current_page == null) {
     		//setting data push
@@ -288,7 +286,4 @@ public class Dday extends Mode{
         return;
     }
 
-    public void plusName(){
-    	
-    }
 }
