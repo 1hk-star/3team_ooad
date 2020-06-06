@@ -151,5 +151,32 @@ public class StopWatch extends Mode{
 	    		
 	    	System.out.println("�� :"+hour+"遺�: "+min+"珥�: "+sec);
 	    }
-	    
+
+	public long getStart() {
+		return start;
+	}
+
+	public long getEnd() {
+		return end;
+	}
+
+	public long getElapse() {
+		return elapse;
+	}
+
+	public long getElapsePrevious() {
+		return elapsePrevious;
+	}
+
+	public Calendar getCal() {
+		return cal;
+	}
+
+	public Calendar getCalLap() {
+		return calLap;
+	}
+
+	public boolean isOn() {
+		return isOn;
+	}
 }
