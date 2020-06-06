@@ -104,4 +104,24 @@ class StopWatchTest {
 
 	}
 
+	@Test
+	void storeLapTimeTest(){
+		Watch watch=new Watch();
+		StopWatch st=new StopWatch();
+
+		st.setOn(true);
+
+		st.setElapse(36000);
+
+
+		JButton button=new JButton();
+		button.setText("Button1");
+		st.work(button);
+
+		assertEquals(10,st.getCalLap().get(Calendar.HOUR));
+		assertEquals(0,st.getCalLap().get(Calendar.MINUTE));
+		assertEquals(0,st.getCalLap().get(Calendar.SECOND));
+
+	}
+
 }
