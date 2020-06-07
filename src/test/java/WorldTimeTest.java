@@ -43,7 +43,7 @@ class WorldTimeTest {
 		assertEquals(countriesQ, worldTime.get_countriesQ());
 
 		String country = "SEL";
-		assertEquals(country, worldTime.get_key());
+		assertEquals(country, worldTime.getKey());
 
 		//after nextCountry() Method
 		countriesQ.offer(country);
@@ -53,7 +53,7 @@ class WorldTimeTest {
 		jbutton.setText("Button2");
 		worldTime.work(jbutton);
 		assertEquals(countriesQ, worldTime.get_countriesQ());
-		assertEquals(country, worldTime.get_key());
+		assertEquals(country, worldTime.getKey());
 	}
 	@Test
 	void changeModeTest(){
@@ -72,7 +72,7 @@ class WorldTimeTest {
 		assertEquals(countriesQ, worldTime.get_countriesQ());
 
 		String country = "SEL";
-		assertEquals(country, worldTime.get_key());
+		assertEquals(country, worldTime.getKey());
 
 		int cursor = -1;
 		assertEquals(cursor, worldTime.getCursor());
@@ -107,13 +107,13 @@ class WorldTimeTest {
 		assertEquals(countriesQ, worldTime.get_countriesQ_temp());
 
 		String country = "LIS";
-		assertEquals(country, worldTime.get_key());
+		assertEquals(country, worldTime.getKey());
 	}
 	@Test
 	void get_keyTest(){
 		WorldTime worldTime = new WorldTime();
 		String initCountry = "SEL";
-		assertEquals(initCountry, worldTime.get_key());
+		assertEquals(initCountry, worldTime.getKey());
 	}
 	@Test
 	void get_valueTest(){
@@ -122,7 +122,7 @@ class WorldTimeTest {
 		countries.put("SEL", "Asia/Seoul");
 		String value = countries.get("SEL");
 
-		assertEquals(value, worldTime.get_value());
+		assertEquals(value, worldTime.getValue());
 	}
 	@Test
 	void getCursorTest(){
