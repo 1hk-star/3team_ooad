@@ -49,7 +49,9 @@ class TimerTest {
 	@Test
 	void moveCursorTimertest(){
 		mTimer mtimer = new mTimer();
-		mtimer.moveCursor_timer();
+		JButton button = new JButton();
+		button.setText("Button1");//set모드
+		mtimer.work(button);
 		int cur_cursor = mtimer.getCursor();
 		assertEquals(3,cur_cursor);
 	}
