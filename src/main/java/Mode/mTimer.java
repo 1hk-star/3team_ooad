@@ -113,7 +113,6 @@ public class mTimer extends Mode{
     private void startTimer(){
        if(pre_time==null)
           return;
-       System.out.println("start");
        flag_sp = 1;
       m_timer.schedule(m_task,0,1000);
     }
@@ -124,7 +123,6 @@ public class mTimer extends Mode{
     }
 
     private void pauseTimer(){
-       System.out.println("pause");
        flag_sp = 0;
        m_task.cancel();
        m_timer = new Timer();

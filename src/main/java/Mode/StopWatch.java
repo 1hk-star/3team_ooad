@@ -150,8 +150,6 @@ public class StopWatch extends Mode{
 		cal.set(Calendar.HOUR, (int) hour);
 		cal.set(Calendar.MINUTE, (int) min);
 		cal.set(Calendar.SECOND, (int) sec);
-
-		System.out.println("�� :"+hour+"遺�: "+min+"珥�: "+sec);
 	}
 
 	public long getStart() {

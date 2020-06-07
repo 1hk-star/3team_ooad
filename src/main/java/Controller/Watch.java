@@ -167,8 +167,7 @@ public class Watch extends JFrame implements Runnable{
     	mode_stop = new StopWatch();
     	mode_dday = new Dday();
     	mode_timer = new mTimer();
-    	
-    	modeQ.offer(watch_Type.DDAY.ordinal());
+
     	modeQ.offer(watch_Type.ALARM.ordinal());
     	modeQ.offer(watch_Type.WORLDTIME.ordinal());
     	modeQ.offer(watch_Type.STOPWATCH.ordinal());
@@ -316,8 +315,6 @@ public class Watch extends JFrame implements Runnable{
 			text[8].setText("");
 			
 			dday_memo_flag = (dday_memo_flag + 1) % 2;
-			//System.out.println("getflag : "+mode_time.get_flag());
-			//System.out.println("seconds : "+ cal.get(Calendar.SECOND));
     	}
     	else if(currentMode == watch_Type.ALARM.ordinal()) {
 			Calendar cal = mode_alarm.getAlarm();
@@ -616,11 +613,9 @@ public class Watch extends JFrame implements Runnable{
         		if(rs == null) {
         			mode_time.setdday(null);
         			dday_memo = null;
-        			System.out.println("null "+rs);
         			return;
         		}
         		else {
-        			//System.out.println("not null "+rs);
         			mode_time.setdday(rs);
         			dday_memo = mode_time.getdday();
         			return;
