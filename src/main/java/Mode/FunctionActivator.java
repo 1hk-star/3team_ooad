@@ -76,9 +76,8 @@ public class FunctionActivator extends Mode{
     	active_function[position] = active_function[position] ? false : true;
     }
 
-    private boolean confirmActive(){
+    private void confirmActive(){
 		position = 0;
-        return true;
     }
     
     public boolean get_active(int num) {

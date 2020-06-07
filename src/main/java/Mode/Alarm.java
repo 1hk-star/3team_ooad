@@ -100,7 +100,7 @@ public class Alarm extends  Mode {
     	}
     }
 
-    private boolean confirmAlarm(){
+    private void confirmAlarm(){
     	cusorQ.clear();
 		cusorQ.offer(3);
 		cusorQ.offer(4);
@@ -108,7 +108,6 @@ public class Alarm extends  Mode {
     	flag_set = 0;
     	cur_cursor = -1;
     	pre_time = (Calendar) alarm_time.clone();
-        return true;
     }
 
     private void plusTime_alarm(){

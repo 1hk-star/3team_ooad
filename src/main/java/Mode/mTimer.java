@@ -188,15 +188,14 @@ public class mTimer extends Mode{
        }
     }
 
-    public boolean confirmTimer(){
+    private void confirmTimer(){
        flag_set = 0;
        cusorQ.clear();
-      cusorQ.offer(3);
-      cusorQ.offer(4);
-      cusorQ.offer(5);
+       cusorQ.offer(3);
+       cusorQ.offer(4);
+       cusorQ.offer(5);
        cur_cursor = -1;
        pre_time = (Calendar) timer_time.clone();
-        return true;
     }
 
 }

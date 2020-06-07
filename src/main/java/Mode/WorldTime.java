@@ -46,14 +46,10 @@ public class WorldTime extends Mode{
     	}
     	else if(text.equals("Button2")) {
     		// next
-			if(cur_cursor == 2){
-				nextCountry();
-			}
+			nextCountry();
     	}
     	else if(text.equals("Button3")) {
-    		country = country_temp;
-    		countriesQ = countriesQ_temp;
-    		cur_cursor = -1;
+    		changeMode();
     		// mode
     	}
     	else if(text.equals("Button4")) {
@@ -70,15 +66,22 @@ public class WorldTime extends Mode{
     }
 
     private void nextCountry(){
-		countriesQ.offer(country);
-    	country = countriesQ.poll();
+		if(cur_cursor == 2) {
+			countriesQ.offer(country);
+			country = countriesQ.poll();
+		}
     }
 
-    private boolean confirmCountry(){
+    private void changeMode(){
+		country = country_temp;
+		countriesQ = countriesQ_temp;
+		cur_cursor = -1;
+	}
+
+    private void confirmCountry(){
     	country_temp = country;
 		cur_cursor = -1;
 		countriesQ_temp = countriesQ;
-        return false;
     }
     
     public String get_key() {
