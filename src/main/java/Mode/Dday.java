@@ -35,9 +35,7 @@ public class Dday extends Mode{
 		cursorQ.offer(2);
 		cursorQ.offer(7);
 		Calendar cal = Calendar.getInstance();
-		ddayQ.offer(new dday_data(cal,"no1"));
-		ddayQ.offer(new dday_data(cal,"no2"));
-		ddayQ.offer(new dday_data(cal,"no3"));
+
 	}
 	
     @Override
