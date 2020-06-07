@@ -101,8 +101,4 @@ public class WorldTime extends Mode{
 	public Queue<String> get_countriesQ_temp(){
 		return countriesQ;
 	}
-
-	public String getCountry_temp(){
-		return country_temp;
-	}
 }
