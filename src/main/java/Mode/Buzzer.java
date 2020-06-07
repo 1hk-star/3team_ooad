@@ -16,7 +16,6 @@ public class Buzzer{
     private Clip clip;
 
     public int getLeftTime(){
-
         return leftTime;
     }
 

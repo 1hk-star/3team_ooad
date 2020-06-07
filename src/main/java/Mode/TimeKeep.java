@@ -245,7 +245,7 @@ public class TimeKeep extends Mode{
     	}
     }
 
-    private boolean confirmTime(){
+    private void confirmTime(){
     	if(flag_set == 1) {
 			flag_set = 0;
 			cusorQ.clear();
@@ -269,8 +269,5 @@ public class TimeKeep extends Mode{
 			diff = setting_time.getTimeInMillis() - temp.getTimeInMillis();
 			current_time.add(Calendar.SECOND, Integer.parseInt(String.valueOf(Math.round(diff/1000))));
 		}
-    	
-        return  true;
     }
-
 }
