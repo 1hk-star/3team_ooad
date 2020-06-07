@@ -111,7 +111,13 @@ public class TimeKeep extends Mode{
     	System.out.println("timekeep3 : "+tmp);
     	return tmp;
     }
-    
+
+	public List<String> getoriginTime() {
+		return origin;
+	}
+	public List<String> getddaymemoTime() {
+		return dday_memo;
+	}
     public void setdday(List<String> str) {
     	System.out.println("setdday str "+str);
     	System.out.println("setdday memo"+origin);
@@ -146,7 +152,9 @@ public class TimeKeep extends Mode{
     public Calendar getRealTime() {
     	return current_time;
     }
-
+	public Calendar getsettingTime() {
+		return setting_time;
+	}
    
     public void setCurrentTime(){
     	if(flag_set == 0) {
@@ -179,13 +187,13 @@ public class TimeKeep extends Mode{
     public int getCursor() {
     	return cur_cursor;
     }
-
-    private void moveCursor_time(){
+//private
+    public void moveCursor_time(){
     	cusorQ.offer(cur_cursor);
     	cur_cursor = cusorQ.poll();
     }
 
-    private void plusTime_time(){
+    public void plusTime_time(){
     	//System.out.println("cur_cusor: "+cur_cursor);
     	switch(cur_cursor) {
     	case 0:
