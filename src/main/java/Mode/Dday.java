@@ -57,8 +57,6 @@ public class Dday extends Mode{
     	}
     	else if(text.equals("Button3")) {
     		//change mode
-    		//System.out.println("current string : " + current_page.get_memo());
-			//System.out.println("next string : " + ddayQ.peek().get_memo());
     		if(current_page != null) {
     			ddayQ.offer(current_page);
     			for(int i =0; i < ddayQ.size()-1 ; i ++) {
@@ -138,17 +136,16 @@ public class Dday extends Mode{
     			return null;
     		String str = null;
     		for(int i =0; i < ddayQ.size(); i ++) {
-    			tmp = ddayQ.poll();
-    			long t1 = cal.getTimeInMillis() / (24*60*60*1000);
-        		long t2 = tmp.get_cal().getTimeInMillis() / (24*60*60*1000);
-        		long sub = t2 - t1;
-        		if(sub == 0) {
-        			str = tmp.get_memo();
-        			list_memo.add(str);
-        		}
-        		ddayQ.offer(tmp);
-    		}
-    		//System.out.println(list_memo);
+				tmp = ddayQ.poll();
+				long t1 = cal.getTimeInMillis() / (24 * 60 * 60 * 1000);
+				long t2 = tmp.get_cal().getTimeInMillis() / (24 * 60 * 60 * 1000);
+				long sub = t2 - t1;
+				if (sub == 0) {
+					str = tmp.get_memo();
+					list_memo.add(str);
+				}
+				ddayQ.offer(tmp);
+			}
     		if(list_memo.isEmpty())
     			return null;
     		return list_memo;
@@ -177,7 +174,6 @@ public class Dday extends Mode{
     		cursorQ.offer(cur_cursor);
         	cur_cursor = cursorQ.poll();
     	}
-    	System.out.println("c : "+cur_cursor+", s : "+string_cur);
     }
 
     private void plusDay(){
@@ -213,7 +209,6 @@ public class Dday extends Mode{
     		String str = setting_page.get_memo();
     		char[] tmp = str.toCharArray();
     		tmp[string_cur] += 1;
-    		System.out.println(tmp[0]+" : "+(int)tmp[string_cur]);
     		if (tmp[string_cur] == 91)
     			tmp[string_cur] = 65;
     		str = String.valueOf(tmp);
@@ -282,6 +277,7 @@ public class Dday extends Mode{
         return;
     }
 
+    //Test
 	public int getFlag_set() {
 		return flag_set;
 	}

@@ -14,7 +14,6 @@ public class WorldTime extends Mode{
 	private String country_temp;
     private Map<String, String> countries;
     private int cur_cursor = -1;
-    private int position = 0;
     private Queue<String> countriesQ = new LinkedList<String>();
 	private Queue<String> countriesQ_temp = new LinkedList<String>();
     
@@ -34,7 +33,7 @@ public class WorldTime extends Mode{
 		countriesQ.offer("TYO");
 		countriesQ.offer("LAX");
 		countriesQ.offer("DEN");
-		countriesQ_temp = countriesQ;
+		countriesQ_temp.addAll(countriesQ);
 	}
 
     @Override
@@ -74,14 +73,18 @@ public class WorldTime extends Mode{
 
     private void changeMode(){
 		country = country_temp;
-		countriesQ = countriesQ_temp;
+		countriesQ.clear();
+		countriesQ.addAll(countriesQ_temp);
 		cur_cursor = -1;
 	}
 
     private void confirmCountry(){
-    	country_temp = country;
-		cur_cursor = -1;
-		countriesQ_temp = countriesQ;
+		if(cur_cursor == 2) {
+			country_temp = country;
+			cur_cursor = -1;
+			countriesQ_temp.clear();
+			countriesQ_temp.addAll(countriesQ);
+		}
     }
     
     public String getKey() {

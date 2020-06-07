@@ -19,8 +19,7 @@ public class TimeKeep extends Mode{
 	private Calendar current_time;
 	private Calendar setting_time;
 	private Long diff = null;
-	private int tmp_flag = 0; 
-	private int tmp2_flag = 0; 
+	private int tmp_flag = 0;
 	private int cur_cursor = -1;
 	    // -1 기본값
 	    // 0 월
@@ -33,7 +32,6 @@ public class TimeKeep extends Mode{
 		// 7 분(연도)
 	 	// 8 초
 	Queue<Integer> cusorQ = new LinkedList<Integer>();
-	FunctionActivator func; 
 	public TimeKeep() {
 		cusorQ.offer(0);
 		cusorQ.offer(1);
@@ -101,14 +99,11 @@ public class TimeKeep extends Mode{
     }
     
     public String getdday() {
-    	System.out.println("timekeep1 : "+dday_memo);
     	if( dday_memo == null || dday_memo.isEmpty())
     		return null;
     	String tmp = dday_memo.get(0);
     	dday_memo.remove(0);
     	dday_memo.add(tmp);
-    	System.out.println("timekeep2 : "+dday_memo);
-    	System.out.println("timekeep3 : "+tmp);
     	return tmp;
     }
 
@@ -119,25 +114,19 @@ public class TimeKeep extends Mode{
 		return dday_memo;
 	}
     public void setdday(List<String> str) {
-    	System.out.println("setdday str "+str);
-    	System.out.println("setdday memo"+origin);
     	if(str == null) {
     		origin = null;
     		dday_memo = null;
-    		System.out.println("setdday "+1);
     	}
     	else if(origin == null || dday_memo == null) {
     		origin = new ArrayList<String>(str);
     		dday_memo = new ArrayList<String>(str);
     		Collections.copy(origin, str);
         	Collections.copy(dday_memo, str);
-        	System.out.println("setdday "+2);
     	}
     	else if(str.containsAll(origin)) { //내가 가지고 있는 정보가 같을때.
-    		System.out.println("setdday "+3);
     		return;
     	}else { //다를때
-    		System.out.println("setdday "+4);
     		Collections.copy(origin, str);
         	Collections.copy(dday_memo, str);
     	}
@@ -176,9 +165,6 @@ public class TimeKeep extends Mode{
     
     public void addseconds(){
     	current_time.add(Calendar.SECOND, 1);
-    		//System.out.println("set : " + setting_time);
-    	
-    	//System.out.println("cur : " + current_time);
     }
     
     public int getCursor() {
@@ -191,7 +177,6 @@ public class TimeKeep extends Mode{
     }
 
     public void plusTime_time(){
-    	//System.out.println("cur_cusor: "+cur_cursor);
     	switch(cur_cursor) {
     	case 0:
     		//setting_time.add(Calendar.MONTH, 1);
