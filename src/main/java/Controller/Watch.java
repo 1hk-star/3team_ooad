@@ -560,7 +560,7 @@ public class Watch extends JFrame implements Runnable{
     			return;
     		}
     		else {
-    			mode_bz.subTimeBuzer();
+    			mode_bz.subTimeBuzzer();
     			return;
     		}
     	}
@@ -592,7 +592,7 @@ public class Watch extends JFrame implements Runnable{
         			return;
         		}
         		else {
-        			mode_bz.subTimeBuzer();
+        			mode_bz.subTimeBuzzer();
         			return;
         		}
         	}

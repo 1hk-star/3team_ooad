@@ -114,11 +114,7 @@ public class Dday extends Mode{
     public int get_flag() {
     	return flag_set;
     }
-    
-    public int get_dday_num() {
-    	return dday_num;
-    }
-    
+
     public int getCursor(){
     	return cur_cursor;
     }
