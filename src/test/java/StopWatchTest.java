@@ -50,7 +50,9 @@ class StopWatchTest {
 
 		JButton button=new JButton();
 		button.setText("Button4");
+
         st.work(button);
+		st.work(button);
 
 		assertEquals(0,st.getStart());
 		assertEquals(0,st.getEnd());
@@ -70,9 +72,9 @@ class StopWatchTest {
 
 	@Test
 	void startStopWatchTest(){
-		/*
-		long 형 start와 Calendar.get(Calendar.xxx)와 정확한 비교가 안됨.
-		 */
+      /*
+      long 형 start와 Calendar.get(Calendar.xxx)와 정확한 비교가 안됨.
+       */
 		Watch watch=new Watch();
 		StopWatch st=new StopWatch();
 
@@ -82,9 +84,7 @@ class StopWatchTest {
 		button.setText("Button2");
 		st.work(button);
 
-
 		assertEquals(true,st.isOn());
-
 
 	}
 
@@ -171,5 +171,4 @@ class StopWatchTest {
 
 	}
 
-
-}
+ }

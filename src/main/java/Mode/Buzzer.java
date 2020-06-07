@@ -16,11 +16,10 @@ public class Buzzer{
     private Clip clip;
 
     public int getLeftTime(){
-
         return leftTime;
     }
 
-    public void soundBuzzer(){
+    private void soundBuzzer(){
     	File bgm;
         AudioInputStream stream;
         AudioFormat format;
@@ -56,7 +55,7 @@ public class Buzzer{
     	
     }
     
-    public void subTimeBuzer() {
+    public void subTimeBuzzer() {
     	if(leftTime != 0)
     		leftTime -=1;
     	else

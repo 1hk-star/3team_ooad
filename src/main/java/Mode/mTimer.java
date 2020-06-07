@@ -99,15 +99,13 @@ public class mTimer extends Mode{
     public int get_flag() {
        return flag_set;
     }
+
     public int get_flag_sp() {
         return flag_sp;
     }
     
     public Calendar getTimerTime() {
        return pre_time;
-    }
-    public int getPauseFlag() {
-       return flag_pause;
     }
 
 
@@ -188,15 +186,17 @@ public class mTimer extends Mode{
        }
     }
 
-    public boolean confirmTimer(){
+    private void confirmTimer(){
        flag_set = 0;
        cusorQ.clear();
-      cusorQ.offer(3);
-      cusorQ.offer(4);
-      cusorQ.offer(5);
+       cusorQ.offer(3);
+       cusorQ.offer(4);
+       cusorQ.offer(5);
        cur_cursor = -1;
        pre_time = (Calendar) timer_time.clone();
-        return true;
     }
-
+    // Test용 추가 함수
+    public int getPauseFlag() {
+        return flag_pause;
+    }
 }

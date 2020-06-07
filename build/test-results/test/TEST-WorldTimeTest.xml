@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="WorldTimeTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2020-06-07T03:07:22" hostname="DESKTOP-55MJ332" time="0.414">
+  <properties/>
+  <testcase name="changeModeTest()" classname="WorldTimeTest" time="0.381"/>
+  <testcase name="get_keyTest()" classname="WorldTimeTest" time="0.005"/>
+  <testcase name="confirmCountryTest()" classname="WorldTimeTest" time="0.002"/>
+  <testcase name="get_valueTest()" classname="WorldTimeTest" time="0.002"/>
+  <testcase name="getCursorTest()" classname="WorldTimeTest" time="0.004"/>
+  <testcase name="changeCountryTest()" classname="WorldTimeTest" time="0.002"/>
+  <testcase name="nextCountryTest()" classname="WorldTimeTest" time="0.009"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

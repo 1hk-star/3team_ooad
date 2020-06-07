@@ -345,10 +345,10 @@ public class Watch extends JFrame implements Runnable{
 			}
     	}
     	else if (currentMode==watch_Type.WORLDTIME.ordinal()) {
-    		GregorianCalendar cal = new GregorianCalendar(TimeZone.getTimeZone(mode_world.get_value()));
+    		GregorianCalendar cal = new GregorianCalendar(TimeZone.getTimeZone(mode_world.getValue()));
     		text[0].setText(Integer.toString(cal.get(Calendar.MONTH)+1));
 			text[1].setText(Integer.toString(cal.get(Calendar.DATE)));
-			text[2].setText(mode_world.get_key());
+			text[2].setText(mode_world.getKey());
 			text[3].setText(Integer.toString(cal.get(Calendar.HOUR_OF_DAY)));
 			text[4].setText(Integer.toString(cal.get(Calendar.MINUTE)));
 			text[5].setText(Integer.toString(cal.get(Calendar.SECOND)));
@@ -560,7 +560,7 @@ public class Watch extends JFrame implements Runnable{
     			return;
     		}
     		else {
-    			mode_bz.subTimeBuzer();
+    			mode_bz.subTimeBuzzer();
     			return;
     		}
     	}
@@ -592,7 +592,7 @@ public class Watch extends JFrame implements Runnable{
         			return;
         		}
         		else {
-        			mode_bz.subTimeBuzer();
+        			mode_bz.subTimeBuzzer();
         			return;
         		}
         	}
