@@ -118,6 +118,7 @@ public class StopWatch extends Mode{
 			this.end=calculateTime(this.end,this.cal);
 			this.elapse=this.elapsePrevious+(this.end-this.start);
 			splitElapse(elapse,this.cal);
+
 		}
 		return cal;
 	}
@@ -128,7 +129,7 @@ public class StopWatch extends Mode{
 	}
 
 	//Calendar -> long
-	   private long calculateTime(long time,Calendar cal) {
+	public long calculateTime(long time,Calendar cal) {
 	    	cal=Calendar.getInstance();
 	        int hour=cal.get(Calendar.HOUR);
 	        int min=cal.get(Calendar.MINUTE);
@@ -140,7 +141,7 @@ public class StopWatch extends Mode{
 	    }
 	    
 	   //long->Calendar
-	    private void splitElapse(long elapse,Calendar cal) {
+	   public void splitElapse(long elapse,Calendar cal) {
 	    	long hour=elapse/3600;
 	    	long min=(elapse%3600/60);
 	    	long sec=(elapse%3600)%60;
@@ -151,5 +152,63 @@ public class StopWatch extends Mode{
 	    		
 	    	System.out.println("�� :"+hour+"遺�: "+min+"珥�: "+sec);
 	    }
+
+		public long getStart() {
+			return start;
+		}
+
+		public void setStart(long start) {
+			this.start = start;
+		}
+
+		public long getEnd() {
+			return end;
+		}
+
+		public void setEnd(long end) {
+			this.end = end;
+		}
+
+		public long getElapse() {
+			return elapse;
+		}
+
+		public void setElapse(long elapse) {
+			this.elapse = elapse;
+		}
+
+		public long getElapsePrevious() {
+			return elapsePrevious;
+		}
+
+		public void setElapsePrevious(long elapsePrevious) {
+			this.elapsePrevious = elapsePrevious;
+		}
+
+		public Calendar getCal() {
+			return cal;
+		}
+
+		public void setCal(Calendar cal) {
+			this.cal = cal;
+		}
+
+		public Calendar getCalLap() {
+			return calLap;
+		}
+
+		public void setCalLap(Calendar calLap) {
+			this.calLap = calLap;
+		}
+
+		public boolean isOn() {
+			return isOn;
+		}
+
+		public void setOn(boolean isOn) {
+			this.isOn = isOn;
+		}
+	    
+	    
 	    
 }
