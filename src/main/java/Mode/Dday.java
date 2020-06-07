@@ -88,7 +88,7 @@ public class Dday extends Mode{
     	}
     }
 
-    private void setDday(){
+    public void setDday(){
     	flag_set = 1;
     	cur_cursor = cursorQ.poll();
     	if(setting_page == null) {

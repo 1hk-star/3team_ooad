@@ -84,11 +84,11 @@ public class WorldTime extends Mode{
 		countriesQ_temp = countriesQ;
     }
     
-    public String get_key() {
+    public String getKey() {
     	return country;
     }
 
-    public String get_value() {
+    public String getValue() {
     	return countries.get(country);
     }
 

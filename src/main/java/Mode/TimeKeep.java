@@ -152,9 +152,6 @@ public class TimeKeep extends Mode{
     public Calendar getRealTime() {
     	return current_time;
     }
-	public Calendar getsettingTime() {
-		return setting_time;
-	}
    
     public void setCurrentTime(){
     	if(flag_set == 0) {
