@@ -83,7 +83,7 @@ class TimeKeepingTest {
 	}
 
 	@Test
-	void moveCursorTimertest(){
+	void moveCursorTimetest(){
 		TimeKeep tk = new TimeKeep();
 		tk.moveCursor_time();
 		int cur_cursor = tk.getCursor();

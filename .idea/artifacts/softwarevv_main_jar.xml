@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="softwarevv.main:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/softwarevv_main_jar</output-path>
+    <root id="archive" name="softwarevv.main.jar">
+      <element id="module-output" name="softwarevv.main" />
+    </root>
+  </artifact>
+</component>

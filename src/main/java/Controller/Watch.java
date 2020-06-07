@@ -107,7 +107,7 @@ public class Watch extends JFrame implements Runnable{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				if(mode_bz.getbuzzer() == 1) {
+				if(mode_bz.getbuzzer() > 0) {
 					mode_bz.turnOffBuzzer();
 				}else {
 					pressButton(button1);	
@@ -120,7 +120,7 @@ public class Watch extends JFrame implements Runnable{
  			@Override
  			public void actionPerformed(ActionEvent arg0) {
  				// TODO Auto-generated method stub
- 				if(mode_bz.getbuzzer() == 1) {
+ 				if(mode_bz.getbuzzer() > 0) {
 					mode_bz.turnOffBuzzer();
 				}else {
 					pressButton(button2);	
@@ -133,7 +133,7 @@ public class Watch extends JFrame implements Runnable{
   			@Override
   			public void actionPerformed(ActionEvent arg0) {
   				// TODO Auto-generated method stub
-  				if(mode_bz.getbuzzer() == 1) {
+  				if(mode_bz.getbuzzer() > 0) {
 					mode_bz.turnOffBuzzer();
 				}else {
 					pressButton(button3);	
@@ -146,7 +146,7 @@ public class Watch extends JFrame implements Runnable{
   			@Override
   			public void actionPerformed(ActionEvent arg0) {
   				// TODO Auto-generated method stub
-  				if(mode_bz.getbuzzer() == 1) {
+  				if(mode_bz.getbuzzer() > 0) {
 					mode_bz.turnOffBuzzer();
 				}else {
 					pressButton(button4);	
