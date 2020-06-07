@@ -282,6 +282,7 @@ public class Dday extends Mode{
         return;
     }
 
+    //Test
 	public int getFlag_set() {
 		return flag_set;
 	}

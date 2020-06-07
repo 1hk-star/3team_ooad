@@ -19,8 +19,7 @@ public class TimeKeep extends Mode{
 	private Calendar current_time;
 	private Calendar setting_time;
 	private Long diff = null;
-	private int tmp_flag = 0; 
-	private int tmp2_flag = 0; 
+	private int tmp_flag = 0;
 	private int cur_cursor = -1;
 	    // -1 기본값
 	    // 0 월
@@ -33,7 +32,6 @@ public class TimeKeep extends Mode{
 		// 7 분(연도)
 	 	// 8 초
 	Queue<Integer> cusorQ = new LinkedList<Integer>();
-	FunctionActivator func; 
 	public TimeKeep() {
 		cusorQ.offer(0);
 		cusorQ.offer(1);

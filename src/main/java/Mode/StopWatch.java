@@ -128,87 +128,87 @@ public class StopWatch extends Mode{
 		return this.calLap;
 	}
 
-	   public long calculateTime(long time,Calendar cal) {
-	    	cal=Calendar.getInstance();
-	        int hour=cal.get(Calendar.HOUR);
-	        int min=cal.get(Calendar.MINUTE);
-	        int sec=cal.get(Calendar.SECOND);
-	        
-	        time=(hour*3600+min*60+sec);
-	        
-	    	return time;
-	    }
+   public long calculateTime(long time,Calendar cal) {
+		cal=Calendar.getInstance();
+		int hour=cal.get(Calendar.HOUR);
+		int min=cal.get(Calendar.MINUTE);
+		int sec=cal.get(Calendar.SECOND);
+
+		time=(hour*3600+min*60+sec);
+
+		return time;
+	}
 
 	    
-	   //long->Calendar
-	   public void splitElapse(long elapse,Calendar cal) {
+   //long->Calendar
+   public void splitElapse(long elapse,Calendar cal) {
 
-	    	long hour=elapse/3600;
-	    	long min=(elapse%3600/60);
-	    	long sec=(elapse%3600)%60;
-	    	
-	    	cal.set(Calendar.HOUR, (int) hour);
-	    	cal.set(Calendar.MINUTE, (int) min);
-	    	cal.set(Calendar.SECOND, (int) sec);
-	    		
-	    	System.out.println("�� :"+hour+"遺�: "+min+"珥�: "+sec);
-	    }
+		long hour=elapse/3600;
+		long min=(elapse%3600/60);
+		long sec=(elapse%3600)%60;
 
-		public long getStart() {
-			return start;
-		}
+		cal.set(Calendar.HOUR, (int) hour);
+		cal.set(Calendar.MINUTE, (int) min);
+		cal.set(Calendar.SECOND, (int) sec);
 
-		public void setStart(long start) {
-			this.start = start;
-		}
+		System.out.println("�� :"+hour+"遺�: "+min+"珥�: "+sec);
+	}
 
-		public long getEnd() {
-			return end;
-		}
+	public long getStart() {
+		return start;
+	}
 
-		public void setEnd(long end) {
-			this.end = end;
-		}
+	public void setStart(long start) {
+		this.start = start;
+	}
 
-		public long getElapse() {
-			return elapse;
-		}
+	public long getEnd() {
+		return end;
+	}
 
-		public void setElapse(long elapse) {
-			this.elapse = elapse;
-		}
+	public void setEnd(long end) {
+		this.end = end;
+	}
 
-		public long getElapsePrevious() {
-			return elapsePrevious;
-		}
+	public long getElapse() {
+		return elapse;
+	}
 
-		public void setElapsePrevious(long elapsePrevious) {
-			this.elapsePrevious = elapsePrevious;
-		}
+	public void setElapse(long elapse) {
+		this.elapse = elapse;
+	}
 
-		public Calendar getCal() {
-			return cal;
-		}
+	public long getElapsePrevious() {
+		return elapsePrevious;
+	}
 
-		public void setCal(Calendar cal) {
-			this.cal = cal;
-		}
+	public void setElapsePrevious(long elapsePrevious) {
+		this.elapsePrevious = elapsePrevious;
+	}
 
-		public Calendar getCalLap() {
-			return calLap;
-		}
+	public Calendar getCal() {
+		return cal;
+	}
 
-		public void setCalLap(Calendar calLap) {
-			this.calLap = calLap;
-		}
+	public void setCal(Calendar cal) {
+		this.cal = cal;
+	}
 
-		public boolean isOn() {
-			return isOn;
-		}
+	public Calendar getCalLap() {
+		return calLap;
+	}
 
-		public void setOn(boolean isOn) {
-			this.isOn = isOn;
-		}
+	public void setCalLap(Calendar calLap) {
+		this.calLap = calLap;
+	}
+
+	public boolean isOn() {
+		return isOn;
+	}
+
+	public void setOn(boolean isOn) {
+		this.isOn = isOn;
+	}
 	    
 	    
 	    

@@ -11,7 +11,7 @@ import javax.swing.JButton;
 public class mTimer extends Mode{
    
    private int flag_set = 0; 
-   int flag_sp = 0;
+   private int flag_sp = 0;
    private int flag_pause = 0;
    private Calendar timer_time = null;
    private Calendar pre_time = null;                   
@@ -110,7 +110,7 @@ public class mTimer extends Mode{
 
 
     //private
-    public void startTimer(){
+    private void startTimer(){
        if(pre_time==null)
           return;
        System.out.println("start");
@@ -118,12 +118,12 @@ public class mTimer extends Mode{
       m_timer.schedule(m_task,0,1000);
     }
 
-    public void stopTimer(){
+    private void stopTimer(){
        pre_time = null;
        pauseTimer();
     }
 
-    public void pauseTimer(){
+    private void pauseTimer(){
        System.out.println("pause");
        flag_sp = 0;
        m_task.cancel();
@@ -145,7 +145,7 @@ public class mTimer extends Mode{
        };
     }
 
-    public void setTimer(){
+    private void setTimer(){
        if(flag_set == 0) { 
           flag_set = 1;
           cur_cursor = cusorQ.poll(); 
@@ -161,12 +161,12 @@ public class mTimer extends Mode{
        }
     }
 
-    public void moveCursor_timer(){
+    private void moveCursor_timer(){
        cusorQ.offer(cur_cursor);
        cur_cursor = cusorQ.poll();
     }
 
-    public void plusTimer(){
+    private void plusTimer(){
        switch(cur_cursor) {
        case 3:
           int hour = timer_time.get(Calendar.HOUR_OF_DAY);
