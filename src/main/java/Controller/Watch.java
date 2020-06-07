@@ -32,10 +32,10 @@ import Type.watch_Type;
 
 public class Watch extends JFrame implements Runnable{
 
-    private JButton button1 = new JButton("Button1");
-    private JButton button2 = new JButton("Button2");
-    private JButton button3 = new JButton("Button3");
-    private JButton button4 = new JButton("Button4");
+    JButton button1 = new JButton("Button1");
+    JButton button2 = new JButton("Button2");
+    JButton button3 = new JButton("Button3");
+    JButton button4 = new JButton("Button4");
  
     private JLabel[] text = new JLabel[9];
     
