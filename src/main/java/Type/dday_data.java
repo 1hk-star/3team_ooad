@@ -13,10 +13,6 @@ public class dday_data {
 		this.cal = (Calendar)cal.clone();
 		this.memo = memo;
 	}
-	public dday_data(dday_data a) {
-		this.cal = (Calendar)a.cal.clone();
-		this.memo = a.memo;
-	}
 	
 	public void set_cal(Calendar cal) {
 		this.cal = (Calendar)cal.clone();
