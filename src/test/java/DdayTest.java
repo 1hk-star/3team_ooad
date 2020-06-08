@@ -1,6 +1,5 @@
 import static org.junit.jupiter.api.Assertions.*;
 
-import Controller.Watch;
 import Mode.Dday;
 import Type.dday_data;
 import org.junit.jupiter.api.Test;
@@ -8,11 +7,11 @@ import org.junit.jupiter.api.Test;
 import javax.swing.*;
 import java.util.Calendar;
 
+
 class DdayTest {
 
 	@Test
 	void setDdayTest() {
-		Watch watch=new Watch();
 		Dday d=new Dday();
 
 		d.setFlag_set(0);
@@ -30,7 +29,6 @@ class DdayTest {
 
 	@Test
 	void moveCursor_Dday_Test(){
-		Watch watch=new Watch();
 		Dday d=new Dday();
 
 		//if && if
@@ -76,7 +74,6 @@ class DdayTest {
 
 	@Test
 	void showNextDdayTest(){
-		Watch watch=new Watch();
 		Dday d=new Dday();
 
 		d.setFlag_set(0);
@@ -104,7 +101,6 @@ class DdayTest {
 
 	@Test
 	void plusDayTest(){
-		Watch watch=new Watch();
 		Dday d=new Dday();
 
 		d.setFlag_set(1);
@@ -128,8 +124,6 @@ class DdayTest {
 
 	@Test
 	void deleteDdayTest(){
-
-		Watch watch=new Watch();
 		Dday d=new Dday();
 
 		d.setFlag_set(0);
@@ -153,7 +147,6 @@ class DdayTest {
 	@Test
 	void confirmDdayTest(){
 
-		Watch watch=new Watch();
 		Dday d=new Dday();
 
 		d.setFlag_set(1);
