@@ -1,6 +1,5 @@
 import static org.junit.jupiter.api.Assertions.*;
 
-import Controller.Watch;
 import Mode.StopWatch;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +11,6 @@ class StopWatchTest {
 
 	@Test
 	void resetStopWatchTest() {
-		Watch watch=new Watch();
 		StopWatch st=new StopWatch();
 
 		st.setStart(12);
@@ -75,11 +73,9 @@ class StopWatchTest {
       /*
       long 형 start와 Calendar.get(Calendar.xxx)와 정확한 비교가 안됨.
        */
-		Watch watch=new Watch();
 		StopWatch st=new StopWatch();
 
 		st.setOn(false);
-
 		JButton button=new JButton();
 		button.setText("Button2");
 		st.work(button);
@@ -90,7 +86,6 @@ class StopWatchTest {
 
 	@Test
 	void stopStopWatchTest(){
-		Watch watch=new Watch();
 		StopWatch st=new StopWatch();
 
 		st.setOn(true);
@@ -106,7 +101,6 @@ class StopWatchTest {
 
 	@Test
 	void storeLapTimeTest(){
-		Watch watch=new Watch();
 		StopWatch st=new StopWatch();
 
 		st.setOn(true);
@@ -125,8 +119,6 @@ class StopWatchTest {
 	}
 	@Test
 	void getStopWatchTestInOFF(){
-
-		Watch watch=new Watch();
 		StopWatch st=new StopWatch();
 
 
@@ -144,8 +136,6 @@ class StopWatchTest {
 
 	@Test
 	void getStopWatchTestInON(){
-
-		Watch watch=new Watch();
 		StopWatch st=new StopWatch();
 
 		JButton button=new JButton();

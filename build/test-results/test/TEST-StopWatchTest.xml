@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="StopWatchTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2020-06-08T13:56:44" hostname="DESKTOP-735IB60" time="0.011">
+  <properties/>
+  <testcase name="getStopWatchTestInOFF()" classname="StopWatchTest" time="0.002"/>
+  <testcase name="stopStopWatchTest()" classname="StopWatchTest" time="0.001"/>
+  <testcase name="resetStopWatchTest()" classname="StopWatchTest" time="0.001"/>
+  <testcase name="startStopWatchTest()" classname="StopWatchTest" time="0.001"/>
+  <testcase name="storeLapTimeTest()" classname="StopWatchTest" time="0.002"/>
+  <testcase name="getStopWatchTestInON()" classname="StopWatchTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
