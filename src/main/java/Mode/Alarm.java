@@ -154,9 +154,6 @@ public class Alarm extends  Mode {
 		}
 	}
 
-<<<<<<< Updated upstream
-    private boolean confirmAlarm(){
-=======
     private void confirmAlarm(){
 
 		if(alarm_time == null){
@@ -181,20 +178,15 @@ public class Alarm extends  Mode {
 			alarm_time = null;
 			alarm_time = alarmQ.poll();
 		}
->>>>>>> Stashed changes
     	cusorQ.clear();
 		cusorQ.offer(3);
 		cusorQ.offer(4);
 		cusorQ.offer(5);
     	flag_set = 0;
     	cur_cursor = -1;
-<<<<<<< Updated upstream
-    	pre_time = (Calendar) alarm_time.clone();
-        return true;
-=======
+
     	setting_time = null;
     	return;
->>>>>>> Stashed changes
     }
 
     private void plusTime_alarm(){

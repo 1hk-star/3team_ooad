@@ -35,9 +35,9 @@ public class Dday extends Mode{
 		cursorQ.offer(2);
 		cursorQ.offer(7);
 		Calendar cal = Calendar.getInstance();
-		ddayQ.offer(new dday_data(cal,"no1"));
-		ddayQ.offer(new dday_data(cal,"no2"));
-		ddayQ.offer(new dday_data(cal,"no3"));
+		//ddayQ.offer(new dday_data(cal,"no1"));
+		//ddayQ.offer(new dday_data(cal,"no2"));
+		//ddayQ.offer(new dday_data(cal,"no3"));
 	}
 	
     @Override
@@ -88,16 +88,13 @@ public class Dday extends Mode{
     	}
     }
 
-<<<<<<< Updated upstream
-    private void setDday(){
-=======
+
 	public void resetDday(){
 		ddayQ = new LinkedList<dday_data>();
 		current_page = null;
 	}
 
     public void setDday(){
->>>>>>> Stashed changes
     	flag_set = 1;
     	cur_cursor = cursorQ.poll();
     	if(setting_page == null) {
