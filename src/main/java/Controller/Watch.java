@@ -200,9 +200,7 @@ public class Watch extends JFrame implements Runnable{
     	}
     	else if(currentMode == watch_Type.ALARM.ordinal()) {
     		mode_alarm.work(button);
-    		if(mode_alarm.get_flag() == 1) {
     			display();
-    		}
     	}
     	else if(currentMode == watch_Type.WORLDTIME.ordinal()) {
     		mode_world.work(button);
@@ -214,6 +212,19 @@ public class Watch extends JFrame implements Runnable{
     	}
     	else if(currentMode == watch_Type.DDAY.ordinal()) {
     		mode_dday.work(button);
+    		if(button.getText().equals("Button4")){
+				List<String> rs = mode_dday.cmpday(mode_time.getRealTime());
+				if(rs == null) {
+					mode_time.setdday(null);
+					dday_memo = null;
+					return;
+				}
+				else {
+					mode_time.setdday(rs);
+					dday_memo = mode_time.getdday();
+					return;
+				}
+			}
     		display();
     	}
     	else if(currentMode == watch_Type.TIMER.ordinal()) {
@@ -554,31 +565,23 @@ public class Watch extends JFrame implements Runnable{
     	if(mode_bz.getbuzzer() == 1) { 
     		if(mode_bz.getLeftTime() == 0) { 
     			mode_bz.turnOffBuzzer();
-    			return;
     		}
     		else {
     			mode_bz.subTimeBuzzer();
-    			return;
     		}
     	}
     	Calendar t1 = mode_time.getRealTime();
     	if(t1 == null)
     		return;
-    	int t1_h = t1.get(Calendar.HOUR_OF_DAY);
-    	int t1_m = t1.get(Calendar.MINUTE);
-    	int t1_s = t1.get(Calendar.SECOND);
-    	 
-    	Calendar t2 = mode_alarm.getRealAlarm();
-    	if(t2 ==null)
+
+    	int rs = mode_alarm.cmpAlarm((Calendar) t1.clone());
+		System.out.println("rs : "+rs);
+    	if(rs == 0)
     		return;
-    	int t2_h = t2.get(Calendar.HOUR_OF_DAY);
-    	int t2_m = t2.get(Calendar.MINUTE);
-    	int t2_s = t2.get(Calendar.SECOND);
-    	
-    	if((t1_h == t2_h) && (t1_m == t2_m) && (t1_s == t2_s)) {
-    		mode_bz.onBuzzer(1);
-    	}else {
-    	}
+    	else{
+			mode_bz.onBuzzer(1);
+		}
+
         return;
     }
     private void checkTimer(){
