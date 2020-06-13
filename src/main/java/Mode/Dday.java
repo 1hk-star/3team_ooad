@@ -88,7 +88,16 @@ public class Dday extends Mode{
     	}
     }
 
+<<<<<<< Updated upstream
     private void setDday(){
+=======
+	public void resetDday(){
+		ddayQ = new LinkedList<dday_data>();
+		current_page = null;
+	}
+
+    public void setDday(){
+>>>>>>> Stashed changes
     	flag_set = 1;
     	cur_cursor = cursorQ.poll();
     	if(setting_page == null) {
