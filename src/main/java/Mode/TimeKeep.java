@@ -19,8 +19,7 @@ public class TimeKeep extends Mode{
 	private Calendar current_time;
 	private Calendar setting_time;
 	private Long diff = null;
-	private int tmp_flag = 0; 
-	private int tmp2_flag = 0; 
+	private int tmp_flag = 0;
 	private int cur_cursor = -1;
 	    // -1 기본값
 	    // 0 월
@@ -33,7 +32,6 @@ public class TimeKeep extends Mode{
 		// 7 분(연도)
 	 	// 8 초
 	Queue<Integer> cusorQ = new LinkedList<Integer>();
-	FunctionActivator func; 
 	public TimeKeep() {
 		cusorQ.offer(0);
 		cusorQ.offer(1);
@@ -101,37 +99,34 @@ public class TimeKeep extends Mode{
     }
     
     public String getdday() {
-    	System.out.println("timekeep1 : "+dday_memo);
     	if( dday_memo == null || dday_memo.isEmpty())
     		return null;
     	String tmp = dday_memo.get(0);
     	dday_memo.remove(0);
     	dday_memo.add(tmp);
-    	System.out.println("timekeep2 : "+dday_memo);
-    	System.out.println("timekeep3 : "+tmp);
     	return tmp;
     }
-    
+
+	public List<String> getoriginTime() {
+		return origin;
+	}
+	public List<String> getddaymemoTime() {
+		return dday_memo;
+	}
     public void setdday(List<String> str) {
-    	System.out.println("setdday str "+str);
-    	System.out.println("setdday memo"+origin);
     	if(str == null) {
     		origin = null;
     		dday_memo = null;
-    		System.out.println("setdday "+1);
     	}
     	else if(origin == null || dday_memo == null) {
     		origin = new ArrayList<String>(str);
     		dday_memo = new ArrayList<String>(str);
     		Collections.copy(origin, str);
         	Collections.copy(dday_memo, str);
-        	System.out.println("setdday "+2);
     	}
     	else if(str.containsAll(origin)) { //내가 가지고 있는 정보가 같을때.
-    		System.out.println("setdday "+3);
     		return;
     	}else { //다를때
-    		System.out.println("setdday "+4);
     		Collections.copy(origin, str);
         	Collections.copy(dday_memo, str);
     	}
@@ -146,7 +141,6 @@ public class TimeKeep extends Mode{
     public Calendar getRealTime() {
     	return current_time;
     }
-
    
     public void setCurrentTime(){
     	if(flag_set == 0) {
@@ -171,27 +165,32 @@ public class TimeKeep extends Mode{
     
     public void addseconds(){
     	current_time.add(Calendar.SECOND, 1);
-    		//System.out.println("set : " + setting_time);
-    	
-    	//System.out.println("cur : " + current_time);
     }
     
     public int getCursor() {
     	return cur_cursor;
     }
-
-    private void moveCursor_time(){
+//private
+    public void moveCursor_time(){
     	cusorQ.offer(cur_cursor);
     	cur_cursor = cusorQ.poll();
     }
 
-    private void plusTime_time(){
-    	//System.out.println("cur_cusor: "+cur_cursor);
+    public void plusTime_time(){
     	switch(cur_cursor) {
     	case 0:
     		//setting_time.add(Calendar.MONTH, 1);
     		int month = setting_time.get(Calendar.MONTH);
-    		setting_time.set(Calendar.MONTH, (month+1)%12);
+    		int dt = setting_time.get(Calendar.DATE);
+			setting_time.set(Calendar.DATE, 1);
+			setting_time.set(Calendar.MONTH, (month+1)%12);
+			int max = setting_time.getActualMaximum(Calendar.DAY_OF_MONTH);
+    		if(dt > max){
+				setting_time.set(Calendar.DATE, 1);
+			}
+    		else{
+				setting_time.set(Calendar.DATE, dt);
+			}
     	break;
     	case 1:
     		int date = setting_time.get(Calendar.DATE);
@@ -245,7 +244,7 @@ public class TimeKeep extends Mode{
     	}
     }
 
-    private boolean confirmTime(){
+    private void confirmTime(){
     	if(flag_set == 1) {
 			flag_set = 0;
 			cusorQ.clear();
@@ -269,8 +268,5 @@ public class TimeKeep extends Mode{
 			diff = setting_time.getTimeInMillis() - temp.getTimeInMillis();
 			current_time.add(Calendar.SECOND, Integer.parseInt(String.valueOf(Math.round(diff/1000))));
 		}
-    	
-        return  true;
     }
-
 }

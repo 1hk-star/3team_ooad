@@ -184,7 +184,6 @@ public class Alarm extends  Mode {
 		cusorQ.offer(5);
     	flag_set = 0;
     	cur_cursor = -1;
-
     	setting_time = null;
     	return;
     }

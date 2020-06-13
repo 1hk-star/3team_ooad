@@ -107,7 +107,7 @@ public class Watch extends JFrame implements Runnable{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				if(mode_bz.getbuzzer() == 1) {
+				if(mode_bz.getbuzzer() > 0) {
 					mode_bz.turnOffBuzzer();
 				}else {
 					pressButton(button1);	
@@ -120,7 +120,7 @@ public class Watch extends JFrame implements Runnable{
  			@Override
  			public void actionPerformed(ActionEvent arg0) {
  				// TODO Auto-generated method stub
- 				if(mode_bz.getbuzzer() == 1) {
+ 				if(mode_bz.getbuzzer() > 0) {
 					mode_bz.turnOffBuzzer();
 				}else {
 					pressButton(button2);	
@@ -133,7 +133,7 @@ public class Watch extends JFrame implements Runnable{
   			@Override
   			public void actionPerformed(ActionEvent arg0) {
   				// TODO Auto-generated method stub
-  				if(mode_bz.getbuzzer() == 1) {
+  				if(mode_bz.getbuzzer() > 0) {
 					mode_bz.turnOffBuzzer();
 				}else {
 					pressButton(button3);	
@@ -146,7 +146,7 @@ public class Watch extends JFrame implements Runnable{
   			@Override
   			public void actionPerformed(ActionEvent arg0) {
   				// TODO Auto-generated method stub
-  				if(mode_bz.getbuzzer() == 1) {
+  				if(mode_bz.getbuzzer() > 0) {
 					mode_bz.turnOffBuzzer();
 				}else {
 					pressButton(button4);	
@@ -326,8 +326,6 @@ public class Watch extends JFrame implements Runnable{
 			text[8].setText("");
 			
 			dday_memo_flag = (dday_memo_flag + 1) % 2;
-			//System.out.println("getflag : "+mode_time.get_flag());
-			//System.out.println("seconds : "+ cal.get(Calendar.SECOND));
     	}
     	else if(currentMode == watch_Type.ALARM.ordinal()) {
 			Calendar cal = mode_alarm.getAlarm();
@@ -355,10 +353,10 @@ public class Watch extends JFrame implements Runnable{
 			}
     	}
     	else if (currentMode==watch_Type.WORLDTIME.ordinal()) {
-    		GregorianCalendar cal = new GregorianCalendar(TimeZone.getTimeZone(mode_world.get_value()));
+    		GregorianCalendar cal = new GregorianCalendar(TimeZone.getTimeZone(mode_world.getValue()));
     		text[0].setText(Integer.toString(cal.get(Calendar.MONTH)+1));
 			text[1].setText(Integer.toString(cal.get(Calendar.DATE)));
-			text[2].setText(mode_world.get_key());
+			text[2].setText(mode_world.getKey());
 			text[3].setText(Integer.toString(cal.get(Calendar.HOUR_OF_DAY)));
 			text[4].setText(Integer.toString(cal.get(Calendar.MINUTE)));
 			text[5].setText(Integer.toString(cal.get(Calendar.SECOND)));
@@ -618,11 +616,9 @@ public class Watch extends JFrame implements Runnable{
         		if(rs == null) {
         			mode_time.setdday(null);
         			dday_memo = null;
-        			System.out.println("null "+rs);
         			return;
         		}
         		else {
-        			//System.out.println("not null "+rs);
         			mode_time.setdday(rs);
         			dday_memo = mode_time.getdday();
         			return;

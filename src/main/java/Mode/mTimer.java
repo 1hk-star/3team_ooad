@@ -11,7 +11,7 @@ import javax.swing.JButton;
 public class mTimer extends Mode{
    
    private int flag_set = 0; 
-   private int flag_sp = 0; 
+   private int flag_sp = 0;
    private int flag_pause = 0;
    private Calendar timer_time = null;
    private Calendar pre_time = null;                   
@@ -99,18 +99,20 @@ public class mTimer extends Mode{
     public int get_flag() {
        return flag_set;
     }
+
+    public int get_flag_sp() {
+        return flag_sp;
+    }
     
     public Calendar getTimerTime() {
        return pre_time;
     }
-    public int getPauseFlag() {
-       return flag_pause;
-    }
 
+
+    //private
     private void startTimer(){
        if(pre_time==null)
           return;
-       System.out.println("start");
        flag_sp = 1;
       m_timer.schedule(m_task,0,1000);
     }
@@ -121,7 +123,6 @@ public class mTimer extends Mode{
     }
 
     private void pauseTimer(){
-       System.out.println("pause");
        flag_sp = 0;
        m_task.cancel();
        m_timer = new Timer();
@@ -183,15 +184,17 @@ public class mTimer extends Mode{
        }
     }
 
-    private boolean confirmTimer(){
+    private void confirmTimer(){
        flag_set = 0;
        cusorQ.clear();
-      cusorQ.offer(3);
-      cusorQ.offer(4);
-      cusorQ.offer(5);
+       cusorQ.offer(3);
+       cusorQ.offer(4);
+       cusorQ.offer(5);
        cur_cursor = -1;
        pre_time = (Calendar) timer_time.clone();
-        return true;
     }
-
+    // Test용 추가 함수
+    public int getPauseFlag() {
+        return flag_pause;
+    }
 }

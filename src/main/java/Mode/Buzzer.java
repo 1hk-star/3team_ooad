@@ -16,7 +16,6 @@ public class Buzzer{
     private Clip clip;
 
     public int getLeftTime(){
-
         return leftTime;
     }
 
@@ -33,7 +32,6 @@ public class Buzzer{
             info = new DataLine.Info(Clip.class, format);
             clip = (Clip)AudioSystem.getLine(info);
             clip.open(stream);
-            System.out.println("sound");
             clip.start();
             clip.loop(10);
             
@@ -48,12 +46,9 @@ public class Buzzer{
     public void onBuzzer(int type) {
     	buzzer_flag =type;
     	leftTime = 15;
-    	System.out.println("on buzzer");
     	try {
             soundBuzzer();
-      } catch(Exception e) {
-      }
-    	
+      } catch(Exception e) { }
     }
     
     public void subTimeBuzzer() {
@@ -61,11 +56,9 @@ public class Buzzer{
     		leftTime -=1;
     	else
     		return;
-    	System.out.println("leftTime : "+leftTime);
     }
     public void turnOffBuzzer(){
     	buzzer_flag = 0;
-    	System.out.println("off buzzer");
     	if(clip != null) {
     		if(clip.isActive()) {
         		clip.stop();

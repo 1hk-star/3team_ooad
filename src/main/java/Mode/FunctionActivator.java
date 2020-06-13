@@ -14,13 +14,12 @@ public class FunctionActivator extends Mode{
 	private String[] active_function_name = new String[5];
 	private int active_count = 0;
 	private int position = 0;
-    // -1 Ä¿¼­ Ç¥½Ã X
+    // -1 Ä¿ï¿½ï¿½ Ç¥ï¿½ï¿½ X
     // 0 alarm
 	// 1 worldtime
     // 2 stopwatch
     // 3 dday
     // 4 timer
-	private Queue<Integer> cursorQ = new LinkedList<Integer>();
 	private Queue<Integer> modeQ = new LinkedList<Integer>();
 	
 	public FunctionActivator(Queue<Integer> modeQ) {
@@ -31,7 +30,6 @@ public class FunctionActivator extends Mode{
 		active_function_name[4] = "tmr";
 		this.modeQ = modeQ;
 		for(int i = 0; i < 5; i++) {
-			cursorQ.offer(i);
 			if(i < 3)
 				active_function[i] = true;
 			else
@@ -49,7 +47,7 @@ public class FunctionActivator extends Mode{
     	}
     	else if(text.equals("Button3")) {
     		// mode
-    		//Áö¿øÇÏÁö ¾Ê´Â ±â´É.
+    		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½.
     	}
     	else if(text.equals("Button4")) {
     		// end
@@ -59,7 +57,6 @@ public class FunctionActivator extends Mode{
 					active_count++;
 				}
 			}
-    		System.out.println(active_count);
     		if(active_count == 3) {
         		confirmActive();
     		}
@@ -79,15 +76,8 @@ public class FunctionActivator extends Mode{
     	active_function[position] = active_function[position] ? false : true;
     }
 
-    private boolean confirmActive(){
-		cursorQ.clear();
-		cursorQ.offer(0);
-		cursorQ.offer(1);
-		cursorQ.offer(2);
-		cursorQ.offer(3);
-		cursorQ.offer(4);
+    private void confirmActive(){
 		position = 0;
-        return true;
     }
     
     public boolean get_active(int num) {
@@ -105,7 +95,13 @@ public class FunctionActivator extends Mode{
     }
     
     public int get_active_count() {
-    	return active_count;
+		active_count = 0;
+		for (int i = 0; i < active_function.length; i++) {
+			if(active_function[i] == true) {
+				active_count++;
+			}
+		}
+		return active_count;
     }
     
     public Queue<Integer> get_modeQ() {
@@ -121,4 +117,9 @@ public class FunctionActivator extends Mode{
     public int get_position() {
     	return position;
     }
+
+    //Testë¥¼ ìœ„í•´ ì¶”ê°€í•œ í•¨ìˆ˜
+	public boolean get_active_function(int position){
+		return active_function[position];
+	}
 }

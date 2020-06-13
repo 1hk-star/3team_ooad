@@ -15,6 +15,7 @@ public class WorldTime extends Mode{
     private Map<String, String> countries;
     private int cur_cursor = -1;
     private Queue<String> countriesQ = new LinkedList<String>();
+	private Queue<String> countriesQ_temp = new LinkedList<String>();
     
     public WorldTime() {
 		countries = new HashMap<String, String>();
@@ -26,12 +27,13 @@ public class WorldTime extends Mode{
 		countries.put("LAX", "America/Los_Angeles");
 		countries.put("DEN", "America/Denver");
 		country = country_temp = "SEL";
-		for(Map.Entry<String, String> elem : countries.entrySet()) {
-			if(elem.getKey().equals(country)) {
-				continue;
-			}
-			countriesQ.offer(elem.getKey());
-		}
+		countriesQ.offer("LIS");
+		countriesQ.offer("LON");
+		countriesQ.offer("ROM");
+		countriesQ.offer("TYO");
+		countriesQ.offer("LAX");
+		countriesQ.offer("DEN");
+		countriesQ_temp.addAll(countriesQ);
 	}
 
     @Override
@@ -43,18 +45,10 @@ public class WorldTime extends Mode{
     	}
     	else if(text.equals("Button2")) {
     		// next
-    		nextCountry();
+			nextCountry();
     	}
     	else if(text.equals("Button3")) {
-    		countriesQ.clear();
-    		country = country_temp;
-    		
-    		for(Map.Entry<String, String> elem : countries.entrySet()) {
-    			if(elem.getKey().equals(country)) {
-    				continue;
-    			}
-    			countriesQ.offer(elem.getKey());
-    		}
+    		changeMode();
     		// mode
     	}
     	else if(text.equals("Button4")) {
@@ -71,25 +65,46 @@ public class WorldTime extends Mode{
     }
 
     private void nextCountry(){
-		countriesQ.offer(country);
-    	country = countriesQ.poll();
+		if(cur_cursor == 2) {
+			countriesQ.offer(country);
+			country = countriesQ.poll();
+		}
     }
 
-    private boolean confirmCountry(){
-    	country_temp = country;
+    private void changeMode(){
+		country = country_temp;
+		countriesQ.clear();
+		countriesQ.addAll(countriesQ_temp);
 		cur_cursor = -1;
-        return false;
+	}
+
+    private void confirmCountry(){
+		if(cur_cursor == 2) {
+			country_temp = country;
+			cur_cursor = -1;
+			countriesQ_temp.clear();
+			countriesQ_temp.addAll(countriesQ);
+		}
     }
     
-    public String get_key() {
+    public String getKey() {
     	return country;
     }
 
-    public String get_value() {
+    public String getValue() {
     	return countries.get(country);
     }
-    
+
     public int getCursor() {
     	return cur_cursor;
     }
+
+    // Test를 위해 추가한 함수
+	public Queue<String> get_countriesQ(){
+    	return countriesQ;
+	}
+
+	public Queue<String> get_countriesQ_temp(){
+		return countriesQ;
+	}
 }
