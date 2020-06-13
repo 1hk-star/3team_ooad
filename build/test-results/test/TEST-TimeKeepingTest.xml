@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="TimeKeepingTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2020-06-08T13:56:44" hostname="DESKTOP-735IB60" time="0.028">
+  <properties/>
+  <testcase name="setActiveFunctiontest()" classname="TimeKeepingTest" time="0.002"/>
+  <testcase name="plusTime_timetest()" classname="TimeKeepingTest" time="0.001"/>
+  <testcase name="confirmTimetest()" classname="TimeKeepingTest" time="0.001"/>
+  <testcase name="addsecondstest()" classname="TimeKeepingTest" time="0.0"/>
+  <testcase name="get_flagtest()" classname="TimeKeepingTest" time="0.001"/>
+  <testcase name="getCursortest()" classname="TimeKeepingTest" time="0.001"/>
+  <testcase name="gettimetest()" classname="TimeKeepingTest" time="0.001"/>
+  <testcase name="moveCursorTimetest()" classname="TimeKeepingTest" time="0.0"/>
+  <testcase name="setCurrentTimetest()" classname="TimeKeepingTest" time="0.001"/>
+  <testcase name="showTimeKeepingtest()" classname="TimeKeepingTest" time="0.003"/>
+  <testcase name="getRealTimetest()" classname="TimeKeepingTest" time="0.0"/>
+  <testcase name="setddaytest()" classname="TimeKeepingTest" time="0.004"/>
+  <testcase name="getddaytest()" classname="TimeKeepingTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

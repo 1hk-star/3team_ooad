@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="FunctionActivatorTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2020-06-08T13:56:44" hostname="DESKTOP-735IB60" time="0.013">
+  <properties/>
+  <testcase name="onOffFunctionTest()" classname="FunctionActivatorTest" time="0.004"/>
+  <testcase name="get_active_nameTest()" classname="FunctionActivatorTest" time="0.001"/>
+  <testcase name="get_modeQTest()" classname="FunctionActivatorTest" time="0.0"/>
+  <testcase name="get_active_countTest()" classname="FunctionActivatorTest" time="0.0"/>
+  <testcase name="get_positionTest()" classname="FunctionActivatorTest" time="0.0"/>
+  <testcase name="get_activeTest()" classname="FunctionActivatorTest" time="0.0"/>
+  <testcase name="confirmActiveTest()" classname="FunctionActivatorTest" time="0.001"/>
+  <testcase name="nextActivateFunctionTest()" classname="FunctionActivatorTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -181,7 +181,16 @@ public class TimeKeep extends Mode{
     	case 0:
     		//setting_time.add(Calendar.MONTH, 1);
     		int month = setting_time.get(Calendar.MONTH);
-    		setting_time.set(Calendar.MONTH, (month+1)%12);
+    		int dt = setting_time.get(Calendar.DATE);
+			setting_time.set(Calendar.DATE, 1);
+			setting_time.set(Calendar.MONTH, (month+1)%12);
+			int max = setting_time.getActualMaximum(Calendar.DAY_OF_MONTH);
+    		if(dt > max){
+				setting_time.set(Calendar.DATE, 1);
+			}
+    		else{
+				setting_time.set(Calendar.DATE, dt);
+			}
     	break;
     	case 1:
     		int date = setting_time.get(Calendar.DATE);

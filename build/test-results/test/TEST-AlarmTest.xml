@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< Updated upstream
 <testsuite name="AlarmTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-06-06T13:09:53" hostname="DESKTOP-735IB60" time="0.197">
   <properties/>
   <testcase name="testresetAlarm()" classname="AlarmTest" time="0.197"/>
+=======
+<testsuite name="AlarmTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2020-06-08T13:56:43" hostname="DESKTOP-735IB60" time="0.175">
+  <properties/>
+  <testcase name="testplusTime_alarm()" classname="AlarmTest" time="0.165"/>
+  <testcase name="testconfirmAlarm()" classname="AlarmTest" time="0.001"/>
+  <testcase name="testresetAlarm()" classname="AlarmTest" time="0.003"/>
+  <testcase name="testCursor()" classname="AlarmTest" time="0.001"/>
+  <testcase name="testsetAlarm()" classname="AlarmTest" time="0.001"/>
+>>>>>>> Stashed changes
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
