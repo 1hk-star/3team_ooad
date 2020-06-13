@@ -69,7 +69,8 @@ public class Watch extends JFrame implements Runnable{
        // display(format);
     }
 
-    // GUI를 초기화 해주는 함수
+    // GUI를
+	// 초기화 해주는 함수
     // JPanel을 왼쪽, 가운데, 오른쪽으로 나누고
     // 버튼과 라벨들을 저장 후 container에 합침
     // 그리고 각각의 버튼에 이벤트 클릭 리스너를 달아줌
@@ -234,12 +235,14 @@ public class Watch extends JFrame implements Runnable{
     	else if(currentMode == watch_Type.FUNCTION.ordinal()) {
     		if(button.getText().equals("Button4") && mode_fa.get_active_count() == 3) {
     			modeQ.clear();
-//    			for(Integer i: mode_fa.get_modeQ()) {
-//    				modeQ.add(i);
-//    			}
-    			
     			modeQ = mode_fa.get_modeQ();
     			currentMode = watch_Type.TIMEKEEPING.ordinal();
+    			if(mode_alarm.getAlarm() == null){
+    				mode_alarm.resetAlarm();
+				}
+    			if(mode_dday.getDday() == null){
+    				mode_dday.resetDday();
+				}
         	}
     		mode_fa.work(button);
     		display();
