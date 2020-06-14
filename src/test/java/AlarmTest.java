@@ -104,7 +104,7 @@ class AlarmTest {
 	}
 
 	@Test
-	void testresetAlarm(){
+	void testdeleteAlarm(){
 		Alarm al = new Alarm();
 		JButton btn1 = new JButton("Button1");
 		JButton btn4 = new JButton("Button4");
