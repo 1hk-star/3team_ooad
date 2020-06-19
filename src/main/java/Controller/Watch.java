@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -29,6 +28,7 @@ import Mode.mTimer;
 import Mode.WorldTime;
 import Type.dday_data;
 import Type.watch_Type;
+
 
 public class Watch extends JFrame implements Runnable{
 

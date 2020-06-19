@@ -1,12 +1,11 @@
 package Mode;
 
-import java.util.Calendar;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
 import javax.swing.JButton;
 
-import Type.watch_Type;
 
 public class FunctionActivator extends Mode{
 	

@@ -9,8 +9,6 @@ import java.util.Queue;
 
 import javax.swing.JButton;
 
-import Controller.Watch;
-import Type.watch_Type;
 
 public class TimeKeep extends Mode{
 	private List<String> dday_memo;

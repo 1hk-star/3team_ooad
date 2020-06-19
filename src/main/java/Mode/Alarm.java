@@ -1,7 +1,5 @@
 package Mode;
 
-import Type.dday_data;
-
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.Queue;
