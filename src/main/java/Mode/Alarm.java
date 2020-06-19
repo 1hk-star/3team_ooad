@@ -82,10 +82,10 @@ public class Alarm extends  Mode {
 		}
 	}
     public void showAlarm(){
-    	if(!alarmQ.isEmpty())
-    		alarm_time = alarmQ.poll();
-    	else{
+    	if(alarmQ.isEmpty())
     		alarm_time = null;
+    	else{
+			alarm_time = alarmQ.poll();
 		}
     }
     public int getCursor() {
@@ -104,7 +104,11 @@ public class Alarm extends  Mode {
 		int h2 = cal.get(Calendar.HOUR_OF_DAY);
 		int m2 = cal.get(Calendar.MINUTE);
 		int s2 = cal.get(Calendar.SECOND);
-		if(alarm_time != null){
+		if(alarm_time == null){
+			return 0;
+
+		}
+		else{
 			tmp = (Calendar) alarm_time.clone();
 			int h1 = tmp.get(Calendar.HOUR_OF_DAY);
 			int m1 = tmp.get(Calendar.MINUTE);
@@ -112,9 +116,6 @@ public class Alarm extends  Mode {
 			if(h1 == h2 && m1 == m2 && s1 == s2){
 				return 1;
 			}
-		}
-		else{
-			return 0;
 		}
 		int flag = 0;
 		synchronized (alarmQ){
@@ -209,12 +210,14 @@ public class Alarm extends  Mode {
 
     private boolean deleteAlarm(){
 		if(alarm_time != null) {
-			if (!alarmQ.isEmpty())
-				alarm_time = alarmQ.poll();
-			else {
+			if (alarmQ.isEmpty())
 				alarm_time = null;
+			else {
+				alarm_time = alarmQ.poll();
+
 			}
 		}
+
         return true;
     }
 

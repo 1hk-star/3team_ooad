@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="AlarmTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2020-06-19T08:07:11" hostname="LAPTOP-NPPNG1NK" time="0.729">
+  <properties/>
+  <testcase name="testplusTime_alarm()" classname="AlarmTest" time="0.524"/>
+  <testcase name="testconfirmAlarm()" classname="AlarmTest" time="0.032"/>
+  <testcase name="testdeleteAlarm()" classname="AlarmTest" time="0.063"/>
+  <testcase name="testCursor()" classname="AlarmTest" time="0.015"/>
+  <testcase name="testsetAlarm()" classname="AlarmTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
