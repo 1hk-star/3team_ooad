@@ -53,10 +53,11 @@ public class Buzzer{
     }
     
     public void subTimeBuzzer() {
-    	if(leftTime != 0)
-    		leftTime -=1;
+    	if(leftTime == 0)
+            return;
     	else
-    		return;
+    	    leftTime -=1;
+
     }
     public void turnOffBuzzer(){
     	buzzer_flag = 0;
