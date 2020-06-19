@@ -189,67 +189,82 @@ public class Watch extends JFrame implements Runnable{
     }
 
     public void pressButton(JButton button){
-    	if(currentMode == watch_Type.TIMEKEEPING.ordinal()) {
-    		mode_time.work(button);
-    		if(mode_time.get_flag() == 1) {
-    			display();
-    		}
-    		else if(mode_time.get_flag() == 2) {
-    			currentMode = watch_Type.FUNCTION.ordinal();
-    			display();
-    		}
-    	}
-    	else if(currentMode == watch_Type.ALARM.ordinal()) {
-    		mode_alarm.work(button);
-    			display();
-    	}
-    	else if(currentMode == watch_Type.WORLDTIME.ordinal()) {
-    		mode_world.work(button);
-    		display();
-    	}
-    	else if(currentMode == watch_Type.STOPWATCH.ordinal()) {
-    		mode_stop.work(button);
-    		display();
-    	}
-    	else if(currentMode == watch_Type.DDAY.ordinal()) {
-    		mode_dday.work(button);
-    		if(button.getText().equals("Button4")){
-				List<String> rs = mode_dday.cmpday(mode_time.getRealTime());
-				if(rs == null) {
-					mode_time.setdday(null);
-					dday_memo = null;
-					return;
+
+    	switch(currentMode){
+			case 0://watch_Type.TIMEKEEPING.ordinal():
+				mode_time.work(button);
+				if(mode_time.get_flag() == 1) {
+					display();
 				}
-				else {
-					mode_time.setdday(rs);
-					dday_memo = mode_time.getdday();
-					return;
+				else if(mode_time.get_flag() == 2) {
+					currentMode = watch_Type.FUNCTION.ordinal();
+					display();
 				}
-			}
-    		display();
-    	}
-    	else if(currentMode == watch_Type.TIMER.ordinal()) {
-    		mode_timer.work(button);
-    		display();
-    	}
-    	else if(currentMode == watch_Type.FUNCTION.ordinal()) {
-    		if(button.getText().equals("Button4") && mode_fa.get_active_count() == 3) {
-    			modeQ.clear();
-    			modeQ = mode_fa.get_modeQ();
-    			currentMode = watch_Type.TIMEKEEPING.ordinal();
-    			if(mode_alarm.getAlarm() == null){
-    				mode_alarm.resetAlarm();
+
+				break;
+
+			case 1://watch_Type.ALARM.ordinal()
+				mode_alarm.work(button);
+				display();
+				break;
+
+			case 2://watch_Type.WORLDTIME.ordinal()
+				mode_world.work(button);
+				display();
+
+				break;
+
+			case 3:// watch_Type.STOPWATCH.ordinal()
+				mode_stop.work(button);
+				display();
+				break;
+
+			case 4:// watch_Type.DDAY.ordinal()
+				mode_dday.work(button);
+				if(button.getText().equals("Button4")){
+					List<String> rs = mode_dday.cmpday(mode_time.getRealTime());
+					if(rs == null) {
+						mode_time.setdday(null);
+						dday_memo = null;
+						return;
+					}
+					else {
+						mode_time.setdday(rs);
+						dday_memo = mode_time.getdday();
+						return;
+					}
 				}
-    			if(mode_dday.getDday() == null){
-    				mode_dday.resetDday();
+				display();
+				break;
+
+			case 5://watch_Type.TIMER.ordinal()
+				mode_timer.work(button);
+				display();
+				break;
+
+			case 6://watch_Type.FUNCTION.ordinal()
+				if(button.getText().equals("Button4") && mode_fa.get_active_count() == 3) {
+					modeQ.clear();
+					modeQ = mode_fa.get_modeQ();
+					currentMode = watch_Type.TIMEKEEPING.ordinal();
+					if(mode_alarm.getAlarm() == null){
+						mode_alarm.resetAlarm();
+					}
+					if(mode_dday.getDday() == null){
+						mode_dday.resetDday();
+					}
 				}
-        	}
-    		mode_fa.work(button);
-    		display();
-    	}
-    	else {
-    		System.err.println("oh what mode?");
-    	}
+				mode_fa.work(button);
+				display();
+				break;
+
+
+			default:
+				System.err.println("oh what mode?");
+
+				break;
+		}//switch
+
     	
     	if(button.getText().equals("Button3") && currentMode != watch_Type.FUNCTION.ordinal()) {
     		changeMode();
