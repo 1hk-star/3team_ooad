@@ -111,10 +111,11 @@ public class Dday extends Mode{
     }
 
     public void showDday(){ // copy ddayq to ddayq_tmp
-    	if(!ddayQ.isEmpty())
-    		current_page = ddayQ.poll();
-    	else
+    	if(ddayQ.isEmpty())
     		current_page = null;
+
+    	else
+		current_page = ddayQ.poll();
         return;
     }
     public int get_flag() {
@@ -127,10 +128,11 @@ public class Dday extends Mode{
 
     private void deleteDday(){
     	if(current_page != null) {
-			if(!ddayQ.isEmpty())
-				current_page = ddayQ.poll();
-			else {
+			if(ddayQ.isEmpty())
 				current_page = null;
+			else {
+				current_page = ddayQ.poll();
+
 			}
     	}
         return ;
