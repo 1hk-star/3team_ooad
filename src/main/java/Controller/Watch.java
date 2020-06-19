@@ -528,14 +528,14 @@ public class Watch extends JFrame implements Runnable{
     		return;
     	for(int i =0; i < text.length; i++) {
     		if(i == cur_num) {
-    			if(text[i].isVisible() == true) {
+    			if(text[i].isVisible()) {
     				text[i].setVisible(false);
     			}
     			else {
     				text[i].setVisible(true);
     			}
     		}
-    		if((i != cur_num) && text[i].isVisible() == false) {
+    		if((i != cur_num) && !text[i].isVisible()) {
     			text[i].setVisible(true);
     		}
     	}
@@ -544,7 +544,7 @@ public class Watch extends JFrame implements Runnable{
     
     private void visible_all() {
     	for(int i =0; i < text.length; i ++) {
-    		if(text[i].isVisible() == false) {
+    		if(!text[i].isVisible()) {
     			text[i].setVisible(true);
     		}
     	}

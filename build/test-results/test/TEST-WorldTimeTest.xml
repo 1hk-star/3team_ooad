@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="WorldTimeTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2020-06-19T07:35:54" hostname="LAPTOP-NPPNG1NK" time="0.675">
+<testsuite name="WorldTimeTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2020-06-19T07:53:21" hostname="LAPTOP-NPPNG1NK" time="0.384">
   <properties/>
-  <testcase name="changeModeTest()" classname="WorldTimeTest" time="0.553"/>
-  <testcase name="get_keyTest()" classname="WorldTimeTest" time="0.002"/>
-  <testcase name="confirmCountryTest()" classname="WorldTimeTest" time="0.027"/>
-  <testcase name="get_valueTest()" classname="WorldTimeTest" time="0.017"/>
-  <testcase name="getCursorTest()" classname="WorldTimeTest" time="0.006"/>
-  <testcase name="changeCountryTest()" classname="WorldTimeTest" time="0.012"/>
-  <testcase name="nextCountryTest()" classname="WorldTimeTest" time="0.017"/>
+  <testcase name="changeModeTest()" classname="WorldTimeTest" time="0.322"/>
+  <testcase name="get_keyTest()" classname="WorldTimeTest" time="0.003"/>
+  <testcase name="confirmCountryTest()" classname="WorldTimeTest" time="0.005"/>
+  <testcase name="get_valueTest()" classname="WorldTimeTest" time="0.01"/>
+  <testcase name="getCursorTest()" classname="WorldTimeTest" time="0.01"/>
+  <testcase name="changeCountryTest()" classname="WorldTimeTest" time="0.004"/>
+  <testcase name="nextCountryTest()" classname="WorldTimeTest" time="0.004"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
