@@ -49,7 +49,9 @@ public class Buzzer{
     	leftTime = 15;
     	try {
             soundBuzzer();
-      } catch(Exception e) { }
+      } catch(Exception e) {
+    	    System.err.println("happened error in buzzer on");
+        }
     }
     
     public void subTimeBuzzer() {
