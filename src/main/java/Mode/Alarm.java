@@ -100,13 +100,13 @@ public class Alarm extends  Mode {
     
     public int cmpAlarm(Calendar cal) {
 
+		System.out.println("cmpAlarm : "+cal.get(Calendar.SECOND)+", "+alarm_time+", "+alarmQ);
 		Calendar tmp;
 		int h2 = cal.get(Calendar.HOUR_OF_DAY);
 		int m2 = cal.get(Calendar.MINUTE);
 		int s2 = cal.get(Calendar.SECOND);
 		if(alarm_time == null){
 			return 0;
-
 		}
 		else{
 			tmp = (Calendar) alarm_time.clone();
@@ -157,25 +157,27 @@ public class Alarm extends  Mode {
 
 		if(alarm_time == null){
 			alarm_time = (Calendar) setting_time.clone();
-			alarmQ.offer(alarm_time);
+			/*alarmQ.offer(alarm_time);
 
 			alarm_time = null;
-			alarm_time = alarmQ.poll();
+			alarm_time = alarmQ.poll();*/
 		}
 		else if(alarmQ.size() == 3){
-			alarm_time = (Calendar) setting_time.clone();
+			alarmQ.poll();
 			alarmQ.offer(alarm_time);
+			alarm_time = (Calendar) setting_time.clone();
+		/*	alarmQ.offer(alarm_time);
 
 			alarm_time = null;
-			alarm_time = alarmQ.poll();
+			alarm_time = alarmQ.poll();*/
 		}
 		else{
 			alarmQ.offer(alarm_time);
 			alarm_time = (Calendar) setting_time.clone();
-			alarmQ.offer(alarm_time);
+			/*alarmQ.offer(alarm_time);
 
 			alarm_time = null;
-			alarm_time = alarmQ.poll();
+			alarm_time = alarmQ.poll();*/
 		}
     	cusorQ.clear();
 		cusorQ.offer(3);

@@ -247,10 +247,10 @@ public class Watch extends JFrame implements Runnable{
 					modeQ.clear();
 					modeQ = mode_fa.get_modeQ();
 					currentMode = watch_Type.TIMEKEEPING.ordinal();
-					if(mode_alarm.getAlarm() == null){
+					if(!modeQ.contains(watch_Type.ALARM.ordinal())){
 						mode_alarm.resetAlarm();
 					}
-					if(mode_dday.getDday() == null){
+					if(!modeQ.contains(watch_Type.DDAY.ordinal())){
 						mode_dday.resetDday();
 					}
 				}

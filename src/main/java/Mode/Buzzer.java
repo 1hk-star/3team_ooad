@@ -45,6 +45,11 @@ public class Buzzer{
     	return buzzer_flag;
     }
     public void onBuzzer(int type) {
+        if(clip != null) {
+            if(clip.isActive()) {
+                clip.stop();
+            }
+        }
     	buzzer_flag =type;
     	leftTime = 15;
     	try {
@@ -68,6 +73,7 @@ public class Buzzer{
         		clip.stop();
         	}
     	}
+    	clip = null;
     }
 
 
