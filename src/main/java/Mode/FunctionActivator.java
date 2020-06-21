@@ -1,12 +1,11 @@
 package Mode;
 
-import java.util.Calendar;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
 import javax.swing.JButton;
 
-import Type.watch_Type;
 
 public class FunctionActivator extends Mode{
 	
@@ -53,7 +52,7 @@ public class FunctionActivator extends Mode{
     		// end
     		active_count = 0;
     		for (int i = 0; i < active_function.length; i++) {
-				if(active_function[i] == true) {
+				if(active_function[i]) {
 					active_count++;
 				}
 			}
@@ -83,7 +82,7 @@ public class FunctionActivator extends Mode{
     public boolean get_active(int num) {
     	active_count = 0;
     	for (int i = 0; i < active_function.length; i++) {
-			if(active_function[i] == true) {
+			if(active_function[i] ) {
 				active_count++;
 			}
 		}
@@ -97,7 +96,7 @@ public class FunctionActivator extends Mode{
     public int get_active_count() {
 		active_count = 0;
 		for (int i = 0; i < active_function.length; i++) {
-			if(active_function[i] == true) {
+			if(active_function[i]) {
 				active_count++;
 			}
 		}
@@ -107,7 +106,7 @@ public class FunctionActivator extends Mode{
     public Queue<Integer> get_modeQ() {
     	modeQ.clear();
 		for (int i = 0; i < active_function.length; i++) {
-			if(active_function[i] == true) {
+			if(active_function[i] ) {
 				modeQ.offer(i + 1);
 			}
 		}

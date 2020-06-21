@@ -35,7 +35,7 @@ public class StopWatch extends Mode{
     	}
     	else if(text.equals("Button2")) {
 
-    		if(isOn==false) {
+    		if(!isOn) {
     			startStopWatch();
     		}
     		else {
@@ -60,8 +60,9 @@ public class StopWatch extends Mode{
     //start and stop
     private void startStopWatch(){
 
+
     	this.isOn=true;
-    	
+		cal=Calendar.getInstance();
     	this.start=calculateTime(this.start,this.cal);
     }
 
@@ -96,7 +97,7 @@ public class StopWatch extends Mode{
     //store laptime
     private void storeLapTime(){
 
-    	if(this.isOn==false){
+    	if(!this.isOn){
     		return;
     	}
     	
@@ -114,7 +115,8 @@ public class StopWatch extends Mode{
 	public Calendar getStopWatch() {
 		// TODO Auto-generated method stub
 
-		if(this.isOn==true) {//return elapse
+		if(this.isOn) {//return elapse
+			cal=Calendar.getInstance();
 			this.end=calculateTime(this.end,this.cal);
 			this.elapse=this.elapsePrevious+(this.end-this.start);
 			splitElapse(elapse,this.cal);
@@ -129,14 +131,15 @@ public class StopWatch extends Mode{
 	}
 
    public long calculateTime(long time,Calendar cal) {
-		cal=Calendar.getInstance();
+
+
 		int hour=cal.get(Calendar.HOUR);
 		int min=cal.get(Calendar.MINUTE);
 		int sec=cal.get(Calendar.SECOND);
 
-		time=(hour*3600+min*60+sec);
 
-		return time;
+
+		return 	(hour*3600+min*60+sec);
 	}
 
 	    

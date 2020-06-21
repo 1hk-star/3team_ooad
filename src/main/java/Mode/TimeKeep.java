@@ -9,8 +9,6 @@ import java.util.Queue;
 
 import javax.swing.JButton;
 
-import Controller.Watch;
-import Type.watch_Type;
 
 public class TimeKeep extends Mode{
 	private List<String> dday_memo;
@@ -31,7 +29,7 @@ public class TimeKeep extends Mode{
 		// 6 시
 		// 7 분(연도)
 	 	// 8 초
-	Queue<Integer> cusorQ = new LinkedList<Integer>();
+	private Queue<Integer> cusorQ = new LinkedList<Integer>();
 	public TimeKeep() {
 		cusorQ.offer(0);
 		cusorQ.offer(1);

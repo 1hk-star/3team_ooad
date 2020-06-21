@@ -1,13 +1,14 @@
 package Mode;
 
-import java.io.File;
+import
+        java.io.File;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
-import javax.swing.JButton;
+
 
 public class Buzzer{
 
@@ -44,18 +45,26 @@ public class Buzzer{
     	return buzzer_flag;
     }
     public void onBuzzer(int type) {
+        if(clip != null) {
+            if(clip.isActive()) {
+                clip.stop();
+            }
+        }
     	buzzer_flag =type;
     	leftTime = 15;
     	try {
             soundBuzzer();
-      } catch(Exception e) { }
+      } catch(Exception e) {
+    	    System.err.println("happened error in buzzer on");
+        }
     }
     
     public void subTimeBuzzer() {
-    	if(leftTime != 0)
-    		leftTime -=1;
+    	if(leftTime == 0)
+            return;
     	else
-    		return;
+    	    leftTime -=1;
+
     }
     public void turnOffBuzzer(){
     	buzzer_flag = 0;
@@ -64,6 +73,7 @@ public class Buzzer{
         		clip.stop();
         	}
     	}
+    	clip = null;
     }
 
 

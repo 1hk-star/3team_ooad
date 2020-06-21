@@ -1,7 +1,5 @@
 package Mode;
 
-import Type.dday_data;
-
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -84,10 +82,10 @@ public class Alarm extends  Mode {
 		}
 	}
     public void showAlarm(){
-    	if(!alarmQ.isEmpty())
-    		alarm_time = alarmQ.poll();
-    	else{
+    	if(alarmQ.isEmpty())
     		alarm_time = null;
+    	else{
+			alarm_time = alarmQ.poll();
 		}
     }
     public int getCursor() {
@@ -102,11 +100,15 @@ public class Alarm extends  Mode {
     
     public int cmpAlarm(Calendar cal) {
 
+		System.out.println("cmpAlarm : "+cal.get(Calendar.SECOND)+", "+alarm_time+", "+alarmQ);
 		Calendar tmp;
 		int h2 = cal.get(Calendar.HOUR_OF_DAY);
 		int m2 = cal.get(Calendar.MINUTE);
 		int s2 = cal.get(Calendar.SECOND);
-		if(alarm_time != null){
+		if(alarm_time == null){
+			return 0;
+		}
+		else{
 			tmp = (Calendar) alarm_time.clone();
 			int h1 = tmp.get(Calendar.HOUR_OF_DAY);
 			int m1 = tmp.get(Calendar.MINUTE);
@@ -114,9 +116,6 @@ public class Alarm extends  Mode {
 			if(h1 == h2 && m1 == m2 && s1 == s2){
 				return 1;
 			}
-		}
-		else{
-			return 0;
 		}
 		int flag = 0;
 		synchronized (alarmQ){
@@ -158,25 +157,27 @@ public class Alarm extends  Mode {
 
 		if(alarm_time == null){
 			alarm_time = (Calendar) setting_time.clone();
-			alarmQ.offer(alarm_time);
+			/*alarmQ.offer(alarm_time);
 
 			alarm_time = null;
-			alarm_time = alarmQ.poll();
+			alarm_time = alarmQ.poll();*/
 		}
 		else if(alarmQ.size() == 3){
-			alarm_time = (Calendar) setting_time.clone();
+			alarmQ.poll();
 			alarmQ.offer(alarm_time);
+			alarm_time = (Calendar) setting_time.clone();
+		/*	alarmQ.offer(alarm_time);
 
 			alarm_time = null;
-			alarm_time = alarmQ.poll();
+			alarm_time = alarmQ.poll();*/
 		}
 		else{
 			alarmQ.offer(alarm_time);
 			alarm_time = (Calendar) setting_time.clone();
-			alarmQ.offer(alarm_time);
+			/*alarmQ.offer(alarm_time);
 
 			alarm_time = null;
-			alarm_time = alarmQ.poll();
+			alarm_time = alarmQ.poll();*/
 		}
     	cusorQ.clear();
 		cusorQ.offer(3);
@@ -211,12 +212,14 @@ public class Alarm extends  Mode {
 
     private boolean deleteAlarm(){
 		if(alarm_time != null) {
-			if (!alarmQ.isEmpty())
-				alarm_time = alarmQ.poll();
-			else {
+			if (alarmQ.isEmpty())
 				alarm_time = null;
+			else {
+				alarm_time = alarmQ.poll();
+
 			}
 		}
+
         return true;
     }
 
